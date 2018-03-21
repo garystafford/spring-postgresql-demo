@@ -30,9 +30,9 @@ gradle bootRun
 
 ## References
 
-* <https://auth0.com/blog/integrating-spring-data-jpa-postgresql-liquibase>
-* <http://mrbool.com/rest-server-with-spring-data-spring-boot-and-postgresql/34023>
-* <https://www.tutorialspoint.com/postgresql/postgresql_create_database.htm>
-* <http://www.vogella.com/tutorials/Lombok/article.html>
-* <https://spring.io/guides/gs/accessing-data-jpa>
-* <https://dzone.com/articles/integrating-spring-data-jpa-postgresql-and-liquiba>
+- <https://auth0.com/blog/integrating-spring-data-jpa-postgresql-liquibase>
+- <http://mrbool.com/rest-server-with-spring-data-spring-boot-and-postgresql/34023>
+- <https://www.tutorialspoint.com/postgresql/postgresql_create_database.htm>
+- <http://www.vogella.com/tutorials/Lombok/article.html>
+- <https://spring.io/guides/gs/accessing-data-jpa>
+- <https://dzone.com/articles/integrating-spring-data-jpa-postgresql-and-liquiba>

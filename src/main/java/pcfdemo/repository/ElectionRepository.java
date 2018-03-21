@@ -2,6 +2,7 @@ package pcfdemo.repository;
 
 import org.springframework.data.repository.CrudRepository;
 import pcfdemo.model.Election;
+
 import java.util.List;
 
 public interface ElectionRepository extends CrudRepository<Election, Long> {
