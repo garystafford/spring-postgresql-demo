@@ -51,7 +51,6 @@ VALUES ('2017-11-07', 'Local', '2017 New York City Mayoral Election', 4, 'Elect 
 INSERT INTO election (date, type, title, term, description)
 VALUES ('2018-11-06', 'Federal', '2018 United States Senate Elections', 4, 'Elections to the United States Senate');
 
-
 ------------------------------
 -- election_candidate
 ------------------------------
