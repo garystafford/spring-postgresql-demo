@@ -28,6 +28,12 @@ Build and run service locally using local Docker PostgreSQL database instance.
 gradle bootRun
 ```
 
+View Liquibase databasechangelog
+
+```postgresplsql
+SELECT * FROM databasechangelog;
+```
+
 ## References
 
 - <https://auth0.com/blog/integrating-spring-data-jpa-postgresql-liquibase>

@@ -52,7 +52,7 @@ LANGUAGE plpgsql
 AS $$
 BEGIN
   FOR counter IN 1..n LOOP
-    INSERT INTO vote (election_id) VALUES (
+    INSERT INTO vote (election_candidate_id) VALUES (
       (SELECT id
        FROM election_candidate
        OFFSET floor(random() * (
