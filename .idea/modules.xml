@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/pcf-postgresql-demo.iml" filepath="$PROJECT_DIR$/pcf-postgresql-demo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/pcf-postgresql-demo_main.iml" filepath="$PROJECT_DIR$/.idea/modules/pcf-postgresql-demo_main.iml" group="pcf-postgresql-demo" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/pcf-postgresql-demo_test.iml" filepath="$PROJECT_DIR$/.idea/modules/pcf-postgresql-demo_test.iml" group="pcf-postgresql-demo" />
+    </modules>
+  </component>
+</project>
