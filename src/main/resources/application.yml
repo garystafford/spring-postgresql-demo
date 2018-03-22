@@ -10,7 +10,6 @@ spring:
    driver-class-name: org.postgresql.Driver
  jpa:
    show-sql: true
-#   hibernate.ddl-auto: create-drop
 message: The 'default' Profile Active
 management:
   endpoints:
@@ -38,12 +37,11 @@ logging:
 spring:
  profiles: prod
  datasource:
-   url: jdbc:postgresql://stampy.db.elephantsql.com:5432/elections
+   url: <use_environment_variable>
    username: <use_environment_variable>
    password: <use_environment_variable>
  jpa:
    show-sql: true
-   hibernate.ddl-auto: create-drop
 message: The 'prod' Environment Profile Active
 management:
   endpoints:

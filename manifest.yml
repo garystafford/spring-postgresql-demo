@@ -1,10 +1,15 @@
 ---
 applications:
-- name: hello-world
+- name: pcf-postgresql-demo
   memory: 1GB
   instances: 1
   random-route: true
   buildpack: java_buildpack
-  path: build/libs/hello-world-0.1.0.jar
+  path: build/libs/pcf-postgresql-demo-0.0.1-SNAPSHOT.jar
   env:
-    SPRING_PROFILES_ACTIVE: dev
+    SPRING_PROFILES_ACTIVE: prod
+    SPRING_DATABASE_URL: jdbc:postgresql://stampy.db.elephantsql.com:5432/dewyicib
+    SPRING_DATASOURCE_USERNAME: dewyicib
+    SPRING_DATASOURCE_PASSWORD: vmQ_JRG2aNBIBJFGOoAIk-FDCgOSWFs5
+  services:
+    - elections

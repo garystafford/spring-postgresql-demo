@@ -1,6 +1,6 @@
 # Spring 2.0 PostgreSQL RESTful Service
 
-Spring Boot 2.0 microservice, backed by PostgreSQL, and designed for deployment to Pivotal Cloud Foundry (PCF).
+Spring Boot 2.0 microservice, backed by PostgreSQL, and designed for deployment to Pivotal Cloud Foundry (PCF). Database changes are being handled by Liquibase.
 
 ## Build and Run
 
@@ -28,10 +28,26 @@ Build and run service locally using local Docker PostgreSQL database instance.
 gradle bootRun
 ```
 
-View Liquibase databasechangelog
+View Liquibase database changelog.
 
 ```postgresplsql
 SELECT * FROM databasechangelog;
+```
+
+## Deploy to Pivotal Web Services
+
+Create ElephantSQL Cloud Foundry Marketplace PostgreSQL as a Service instance. The 'Panda' size instance is not free!
+
+```bash
+cf marketplace -s elephantsql
+cf create-service elephantsql panda elections
+```
+
+Deploy the Spring Boot service to Pivotal Web Services.
+
+```bash
+gradle build
+cf push
 ```
 
 ## References
