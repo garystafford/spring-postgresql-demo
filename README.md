@@ -58,3 +58,4 @@ cf push
 - <http://www.vogella.com/tutorials/Lombok/article.html>
 - <https://spring.io/guides/gs/accessing-data-jpa>
 - <https://dzone.com/articles/integrating-spring-data-jpa-postgresql-and-liquiba>
+- <https://www.javabullets.com/calling-database-views-from-spring-data-jpa>
