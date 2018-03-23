@@ -7,5 +7,11 @@
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
       <jdbc-url>jdbc:postgresql://localhost:5432/elections</jdbc-url>
     </data-source>
+    <data-source source="LOCAL" name="dewyicib@stampy.db.elephantsql.com" uuid="f4ecc9f2-6aeb-4930-9974-6359ca6d2d13">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://stampy.db.elephantsql.com:5432/dewyicib</jdbc-url>
+    </data-source>
   </component>
 </project>
