@@ -73,7 +73,7 @@ cf app pcf-postgresql-demo
 ```
 
 ## Available Resources
-Here is a partial list of exposed services:
+Here is just a partial list of exposed resources:
 - Actuator
   - `/actuator/mappings`
   - `/actuator/metrics`
