@@ -1,6 +1,6 @@
 # Spring Boot 2.0 PostgreSQL Application Demonstration
 
-Project for my post, 'Developing Cloud-Native Data-Centric Spring Boot Applications for Pivotal Cloud Foundry', published March 23, 2018. Spring Boot 2.0 application, backed by PostgreSQL, and designed for deployment to Pivotal Cloud Foundry (PCF). Database changes are handled by Liquibase.
+Project for the Programmatic Ponderings blog post, [Developing Cloud-Native Data-Centric Spring Boot Applications for Pivotal Cloud Foundry](https://wp.me/p1RD28-5Jh), published March 23, 2018. Spring Boot 2.0 application, backed by PostgreSQL, and designed for deployment to Pivotal Cloud Foundry (PCF). Database changes are handled by Liquibase.
 
 ## Build and Run
 
