@@ -9,12 +9,19 @@ The project assumes you have Docker and the Cloud Foundry Command Line Interface
 Provision the local PostgreSQL development database using Docker:
 
 ```bash
+# create container
 docker run --name postgres \
   -e POSTGRES_USERNAME=postgres \
   -e POSTGRES_PASSWORD=postgres1234 \
   -e POSTGRES_DB=elections \
   -p 5432:5432 \
   -d postgres
+ 
+# view container
+docker container ls
+
+# trail container logs
+docker logs postgres  --follow
 ```
 
 Local database connection details are set in the `src\main\resources\application.yml` file.
@@ -55,8 +62,14 @@ SELECT * FROM databasechangelog;
 Purchase and provision an ElephantSQL PostgreSQL as a Service instance through the Pivotal Services Marketplace. Note the 'panda' service plan is NOT FREE! To purchase, you must have a Pivotal account with a credit card attached.
 
 ```bash
+# view elephantsql service plans
 cf marketplace -s elephantsql
+
+# purchase elephantsql service plan
 cf create-service elephantsql panda elections
+
+# display details of running service
+cf service elections
 ```
 
 Deploy the Spring Boot service to Pivotal Web Services.
@@ -68,7 +81,10 @@ gradle build && cf push
 Scale up instances:
 
 ```bash
+# scale up to 2 instances
 cf scale cf-spring -i 2
+
+# review status of both instances
 cf app pcf-postgresql-demo
 ```
 
