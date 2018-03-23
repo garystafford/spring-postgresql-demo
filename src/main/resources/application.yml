@@ -1,5 +1,5 @@
-server:
-  port: 0
+#server:
+#  port: 0
 spring:
  application:
    name: PCF Spring PostrgeSQL Demo

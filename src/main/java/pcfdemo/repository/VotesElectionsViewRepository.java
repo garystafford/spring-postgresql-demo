@@ -10,7 +10,4 @@ import java.util.List;
 public interface VotesElectionsViewRepository extends CrudRepository<VotesElectionsView, Long> {
 
     List<VotesElectionsView> findByElection(String election);
-
-    List<VotesElectionsView> findByLast_name(String election);
-
 }

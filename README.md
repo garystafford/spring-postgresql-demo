@@ -1,12 +1,12 @@
-# Spring 2.0 PostgreSQL RESTful Service
+# Spring Boot 2.0 PostgreSQL Application Demonstration
 
-Project for my post, 'Developing Cloud-Native Data-Centric Spring Boot Applications for Pivotal Cloud Foundry', published March 23, 2018.
-
-Spring Boot 2.0 application, backed by PostgreSQL, and designed for deployment to Pivotal Cloud Foundry (PCF). Database changes are being handled by Liquibase.
+Project for my post, 'Developing Cloud-Native Data-Centric Spring Boot Applications for Pivotal Cloud Foundry', published March 23, 2018. Spring Boot 2.0 application, backed by PostgreSQL, and designed for deployment to Pivotal Cloud Foundry (PCF). Database changes are handled by Liquibase.
 
 ## Build and Run
 
-Local PostgreSQL development database using Docker.
+The project assumes you have Docker and the Cloud Foundry Command Line Interface (cf CLI) installed locally.
+
+Provision the local PostgreSQL development database using Docker:
 
 ```bash
 docker run --name postgres \
@@ -52,7 +52,7 @@ SELECT * FROM databasechangelog;
 
 ## Deploy to Pivotal Web Services
 
-Purchase and provision an ElephantSQL PostgreSQL as a Service instance through the Pivotal Services Marketplace. Note the 'panda' service plan is NOT FREE!
+Purchase and provision an ElephantSQL PostgreSQL as a Service instance through the Pivotal Services Marketplace. Note the 'panda' service plan is NOT FREE! To purchase, you must have a Pivotal account with a credit card attached.
 
 ```bash
 cf marketplace -s elephantsql
@@ -64,6 +64,41 @@ Deploy the Spring Boot service to Pivotal Web Services.
 ```bash
 gradle build && cf push
 ```
+
+Scale up instances:
+
+```bash
+cf scale cf-spring -i 2
+cf app pcf-postgresql-demo
+```
+
+## Available Resources
+Here is a partial list of exposed services:
+- Actuator
+  - `/actuator/mappings`
+  - `/actuator/metrics`
+  - `/actuator/env`
+  - `/actuator/configprops`
+  - `/actuator/health`
+  - `/actuator/info`
+- Candidates
+  - `/candidates` (GET, POST, PUT, DELETE)
+  - `/profile/candidates`
+  - `/candidates/search/findByLastName?lastName=Obama`
+  - `/candidates/search/findByPoliticalParty?politicalParty=Democratic%20Party`
+- Elections
+  - `/elections` (GET, POST, PUT, DELETE)
+  - `/profile/elections`
+  - `/elections/search/findByTitle?title=2012%20Presidential%20Election`
+  - `/elections/search/findByDescriptionContains?description=American`
+- Candidates by Elections View
+  - `/electioncandidates` (GET only)
+  - `/profile/electioncandidates`
+  - `/electioncandidates/search/findByElection?election=2016%20Presidential%20Election`
+- Votes by Elections View
+  - `/electionvotes` (GET only)
+  - `/profile/electionvotes`
+  - `/electionvotes/search/findByElection?election=2012%20Presidential%20Election`
 
 ## References
 
