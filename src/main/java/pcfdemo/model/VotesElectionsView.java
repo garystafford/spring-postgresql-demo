@@ -12,8 +12,8 @@ import java.io.Serializable;
 
 @Data
 @Entity
-@Table(name = "candidates_by_elections")
-public class ElectionsCandidatesView implements Serializable {
+@Table(name = "votes_by_elections")
+public class VotesElectionsView implements Serializable {
 
     @Id
     @Setter(AccessLevel.NONE)

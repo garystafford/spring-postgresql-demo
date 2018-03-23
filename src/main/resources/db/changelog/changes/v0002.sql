@@ -7,7 +7,7 @@ DELETE FROM candidate;
 DELETE FROM election;
 
 ------------------------------
--- candidate
+-- candidate data
 ------------------------------
 INSERT INTO candidate (first_name, last_name, political_party, home_state, experience)
 VALUES ('Donald', 'Trump', 'Republican Party', 'New York', 'None');
@@ -34,7 +34,7 @@ INSERT INTO candidate (first_name, last_name, political_party, home_state, exper
 VALUES ('Andrew', 'Cuomo', 'Democratic Party', 'New York', '56th Governor of New York');
 
 ------------------------------
--- election
+-- election data
 ------------------------------
 INSERT INTO election (date, type, title, term, description)
 VALUES ('2012-11-06', 'Federal', '2012 Presidential Election', 4, '57th quadrennial American presidential election');
@@ -52,7 +52,7 @@ INSERT INTO election (date, type, title, term, description)
 VALUES ('2018-11-06', 'Federal', '2018 United States Senate Elections', 4, 'Elections to the United States Senate');
 
 ------------------------------
--- election_candidate
+-- election_candidate data
 ------------------------------
 INSERT INTO election_candidate (election_id, candidate_id) VALUES (
   (SELECT id
@@ -135,7 +135,7 @@ INSERT INTO election_candidate (election_id, candidate_id) VALUES (
    LIMIT 1));
 
 ------------------------------
--- vote
+-- vote data
 ------------------------------
--- generate # random votes
-SELECT generate_random_votes(100);
+-- generate 250 random votes
+SELECT generate_random_votes(250);
