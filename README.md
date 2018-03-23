@@ -1,6 +1,8 @@
 # Spring 2.0 PostgreSQL RESTful Service
 
-Spring Boot 2.0 microservice, backed by PostgreSQL, and designed for deployment to Pivotal Cloud Foundry (PCF). Database changes are being handled by Liquibase.
+Project for my post, 'Developing Cloud-Native Data-Centric Spring Boot Applications for Pivotal Cloud Foundry', published March 23, 2018.
+
+Spring Boot 2.0 application, backed by PostgreSQL, and designed for deployment to Pivotal Cloud Foundry (PCF). Database changes are being handled by Liquibase.
 
 ## Build and Run
 
@@ -15,20 +17,34 @@ docker run --name postgres \
   -d postgres
 ```
 
-Optionally, you can override the db credentials in the `src\main\resources\application.yml` files, `default` Spring Profile.
+Local database connection details are set in the `src\main\resources\application.yml` file.
 
-```bash
-set SPRING_DATASOURCE_USERNAME=postgres # export on linux
-set SPRING_DATASOURCE_PASSWORD=postgres1234 # export on linux
+```yaml
+datasource:
+  url: jdbc:postgresql://localhost:5432/elections
+  username: postgres
+  password: postgres1234
+  driver-class-name: org.postgresql.Driver
+jpa:
+  show-sql: true
 ```
 
-Build and run service locally using local Docker PostgreSQL database instance.
+Optionally, you can override any of the setting in the `src\main\resources\application.yml` files, `default` Spring Profile by setting local environment variables, such as:
+
+```bash
+# 'export' on linux and mac
+set SPRING_DATASOURCE_URL=some_other_url
+set SPRING_DATASOURCE_USERNAME=some_other_username
+set SPRING_DATASOURCE_PASSWORD=some_other_password
+```
+
+Build and run service locally using local Docker PostgreSQL database instance. This command will also execute the Liquibase change sets on the Docker PostgreSQL `elections` database.
 
 ```bash
 gradle bootRun
 ```
 
-View Liquibase database changelog.
+To view Liquibase database changelog:
 
 ```postgresplsql
 SELECT * FROM databasechangelog;
@@ -36,7 +52,7 @@ SELECT * FROM databasechangelog;
 
 ## Deploy to Pivotal Web Services
 
-Create ElephantSQL Cloud Foundry Marketplace PostgreSQL as a Service instance. The 'Panda' size instance is not free!
+Purchase and provision an ElephantSQL PostgreSQL as a Service instance through the Pivotal Services Marketplace. Note the 'panda' service plan is NOT FREE!
 
 ```bash
 cf marketplace -s elephantsql
@@ -46,8 +62,7 @@ cf create-service elephantsql panda elections
 Deploy the Spring Boot service to Pivotal Web Services.
 
 ```bash
-gradle build
-cf push
+gradle build && cf push
 ```
 
 ## References
