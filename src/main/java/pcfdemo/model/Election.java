@@ -7,10 +7,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 
 @Data
 @Entity
-public class Election {
+public class Election implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -96,16 +96,18 @@ cf app pcf-postgresql-demo
 
 ## Available Resources
 
-Here is just a partial list of exposed resources:
+Below is a partial list of the application's exposed resources. To see all resources, use the `/actuator/mappings` resource.
 
 - Actuator
 
-  - `/actuator/mappings`
+  - `/actuator/mappings` (shows all resources!)
   - `/actuator/metrics`
+  - `/actuator/liquibase`
   - `/actuator/env`
   - `/actuator/configprops`
   - `/actuator/health`
   - `/actuator/info`
+  - `/actuator/beans`
 
 - Candidates (DB Table)
 
@@ -122,8 +124,14 @@ Here is just a partial list of exposed resources:
   - `/elections/search/findByDescriptionContains?description=American`
 
 - Votes (DB Table)
+
   - `/votes` (GET, POST, PUT, DELETE)
   - `/profile/votes`
+
+- Election Candidates (DB Table)
+
+  - `/electionCandidates` (GET, POST, PUT, DELETE)
+  - `/profile/electionCandidates`
 
 - Candidates, by Elections (DB View)
 
