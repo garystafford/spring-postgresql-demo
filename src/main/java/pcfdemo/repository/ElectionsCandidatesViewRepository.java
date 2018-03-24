@@ -6,7 +6,7 @@ import pcfdemo.model.ElectionsCandidatesView;
 
 import java.util.List;
 
-@RepositoryRestResource(path = "electioncandidates")
+@RepositoryRestResource(path = "election-candidates")
 public interface ElectionsCandidatesViewRepository extends CrudRepository<ElectionsCandidatesView, Long> {
 
     List<ElectionsCandidatesView> findByElection(String election);

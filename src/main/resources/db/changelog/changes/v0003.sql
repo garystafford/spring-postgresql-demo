@@ -1,5 +1,5 @@
 -- View all candidates for all elections by election
-CREATE VIEW candidates_by_elections AS
+CREATE OR REPLACE VIEW candidates_by_elections AS
   SELECT
     ec.id,
     election.title AS election,
@@ -10,7 +10,7 @@ CREATE VIEW candidates_by_elections AS
   ORDER BY election.title, candidate.last_name;
 
 -- View all votes for all elections by election
-CREATE VIEW votes_by_elections AS
+CREATE OR REPLACE VIEW votes_by_elections AS
   SELECT
     vote.id,
     cbe.election,

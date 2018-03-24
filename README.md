@@ -16,7 +16,7 @@ docker run --name postgres \
   -e POSTGRES_DB=elections \
   -p 5432:5432 \
   -d postgres
- 
+
 # view container
 docker container ls
 
@@ -111,10 +111,14 @@ Here is just a partial list of exposed resources:
   - `/electioncandidates` (GET only)
   - `/profile/electioncandidates`
   - `/electioncandidates/search/findByElection?election=2016%20Presidential%20Election`
-- Votes by Elections View
+- Individual Votes by Elections View
   - `/electionvotes` (GET only)
   - `/profile/electionvotes`
   - `/electionvotes/search/findByElection?election=2012%20Presidential%20Election`
+- Total Votes by Election, by Candidate View
+  - `/votetotals` (GET only)
+  - `/profile/votetotals`
+  - `/votetotals/search/findByElection?election=2012%20Presidential%20Election`
 
 ## References
 
