@@ -1,3 +1,6 @@
+--liquibase formatted sql
+--changeset gary.stafford:elections-sql splitStatements:false
+
 ------------------------------
 -- candidate
 ------------------------------
@@ -46,8 +49,11 @@ CREATE TABLE IF NOT EXISTS vote
   election_candidate_id INTEGER REFERENCES election_candidate (id)
 );
 
+------------------------------
+-- generate_random_votes
+------------------------------
 CREATE OR REPLACE FUNCTION generate_random_votes(n INTEGER DEFAULT 100)
-  RETURNS VOID
+  RETURNS void
 LANGUAGE plpgsql
 AS $$
 BEGIN

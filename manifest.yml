@@ -8,8 +8,8 @@ applications:
   path: build/libs/pcf-postgresql-demo-0.0.1-SNAPSHOT.jar
   env:
     SPRING_PROFILES_ACTIVE: test
-    SPRING_DATABASE_URL: jdbc:postgresql://stampy.db.elephantsql.com:5432/<your_database_goes_here>
-    SPRING_DATASOURCE_USERNAME: <your_username_goes_here>
-    SPRING_DATASOURCE_PASSWORD: <your_password_goes_here>
+    SPRING_DATABASE_URL: jdbc:postgresql://stampy.db.elephantsql.com:5432/dxtuarda
+    SPRING_DATASOURCE_USERNAME: dxtuarda
+    SPRING_DATASOURCE_PASSWORD: 9b16UAS3RtpdF7UFmv3aEaSDf0jxGBJ5
   services:
     - elections

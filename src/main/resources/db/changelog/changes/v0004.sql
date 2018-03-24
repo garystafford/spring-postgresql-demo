@@ -1,4 +1,9 @@
+--liquibase formatted sql
+--changeset gary.stafford:elections-sql splitStatements:false
+
+------------------------------------------------------
 -- View a total of votes, by election, by candidate
+------------------------------------------------------
 CREATE OR REPLACE VIEW vote_totals AS
   SELECT
     ROW_NUMBER()

@@ -1,3 +1,6 @@
+--liquibase formatted sql
+--changeset gary.stafford:elections-sql splitStatements:false
+
 ------------------------------
 -- clean up old records
 ------------------------------
@@ -135,7 +138,6 @@ INSERT INTO election_candidate (election_id, candidate_id) VALUES (
    LIMIT 1));
 
 ------------------------------
--- vote data
-------------------------------
 -- generate 250 random votes
+------------------------------
 SELECT generate_random_votes(250);

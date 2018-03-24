@@ -1,4 +1,9 @@
+--liquibase formatted sql
+--changeset gary.stafford:elections-sql splitStatements:false
+
+------------------------------------------------------
 -- View all candidates for all elections by election
+------------------------------------------------------
 CREATE OR REPLACE VIEW candidates_by_elections AS
   SELECT
     ec.id,
@@ -9,7 +14,9 @@ CREATE OR REPLACE VIEW candidates_by_elections AS
   WHERE ec.candidate_id = candidate.id AND ec.election_id = election.id
   ORDER BY election.title, candidate.last_name;
 
+------------------------------------------------------
 -- View all votes for all elections by election
+------------------------------------------------------
 CREATE OR REPLACE VIEW votes_by_elections AS
   SELECT
     vote.id,
