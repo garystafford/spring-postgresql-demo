@@ -15,6 +15,6 @@ public class Vote {
 
     @NotNull
     @ManyToOne
-    @JoinColumn(name = "election_id")
+    @JoinColumn(name = "election_candidate_id")
     private ElectionCandidate electionCandidate;
 }

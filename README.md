@@ -1,6 +1,6 @@
 # Spring Boot 2.0 PostgreSQL Application Demonstration
 
-Project for the Programmatic Ponderings blog post, [Developing Cloud-Native Data-Centric Spring Boot Applications for Pivotal Cloud Foundry](https://wp.me/p1RD28-5Jh), published March 23, 2018. Spring Boot 2.0 application, backed by PostgreSQL, and designed for deployment to Pivotal Cloud Foundry (PCF). Database changes are handled by Liquibase.
+Project for the Programmatic Ponderings blog post, [Developing Cloud-Native Data-Centric Spring Boot Applications for Pivotal Cloud Foundry](https://wp.me/p1RD28-5Jh), published March 23, 2018\. Spring Boot 2.0 application, backed by PostgreSQL, and designed for deployment to Pivotal Cloud Foundry (PCF). Database changes are handled by Liquibase.
 
 ## Build and Run
 
@@ -57,6 +57,12 @@ To view Liquibase database changelog:
 SELECT * FROM databasechangelog;
 ```
 
+To delete the local Docker-based PostgreSQL database:
+
+```bash
+docker rm -f postgres
+```
+
 ## Deploy to Pivotal Web Services
 
 Purchase and provision an ElephantSQL PostgreSQL as a Service instance through the Pivotal Services Marketplace. Note the 'panda' service plan is NOT FREE! To purchase, you must have a Pivotal account with a credit card attached.
@@ -89,36 +95,49 @@ cf app pcf-postgresql-demo
 ```
 
 ## Available Resources
+
 Here is just a partial list of exposed resources:
+
 - Actuator
+
   - `/actuator/mappings`
   - `/actuator/metrics`
   - `/actuator/env`
   - `/actuator/configprops`
   - `/actuator/health`
   - `/actuator/info`
-- Candidates
+
+- Candidates (DB Table)
+
   - `/candidates` (GET, POST, PUT, DELETE)
   - `/profile/candidates`
   - `/candidates/search/findByLastName?lastName=Obama`
   - `/candidates/search/findByPoliticalParty?politicalParty=Democratic%20Party`
-- Elections
+
+- Elections (DB Table)
+
   - `/elections` (GET, POST, PUT, DELETE)
   - `/profile/elections`
   - `/elections/search/findByTitle?title=2012%20Presidential%20Election`
   - `/elections/search/findByDescriptionContains?description=American`
-- Candidates by Elections View
-  - `/electioncandidates` (GET only)
-  - `/profile/electioncandidates`
-  - `/electioncandidates/search/findByElection?election=2016%20Presidential%20Election`
-- Individual Votes by Elections View
-  - `/electionvotes` (GET only)
-  - `/profile/electionvotes`
-  - `/electionvotes/search/findByElection?election=2012%20Presidential%20Election`
-- Total Votes by Election, by Candidate View
-  - `/votetotals` (GET only)
-  - `/profile/votetotals`
-  - `/votetotals/search/findByElection?election=2012%20Presidential%20Election`
+
+- Candidates, by Elections (DB View)
+
+  - `/election-candidates` (GET only)
+  - `/profile/election-candidates`
+  - `/election-candidates/search/findByElection?election=2016%20Presidential%20Election`
+
+- Individual Votes, by Election (DB View)
+
+  - `/election-votes` (GET only)
+  - `/profile/election-votes`
+  - `/election-votes/search/findByElection?election=2012%20Presidential%20Election`
+
+- Total Votes by Election and by Candidate (DB View)
+
+  - `/vote-totals` (GET only)
+  - `/profile/vote-totals`
+  - `/vote-totals/search/findByElection?election=2012%20Presidential%20Election`
 
 ## References
 
