@@ -121,6 +121,10 @@ Here is just a partial list of exposed resources:
   - `/elections/search/findByTitle?title=2012%20Presidential%20Election`
   - `/elections/search/findByDescriptionContains?description=American`
 
+- Votes (DB Table)
+  - `/votes` (GET, POST, PUT, DELETE)
+  - `/profile/votes`
+
 - Candidates, by Elections (DB View)
 
   - `/election-candidates` (GET only)
