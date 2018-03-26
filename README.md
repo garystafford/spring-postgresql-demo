@@ -109,6 +109,10 @@ Below is a partial list of the application's exposed resources. To see all resou
   - `/actuator/info`
   - `/actuator/beans`
 
+- Swagger
+
+  - `/swagger-ui.html`
+
 - Candidates (DB Table)
 
   - `/candidates` (GET, POST, PUT, DELETE)
@@ -160,3 +164,4 @@ Below is a partial list of the application's exposed resources. To see all resou
 - <https://spring.io/guides/gs/accessing-data-jpa>
 - <https://dzone.com/articles/integrating-spring-data-jpa-postgresql-and-liquiba>
 - <https://www.javabullets.com/calling-database-views-from-spring-data-jpa>
+- <http://www.baeldung.com/swagger-2-documentation-for-spring-rest-api>

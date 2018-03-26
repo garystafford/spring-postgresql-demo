@@ -1,9 +1,7 @@
 package pcfdemo.repository;
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
 import pcfdemo.model.Vote;
 
-public interface VoteRepository extends CrudRepository<Vote, Long> {
-
-//    List<Vote> findByElection_candidate_id(long electionCandidateId);
+public interface VoteRepository extends PagingAndSortingRepository<Vote, Long> {
 }

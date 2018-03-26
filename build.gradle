@@ -23,14 +23,21 @@ repositories {
     mavenCentral()
 }
 
+ext {
+    springBootVersion = '2.0.0.RELEASE'
+    springfoxVersion = '2.8.0'
+}
+
 dependencies {
     compileOnly('org.projectlombok:lombok:1.16.20')
-    compile('org.springframework.boot:spring-boot-starter-data-jpa')
-    compile('org.springframework.boot:spring-boot-starter-data-rest')
-    compile('org.springframework.boot:spring-boot-starter-hateoas')
-    compile('org.springframework.boot:spring-boot-starter-web')
-    compile('org.springframework.boot:spring-boot-starter-actuator')
-    compile('org.liquibase:liquibase-core')
-    runtime('org.postgresql:postgresql')
-    testCompile('org.springframework.boot:spring-boot-starter-test')
+    compile("org.springframework.boot:spring-boot-starter-data-jpa:${springBootVersion}")
+    compile("org.springframework.boot:spring-boot-starter-data-rest:${springBootVersion}")
+    compile("org.springframework.boot:spring-boot-starter-hateoas:${springBootVersion}")
+    compile("org.springframework.boot:spring-boot-starter-web:${springBootVersion}")
+    compile("org.springframework.boot:spring-boot-starter-actuator:${springBootVersion}")
+    compile("io.springfox:springfox-swagger2:${springfoxVersion}")
+    compile("io.springfox:springfox-swagger-ui:${springfoxVersion}")
+    compile('org.liquibase:liquibase-core:3.5.5')
+    runtime('org.postgresql:postgresql:42.2.2')
+    testCompile("org.springframework.boot:spring-boot-starter-test:${springBootVersion}")
 }

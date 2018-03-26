@@ -1,5 +1,6 @@
 package pcfdemo.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.Setter;
@@ -17,6 +18,7 @@ public class VotesElectionsView implements Serializable {
 
     @Id
     @Setter(AccessLevel.NONE)
+    @JsonIgnore
     private long id;
 
     @NotNull

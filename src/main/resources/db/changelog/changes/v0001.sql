@@ -53,7 +53,7 @@ CREATE TABLE IF NOT EXISTS vote
 -- generate_random_votes
 ------------------------------
 CREATE OR REPLACE FUNCTION generate_random_votes(n INTEGER DEFAULT 100)
-  RETURNS void
+  RETURNS VOID
 LANGUAGE plpgsql
 AS $$
 BEGIN
