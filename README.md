@@ -116,7 +116,8 @@ Below is a partial list of the application's exposed resources. To see all resou
 
 - Candidates (DB Table)
 
-  - `/candidates` (GET, POST, PUT, DELETE)
+  - `/candidates`
+  - `/candidates/{id}`
   - `/profile/candidates`
   - `/candidates/search/findByLastName?lastName=Obama`
   - `/candidates/search/findByPoliticalParty?politicalParty=Democratic%20Party`
@@ -124,19 +125,22 @@ Below is a partial list of the application's exposed resources. To see all resou
 
 - Elections (DB Table)
 
-  - `/elections` (GET, POST, PUT, DELETE)
+  - `/elections`
+  - `/elections/{id}`
   - `/profile/elections`
   - `/elections/search/findByTitle?title=2012%20Presidential%20Election`
   - `/elections/search/findByDescriptionContains?description=American`
 
 - Votes (DB Table)
 
-  - `/votes` (GET, POST, PUT, DELETE)
+  - `/votes`
+  - `/votes/{is}`
+  - `/votes?page={page}}&size={size}`
   - `/profile/votes`
 
 - Election Candidates (DB Table)
 
-  - `/electionCandidates` (GET, POST, PUT, DELETE)
+  - `/electionCandidates`
   - `/profile/electionCandidates`
 
 - Candidates, by Elections (DB View)
@@ -148,8 +152,11 @@ Below is a partial list of the application's exposed resources. To see all resou
 - Individual Votes, by Election (DB View)
 
   - `/election-votes` (GET only)
+  - `/election-votes?page={page}}&size={size}` (GET only)
   - `/profile/election-votes`
   - `/election-votes/search/findByElection?election=2012%20Presidential%20Election`
+  - `/election-votes/summary` (GET - via `ElectionsCandidatesViewController`)
+  - `/election-votes/summary/{election}` (GET - via `ElectionsCandidatesViewController`)
 
 - Total Votes by Election and by Candidate (DB View)
 
