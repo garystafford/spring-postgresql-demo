@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import pcfdemo.model.Candidate;
 import pcfdemo.repository.CandidateRepository;
@@ -11,6 +12,7 @@ import pcfdemo.repository.CandidateRepository;
 import java.util.List;
 
 @RestController
+@RequestMapping("/candidates")
 public class CandidateController {
 
     @Autowired
@@ -21,16 +23,9 @@ public class CandidateController {
         this.candidateRepository = candidateRepository;
     }
 
-    @RequestMapping("/")
-    public String index() {
-        return "Greetings from the CandidateController!";
-    }
-
-    @RequestMapping("/candidateSummary")
+    @RequestMapping(path = "/summary", method = RequestMethod.GET)
     public ResponseEntity<List<Candidate>> candidatesSummary() {
         List<Candidate> candidateList = (List<Candidate>) candidateRepository.findAll();
         return new ResponseEntity<>(candidateList, HttpStatus.OK);
     }
-
-
 }

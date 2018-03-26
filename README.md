@@ -112,6 +112,7 @@ Below is a partial list of the application's exposed resources. To see all resou
 - Swagger
 
   - `/swagger-ui.html`
+  - `/v2/api-docs`
 
 - Candidates (DB Table)
 
@@ -119,6 +120,7 @@ Below is a partial list of the application's exposed resources. To see all resou
   - `/profile/candidates`
   - `/candidates/search/findByLastName?lastName=Obama`
   - `/candidates/search/findByPoliticalParty?politicalParty=Democratic%20Party`
+  - `/candidates/summary` (GET - via `CandidateController`)
 
 - Elections (DB Table)
 
