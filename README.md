@@ -1,10 +1,10 @@
 # Spring Boot 2.0 PostgreSQL Application Demonstration
 
-Project for the Programmatic Ponderings blog post, [Developing Cloud-Native Data-Centric Spring Boot Applications for Pivotal Cloud Foundry](https://wp.me/p1RD28-5Jh), published March 23, 2018\. Spring Boot 2.0 application, backed by PostgreSQL, and designed for deployment to Pivotal Cloud Foundry (PCF). Database changes are handled by Liquibase.
+Project for the Programmatic Ponderings blog post, [Developing Cloud-Native Data-Centric Spring Boot Applications for Pivotal Cloud Foundry](https://wp.me/p1RD28-5Jh), published March 23, 2018. Spring Boot 2.0 application, backed by PostgreSQL, and designed for deployment to Pivotal Cloud Foundry (PCF). Database changes are handled by Liquibase.
 
 ## Build and Run
 
-The project assumes you have Docker and the Cloud Foundry Command Line Interface (cf CLI) installed locally.
+The project assumes you have Docker and the Cloud Foundry Command Line Interface (`cf` CLI) installed locally.
 
 Provision the local PostgreSQL development database using Docker:
 
@@ -100,8 +100,10 @@ Below is a partial list of the application's exposed resources. To see all resou
 
 - Actuator
 
+  - `/`
   - `/actuator/mappings` (shows all resources!)
   - `/actuator/metrics`
+  - `/actuator/metrics/{metric}`
   - `/actuator/liquibase`
   - `/actuator/env`
   - `/actuator/configprops`
@@ -122,6 +124,7 @@ Below is a partial list of the application's exposed resources. To see all resou
   - `/candidates/search/findByLastName?lastName=Obama`
   - `/candidates/search/findByPoliticalParty?politicalParty=Democratic%20Party`
   - `/candidates/summary` (GET - via `CandidateController`)
+  - `/candidates/summary/{politicalParty}` (GET - via `CandidateController`)
 
 - Elections (DB Table)
 
