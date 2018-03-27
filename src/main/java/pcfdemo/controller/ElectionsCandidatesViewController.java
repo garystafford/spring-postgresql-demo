@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import pcfdemo.model.ElectionsCandidatesView;
 import pcfdemo.repository.ElectionsCandidatesViewRepository;
@@ -25,14 +26,14 @@ public class ElectionsCandidatesViewController {
         this.electionsCandidatesViewRepository = electionsCandidatesViewRepository;
     }
 
-    @RequestMapping(path = "/summary")
+    @RequestMapping(path = "/summary", method = RequestMethod.GET)
     public ResponseEntity<Map<String, List<ElectionsCandidatesView>>> electionCandidateSummary() {
         List<ElectionsCandidatesView> electionsCandidatesViewList =
                 (List<ElectionsCandidatesView>) electionsCandidatesViewRepository.findAll();
         return new ResponseEntity<>(Collections.singletonMap("electionCandidates", electionsCandidatesViewList), HttpStatus.OK);
     }
 
-    @RequestMapping(path = "/summary/{election}")
+    @RequestMapping(path = "/summary/{election}", method = RequestMethod.GET)
     public ResponseEntity<Map<String, List<ElectionsCandidatesView>>> electionCandidateSummaryByElection(@PathVariable("election") String election) {
         List<ElectionsCandidatesView> electionsCandidatesViewList =
                 electionsCandidatesViewRepository.findByElection(election);
