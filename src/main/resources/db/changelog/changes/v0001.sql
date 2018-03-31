@@ -52,6 +52,7 @@ CREATE TABLE IF NOT EXISTS vote
 ------------------------------
 -- generate_random_votes
 ------------------------------
+-- generate a random number of votes for all election candidates
 CREATE OR REPLACE FUNCTION generate_random_votes(n INTEGER DEFAULT 100)
   RETURNS VOID
 LANGUAGE plpgsql
@@ -66,6 +67,28 @@ BEGIN
          FROM election_candidate))
        LIMIT 1)
     );
+  END LOOP;
+END;
+$$;
+
+------------------------------
+-- generate_votes
+------------------------------
+-- generate a random number of votes within a range, for a specific election candidate
+CREATE OR REPLACE FUNCTION generate_votes(minVotes                   INTEGER DEFAULT 100,
+                                          maxVotes                   INTEGER DEFAULT 500,
+                                          electionToVoteIn           VARCHAR(100) DEFAULT 'NULL',
+                                          lastNameCandidateToVoteFor VARCHAR(50) DEFAULT 'NULL')
+  RETURNS VOID
+LANGUAGE plpgsql
+AS $$
+BEGIN
+  FOR counter IN 1..(Cast(RANDOM() * (maxVotes - minVotes) + minVotes AS INT)) LOOP
+    INSERT INTO vote (election_candidate_id)
+    VALUES ((SELECT Id
+             FROM candidates_by_elections
+             WHERE (election LIKE electionToVoteIn) AND (last_name LIKE lastNameCandidateToVoteFor)
+    ));
   END LOOP;
 END;
 $$;
