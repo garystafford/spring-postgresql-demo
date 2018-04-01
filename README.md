@@ -1,12 +1,28 @@
 # Spring Boot 2.0 PostgreSQL Application Demonstration
 
-Project for the Programmatic Ponderings blog post, [Developing Cloud-Native Data-Centric Spring Boot Applications for Pivotal Cloud Foundry](https://wp.me/p1RD28-5Jh), published March 23, 2018\. Spring Boot 2.0 application, backed by PostgreSQL, and designed for deployment to Pivotal Cloud Foundry (PCF). Database changes are handled by Liquibase.
+Project for the Programmatic Ponderings blog post, [Developing Cloud-Native Data-Centric Spring Boot Applications for Pivotal Cloud Foundry](https://wp.me/p1RD28-5Jh), published March, 2018. Spring Boot 2.0 application, backed by PostgreSQL, and designed for deployment to Pivotal Cloud Foundry (PCF). Database changes are handled by Liquibase.
 
-## Build and Run
+## Docker Quick Start
 
-The project assumes you have Docker and the Cloud Foundry Command Line Interface (`cf` CLI) installed locally.
+The project now contains `Dockerfile` and `docker-compose.yml` files. If you have Docker and Docker Compose installed locally, you can preview project by creating Docker containers for both the PostgreSQL database and the Spring Boot application. To do so, execute the follow command from the root of the project
 
-Provision the local PostgreSQL development database using Docker:
+```bash
+git clone --depth 1 --branch master \
+  https://github.com/garystafford/spring-postgresql-demo.git
+cd spring-postgresql-demo
+
+docker-compose -p springdemo up -d
+```
+
+To follow the startup of the Spring Boot application, use the `docker logs springdemo --follow` command. When complete, browse to `http://localhost:8080`. See the list of available resources below.
+
+To delete both Docker containers when done previewing, use the `docker rm -f postgres springdemo` command.
+
+## Build and Run Application with Gradle
+
+The project assumes you have Docker and the Cloud Foundry Command Line Interface (cf CLI) installed locally.
+
+First, provision the local PostgreSQL development database using Docker:
 
 ```bash
 # create container
@@ -45,7 +61,7 @@ set SPRING_DATASOURCE_USERNAME=some_other_username
 set SPRING_DATASOURCE_PASSWORD=some_other_password
 ```
 
-Build and run service locally using local Docker PostgreSQL database instance. This command will also execute the Liquibase change sets on the Docker PostgreSQL `elections` database.
+Next, build and run service locally, using Gradle, against the local Docker PostgreSQL database instance. This command will also execute the Liquibase change sets on the Docker PostgreSQL `elections` database.
 
 ```bash
 gradle bootRun
@@ -98,92 +114,82 @@ cf app pcf-postgresql-demo
 
 Below is a partial list of the application's exposed resources. To see all resources, use the `/actuator/mappings` resource.
 
-- Actuator
+-   Actuator
 
-  - `/`
-  - `/actuator/mappings` (shows all resources!)
-  - `/actuator/metrics`
-  - `/actuator/metrics/{metric}`
-  - `/actuator/liquibase`
-  - `/actuator/env`
-  - `/actuator/configprops`
-  - `/actuator/health`
-  - `/actuator/info`
-  - `/actuator/beans`
+    -   `/`
+    -   `/actuator/mappings` (shows all resources!)
+    -   `/actuator/metrics`
+    -   `/actuator/metrics/{metric}`
+    -   `/actuator/liquibase`
+    -   `/actuator/env`
+    -   `/actuator/configprops`
+    -   `/actuator/health`
+    -   `/actuator/info`
+    -   `/actuator/beans`
 
-- Swagger
+-   Swagger
 
-  - `/swagger-ui.html`
-  - `/v2/api-docs`
+    -   `/swagger-ui.html`
+    -   `/v2/api-docs`
 
-- Candidates (DB Table)
+-   Candidates (DB Table)
 
-  - `/candidates`
-  - `/candidates/{id}`
-  - `/profile/candidates`
-  - `/candidates/search/findByLastName?lastName=Obama`
-  - `/candidates/search/findByPoliticalParty?politicalParty=Democratic%20Party`
-  - `/candidates/summary` (GET - via `CandidateController`)
-  - `/candidates/summary/{politicalParty}` (GET - via `CandidateController`)
+    -   `/candidates`
+    -   `/candidates/{id}`
+    -   `/profile/candidates`
+    -   `/candidates/search/findByLastName?lastName=Obama`
+    -   `/candidates/search/findByPoliticalParty?politicalParty=Democratic%20Party`
+    -   `/candidates/summary` (GET - via `CandidateController`)
+    -   `/candidates/summary/{politicalParty}` (GET - via `CandidateController`)
 
-- Elections (DB Table)
+-   Elections (DB Table)
 
-  - `/elections`
-  - `/elections/{id}`
-  - `/profile/elections`
-  - `/elections/search/findByTitle?title=2012%20Presidential%20Election`
-  - `/elections/search/findByDescriptionContains?description=American`
+    -   `/elections`
+    -   `/elections/{id}`
+    -   `/profile/elections`
+    -   `/elections/search/findByTitle?title=2012%20Presidential%20Election`
+    -   `/elections/search/findByDescriptionContains?description=American`
 
-- Votes (DB Table)
+-   Votes (DB Table)
 
-  - `/votes`
-  - `/votes/{is}`
-  - `/votes?page={page}}&size={size}`
-  - `/profile/votes`
+    -   `/votes`
+    -   `/votes/{is}`
+    -   `/votes?page={page}}&size={size}`
+    -   `/profile/votes`
 
-- Election Candidates (DB Table)
+-   Election Candidates (DB Table)
 
-  - `/electionCandidates`
-  - `/profile/electionCandidates`
+    -   `/electionCandidates`
+    -   `/profile/electionCandidates`
 
-- Candidates, by Elections (DB View)
+-   Candidates, by Elections (DB View)
 
-  - `/election-candidates` (GET only)
-  - `/profile/election-candidates`
-  - `/election-candidates/search/findByElection?election=2016%20Presidential%20Election`
+    -   `/election-candidates` (GET only)
+    -   `/profile/election-candidates`
+    -   `/election-candidates/search/findByElection?election=2016%20Presidential%20Election`
 
-- Individual Votes, by Election (DB View)
+-   Individual Votes, by Election (DB View)
 
-  - `/election-votes` (GET only)
-  - `/election-votes?page={page}}&size={size}` (GET only)
-  - `/profile/election-votes`
-  - `/election-votes/search/findByElection?election=2012%20Presidential%20Election`
-  - `/election-votes/summary` (GET - via `ElectionsCandidatesViewController`)
-  - `/election-votes/summary/{election}` (GET - via `ElectionsCandidatesViewController`)
+    -   `/election-votes` (GET only)
+    -   `/election-votes?page={page}}&size={size}` (GET only)
+    -   `/profile/election-votes`
+    -   `/election-votes/search/findByElection?election=2012%20Presidential%20Election`
+    -   `/election-votes/summary` (GET - via `ElectionsCandidatesViewController`)
+    -   `/election-votes/summary/{election}` (GET - via `ElectionsCandidatesViewController`)
 
-- Total Votes by Election and by Candidate (DB View)
+-   Total Votes by Election and by Candidate (DB View)
 
-  - `/vote-totals` (GET only)
-  - `/profile/vote-totals`
-  - `/vote-totals/search/findByElection?election=2012%20Presidential%20Election`
-
-## Docker Compose
-
-The project now contains `Dockerfile` and `docker-compose.yml` files. You can create running Docker containers for both the PostgreSQL database and the Spring Boot application, locally, by executing the follow command from the root of the project:
-
-```bash
-docker-compose -p springdemo up -d
-```
-
-To follow the startup of the Spring Boot application, use the `docker logs springdemo --follow` command. To delete both Docker containers when done, use the `docker rm -f postgres springdemo` command.
+    -   `/vote-totals` (GET only)
+    -   `/profile/vote-totals`
+    -   `/vote-totals/search/findByElection?election=2012%20Presidential%20Election`
 
 ## References
 
-- <https://auth0.com/blog/integrating-spring-data-jpa-postgresql-liquibase>
-- <http://mrbool.com/rest-server-with-spring-data-spring-boot-and-postgresql/34023>
-- <https://www.tutorialspoint.com/postgresql/postgresql_create_database.htm>
-- <http://www.vogella.com/tutorials/Lombok/article.html>
-- <https://spring.io/guides/gs/accessing-data-jpa>
-- <https://dzone.com/articles/integrating-spring-data-jpa-postgresql-and-liquiba>
-- <https://www.javabullets.com/calling-database-views-from-spring-data-jpa>
-- <http://www.baeldung.com/swagger-2-documentation-for-spring-rest-api>
+-   <https://auth0.com/blog/integrating-spring-data-jpa-postgresql-liquibase>
+-   <http://mrbool.com/rest-server-with-spring-data-spring-boot-and-postgresql/34023>
+-   <https://www.tutorialspoint.com/postgresql/postgresql_create_database.htm>
+-   <http://www.vogella.com/tutorials/Lombok/article.html>
+-   <https://spring.io/guides/gs/accessing-data-jpa>
+-   <https://dzone.com/articles/integrating-spring-data-jpa-postgresql-and-liquiba>
+-   <https://www.javabullets.com/calling-database-views-from-spring-data-jpa>
+-   <http://www.baeldung.com/swagger-2-documentation-for-spring-rest-api>
