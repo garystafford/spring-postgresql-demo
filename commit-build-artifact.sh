@@ -1,6 +1,10 @@
 #!/bin/sh
 
+set -xe
+
 # spring-postgresql-demo-0.0.1-SNAPSHOT.jar
+
+gradle clean build
 
 cd build/libs
 mv *.jar "spring-postgresql-demo-$(git rev-parse --short HEAD).jar"
