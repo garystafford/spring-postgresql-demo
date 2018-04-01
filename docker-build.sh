@@ -5,3 +5,4 @@ docker build --no-cache -t spring-postgresql-demo:latest .
 
 docker rm -f postgres springdemo
 docker-compose -p springdemo up -d
+docker logs springdemo --follow
