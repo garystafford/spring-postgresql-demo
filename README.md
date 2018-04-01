@@ -1,6 +1,6 @@
 # Spring Boot 2.0 PostgreSQL Application Demonstration
 
-Project for the Programmatic Ponderings blog post, [Developing Cloud-Native Data-Centric Spring Boot Applications for Pivotal Cloud Foundry](https://wp.me/p1RD28-5Jh), published March 23, 2018. Spring Boot 2.0 application, backed by PostgreSQL, and designed for deployment to Pivotal Cloud Foundry (PCF). Database changes are handled by Liquibase.
+Project for the Programmatic Ponderings blog post, [Developing Cloud-Native Data-Centric Spring Boot Applications for Pivotal Cloud Foundry](https://wp.me/p1RD28-5Jh), published March 23, 2018\. Spring Boot 2.0 application, backed by PostgreSQL, and designed for deployment to Pivotal Cloud Foundry (PCF). Database changes are handled by Liquibase.
 
 ## Build and Run
 
@@ -166,6 +166,16 @@ Below is a partial list of the application's exposed resources. To see all resou
   - `/vote-totals` (GET only)
   - `/profile/vote-totals`
   - `/vote-totals/search/findByElection?election=2012%20Presidential%20Election`
+
+## Docker Compose
+
+The project now contains `Dockerfile` and `docker-compose.yml` files. You can create running Docker containers for both the PostgreSQL database and the Spring Boot application, locally, by executing the follow command from the root of the project:
+
+```bash
+docker-compose -p springdemo up -d
+```
+
+To follow the startup of the Spring Boot application, use the `docker logs springdemo --follow` command. To delete both Docker containers when done, use the `docker rm -f postgres springdemo` command.
 
 ## References
 
