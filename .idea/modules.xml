@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/pcf-postgresql-demo.iml" filepath="$PROJECT_DIR$/pcf-postgresql-demo.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/pcf-postgresql-demo_main.iml" filepath="$PROJECT_DIR$/.idea/modules/pcf-postgresql-demo_main.iml" group="pcf-postgresql-demo" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/pcf-postgresql-demo_test.iml" filepath="$PROJECT_DIR$/.idea/modules/pcf-postgresql-demo_test.iml" group="pcf-postgresql-demo" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/spring-postgresql-demo.iml" filepath="$PROJECT_DIR$/.idea/modules/spring-postgresql-demo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/spring-postgresql-demo_main.iml" filepath="$PROJECT_DIR$/.idea/modules/spring-postgresql-demo_main.iml" group="spring-postgresql-demo" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/spring-postgresql-demo_test.iml" filepath="$PROJECT_DIR$/.idea/modules/spring-postgresql-demo_test.iml" group="spring-postgresql-demo" />
     </modules>
   </component>
 </project>

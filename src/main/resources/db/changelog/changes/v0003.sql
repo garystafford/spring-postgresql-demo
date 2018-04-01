@@ -1,28 +1,157 @@
 --liquibase formatted sql
 --changeset gary.stafford:elections-sql splitStatements:false
 
-------------------------------------------------------
--- View all candidates for all elections by election
-------------------------------------------------------
-CREATE OR REPLACE VIEW candidates_by_elections AS
-  SELECT
-    ec.id,
-    election.title AS election,
-    candidate.first_name,
-    candidate.last_name
-  FROM candidate, election, election_candidate AS ec
-  WHERE ec.candidate_id = candidate.id AND ec.election_id = election.id
-  ORDER BY election.title, candidate.last_name;
+-----------------------------------
+-- clean up old records
+-----------------------------------
+DELETE FROM vote;
+DELETE FROM election_candidate;
+DELETE FROM candidate;
+DELETE FROM election;
 
-------------------------------------------------------
--- View all votes for all elections by election
-------------------------------------------------------
-CREATE OR REPLACE VIEW votes_by_elections AS
-  SELECT
-    vote.id,
-    cbe.election,
-    cbe.last_name,
-    cbe.first_name
-  FROM vote, candidates_by_elections AS cbe
-  WHERE vote.election_candidate_id = cbe.id
-  ORDER BY cbe.election, cbe.last_name;
+-----------------------------------
+-- candidate data
+-----------------------------------
+INSERT INTO candidate (first_name, last_name, political_party, home_state, experience)
+VALUES ('Donald', 'Trump', 'Republican Party', 'New York', 'None');
+
+INSERT INTO candidate (first_name, last_name, political_party, home_state, experience)
+VALUES ('Barack', 'Obama', 'Democratic Party', 'Illinois', 'Illinois State Senator');
+
+INSERT INTO candidate (first_name, last_name, political_party, home_state, experience)
+VALUES ('Hillary', 'Clinton', 'Democratic Party', 'New York', 'U.S. Senator, New York and 67th US Secretary of State');
+
+INSERT INTO candidate (first_name, last_name, political_party, home_state, experience)
+VALUES ('Jill', 'Stein', 'Green Party', 'Massachusetts', 'None');
+
+INSERT INTO candidate (first_name, last_name, political_party, home_state, experience)
+VALUES ('Mitt', 'Romney', 'Republican Party', 'Massachusetts', '70th Governor of Massachusetts');
+
+INSERT INTO candidate (first_name, last_name, political_party, home_state, experience)
+VALUES ('Bill', 'de Blasio', 'Democratic Party', 'New York', '109th Mayor of New York City');
+
+INSERT INTO candidate (first_name, last_name, political_party, home_state, experience)
+VALUES ('Mitch', 'McConnell', 'Republican Party', 'Kentucky', 'United States Senator from Kentucky');
+
+INSERT INTO candidate (first_name, last_name, political_party, home_state, experience)
+VALUES ('Andrew', 'Cuomo', 'Democratic Party', 'New York', '56th Governor of New York');
+
+-----------------------------------
+-- election data
+-----------------------------------
+INSERT INTO election (date, type, title, term, description)
+VALUES ('2012-11-06', 'Federal', '2012 Presidential Election', 4, '57th quadrennial American presidential election');
+
+INSERT INTO election (date, type, title, term, description)
+VALUES ('2016-11-08', 'Federal', '2016 Presidential Election', 4, '58th quadrennial American presidential election');
+
+INSERT INTO election (date, type, title, term, description)
+VALUES ('2024-11-06', 'State', '2018 New York Gubernatorial Election', 4, 'Elect the Governor of New York');
+
+INSERT INTO election (date, type, title, term, description)
+VALUES ('2017-11-07', 'Local', '2017 New York City Mayoral Election', 4, 'Elect the Mayor of the City of New York');
+
+INSERT INTO election (date, type, title, term, description)
+VALUES ('2018-11-06', 'Federal', '2018 United States Senate Elections', 4, 'Elections to the United States Senate');
+
+-----------------------------------
+-- election_candidate data
+-----------------------------------
+INSERT INTO election_candidate (election_id, candidate_id) VALUES (
+  (SELECT id
+   FROM election
+   WHERE title LIKE '2012 Presidential Election'
+   LIMIT 1),
+  (SELECT id
+   FROM candidate
+   WHERE last_name LIKE 'Obama'
+   LIMIT 1));
+
+INSERT INTO election_candidate (election_id, candidate_id) VALUES (
+  (SELECT id
+   FROM election
+   WHERE title LIKE '2012 Presidential Election'
+   LIMIT 1),
+  (SELECT id
+   FROM candidate
+   WHERE last_name LIKE 'Romney'
+   LIMIT 1));
+
+INSERT INTO election_candidate (election_id, candidate_id) VALUES (
+  (SELECT id
+   FROM election
+   WHERE title LIKE '2012 Presidential Election'
+   LIMIT 1),
+  (SELECT id
+   FROM candidate
+   WHERE last_name LIKE 'Stein'
+   LIMIT 1));
+
+INSERT INTO election_candidate (election_id, candidate_id) VALUES (
+  (SELECT id
+   FROM election
+   WHERE title LIKE '2016 Presidential Election'
+   LIMIT 1),
+  (SELECT id
+   FROM candidate
+   WHERE last_name LIKE 'Clinton'
+   LIMIT 1));
+
+INSERT INTO election_candidate (election_id, candidate_id) VALUES (
+  (SELECT id
+   FROM election
+   WHERE title LIKE '2016 Presidential Election'
+   LIMIT 1),
+  (SELECT id
+   FROM candidate
+   WHERE last_name LIKE 'Trump'
+   LIMIT 1));
+
+INSERT INTO election_candidate (election_id, candidate_id) VALUES (
+  (SELECT id
+   FROM election
+   WHERE title LIKE '2017 New York City Mayoral Election'
+   LIMIT 1),
+  (SELECT id
+   FROM candidate
+   WHERE last_name LIKE 'de Blasio'
+   LIMIT 1));
+
+INSERT INTO election_candidate (election_id, candidate_id) VALUES (
+  (SELECT id
+   FROM election
+   WHERE title LIKE '2018 New York Gubernatorial Election'
+   LIMIT 1),
+  (SELECT id
+   FROM candidate
+   WHERE last_name LIKE 'Cuomo'
+   LIMIT 1));
+
+INSERT INTO election_candidate (election_id, candidate_id) VALUES (
+  (SELECT id
+   FROM election
+   WHERE title LIKE '2018 United States Senate Elections'
+   LIMIT 1),
+  (SELECT id
+   FROM candidate
+   WHERE last_name LIKE 'McConnell'
+   LIMIT 1));
+
+-----------------------------------
+-- generate completely random votes
+-----------------------------------
+SELECT generate_random_votes(1000);
+
+----------------------------------------------------------
+-- generate random votes for specific electoral candidates
+----------------------------------------------------------
+SELECT generate_votes(1700, 2000, '2012 Presidential Election', 'Obama');
+SELECT generate_votes(600, 1400, '2012 Presidential Election', 'Romney');
+SELECT generate_votes(300, 500, '2012 Presidential Election', 'Stein');
+
+SELECT generate_votes(2000, 3000, '2016 Presidential Election', 'Clinton');
+SELECT generate_votes(1500, 1900, '2016 Presidential Election', 'Trump');
+
+SELECT generate_votes(1000, 1200, '2017 New York City Mayoral Election', 'de Blasio');
+SELECT generate_votes(700, 900, '2018 New York Gubernatorial Election', 'Cuomo');
+SELECT generate_votes(200, 500, '2018 United States Senate Elections', 'McConnell');

@@ -1,0 +1,40 @@
+version: '3'
+
+services:
+  postgres:
+    image: postgres:latest
+    networks:
+      - postgres-demo
+    ports:
+      - "5432:5432"
+    restart: always
+    hostname: postgres
+    container_name: postgres
+    environment:
+      POSTGRES_USERNAME: postgres
+      POSTGRES_PASSWORD: postgres1234
+      POSTGRES_DB: elections
+
+  springdemo:
+    build: .
+    image: spring-postgresql-demo:latest
+    networks:
+      - postgres-demo
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+    restart: always
+    hostname: springdemo
+    container_name: springdemo
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/elections
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres1234
+
+networks:
+  postgres-demo:
+    driver: bridge
+
+volumes:
+  data: {}
