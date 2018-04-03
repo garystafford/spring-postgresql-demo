@@ -1,0 +1,270 @@
+{
+	"info": {
+		"_postman_id": "1bd1c7da-669d-1489-263a-abb8fa6f701a",
+		"name": "pcf-postgresql-demo",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "/",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://{{environment}}/",
+					"protocol": "http",
+					"host": [
+						"{{environment}}"
+					],
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/actuator/mappings",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "{{protocol}}://{{environment}}/actuator/mappings",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{environment}}"
+					],
+					"path": [
+						"actuator",
+						"mappings"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/candidates",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "{{protocol}}://{{environment}}/candidates",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{environment}}"
+					],
+					"path": [
+						"candidates"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/candidates",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"firstName\": \"Ron\",\r\n  \"lastName\": \"Paul\",\r\n  \"politicalParty\": \"Republican Party\",\r\n  \"homeState\": \"Texas\",\r\n  \"experience\": \"U.S. House of Representatives\"\r\n}"
+				},
+				"url": {
+					"raw": "{{protocol}}://{{environment}}/candidates",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{environment}}"
+					],
+					"path": [
+						"candidates"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/candidates/{id}",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"firstName\": \"Ron\",\r\n  \"lastName\": \"Paul\",\r\n  \"politicalParty\": \"Republican Party\",\r\n  \"homeState\": \"Texas\",\r\n  \"experience\": \"Member of the U.S. House of Representatives from Texas's 22nd district\"\r\n}"
+				},
+				"url": {
+					"raw": "{{protocol}}://{{environment}}/candidates/9",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{environment}}"
+					],
+					"path": [
+						"candidates",
+						"9"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/candidates/summary",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "{{protocol}}://{{environment}}/candidates/summary",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{environment}}"
+					],
+					"path": [
+						"candidates",
+						"summary"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/candidates/summary/{election}",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "{{protocol}}://{{environment}}/candidates/summary/Democratic Party",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{environment}}"
+					],
+					"path": [
+						"candidates",
+						"summary",
+						"Democratic Party"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/election-candidates",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"firstName\": \"Ron\",\r\n  \"lastName\": \"Paul\",\r\n  \"politicalParty\": \"Republican Party\",\r\n  \"homeState\": \"Texas\",\r\n  \"experience\": \"Member of the U.S. House of Representatives from Texas's 22nd district\"\r\n}"
+				},
+				"url": {
+					"raw": "{{protocol}}://{{environment}}/election-candidates",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{environment}}"
+					],
+					"path": [
+						"election-candidates"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/votes",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n \"election_candidate_id\": 1\n}"
+				},
+				"url": {
+					"raw": "{{protocol}}://{{environment}}/votes",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{environment}}"
+					],
+					"path": [
+						"votes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/votes?page=1&size=25",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{protocol}}://{{environment}}/votes?page=1&size=25",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{environment}}"
+					],
+					"path": [
+						"votes"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "1"
+						},
+						{
+							"key": "size",
+							"value": "25"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/vote-totals/3",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:8080/vote-totals/3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"vote-totals",
+						"3"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
