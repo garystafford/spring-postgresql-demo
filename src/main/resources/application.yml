@@ -2,7 +2,7 @@
 #  port: 0
 spring:
  application:
-   name: PCF Spring PostrgeSQL Demo
+   name: PCF Spring PostgreSQL Demo v2.0.0
  datasource:
    url: jdbc:postgresql://localhost:5432/elections
    username: postgres
@@ -23,9 +23,6 @@ logging:
 spring:
  profiles: dev
 message: The 'dev' Profile is active
-logging:
- level:
-   root: DEBUG
 ---
 spring:
  profiles: test

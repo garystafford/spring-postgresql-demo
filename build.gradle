@@ -3,7 +3,7 @@ buildscript {
         springBootVersion = '2.0.0.RELEASE'
     }
     repositories {
-        mavenCentral()
+        jcenter()
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
@@ -16,12 +16,19 @@ apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 
-group = 'com.example'
-version = '0.0.1-SNAPSHOT'
+def application_name = 'spring-postgresql-demo'
+def major = '2.0'
+def minor = System.env.TRAVIS_BUILD_NUMBER ?: '0'
+def artifact_version = major + '.' + minor
+
+group = application_name
+version = artifact_version
+
 sourceCompatibility = 1.8
+targetCompatibility = 1.8
 
 repositories {
-    mavenCentral()
+    jcenter()
 }
 
 ext {

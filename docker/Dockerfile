@@ -1,6 +1,6 @@
 FROM openjdk:8-jdk-alpine
 LABEL maintainer="Gary A. Stafford <garystafford@rochester.rr.com>"
-ENV REFRESHED_AT 2018-03-31
+ENV REFRESHED_AT 2018-04-03
 EXPOSE 8080
 RUN set -ex \
   && apk update \

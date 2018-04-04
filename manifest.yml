@@ -5,11 +5,11 @@ applications:
   instances: 1
   random-route: true
   buildpack: java_buildpack
-  path: build/libs/pcf-postgresql-demo-0.0.1-SNAPSHOT.jar
+  path: build/libs/spring-postgresql-demo-2.0.0.jar
   env:
     SPRING_PROFILES_ACTIVE: test
-    SPRING_DATABASE_URL: jdbc:postgresql://stampy.db.elephantsql.com:5432/dxtuarda
-    SPRING_DATASOURCE_USERNAME: dxtuarda
-    SPRING_DATASOURCE_PASSWORD: 9b16UAS3RtpdF7UFmv3aEaSDf0jxGBJ5
+    SPRING_DATABASE_URL: <postgresql_url_here>
+    SPRING_DATASOURCE_USERNAME: <postgresql_username_here>
+    SPRING_DATASOURCE_PASSWORD: <postgresql_password_here>
   services:
     - elections
