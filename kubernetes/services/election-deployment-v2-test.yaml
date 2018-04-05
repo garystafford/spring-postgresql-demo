@@ -1,43 +1,43 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  namespace: dev
-  name: springapp-v1
+  namespace: test
+  name: election-v2
 spec:
   replicas: 2
   strategy: {}
   selector:
     matchLabels:
-      app: springapp
-      version: v1
+      app: election
+      version: v2
   template:
     metadata:
       labels:
-        app: springapp
-        version: v1
+        app: election
+        version: v2
     spec:
       containers:
-      - name: springapp-v1
-        image: garystafford/spring-postgresql-demo:1.0.0
+      - name: election-v2
+        image: garystafford/spring-postgresql-demo:2.0.0
         env:
         - name: SPRING_PROFILE
-          value: dev
+          value: test
         - name: SPRING_DATASOURCE_HIKARI_MAXIMUM-POOL-SIZE
-          value: 5
+          value: 2
         - name: SPRING_DATASOURCE_URL
           valueFrom:
             secretKeyRef:
-              name: postgresql-connection-info
+              name: postgresql-conn-info
               key: url
         - name: SPRING_DATASOURCE_USERNAME
           valueFrom:
             secretKeyRef:
-              name: postgresql-connection-info
+              name: postgresql-conn-info
               key: username
         - name: SPRING_DATASOURCE_PASSWORD
           valueFrom:
             secretKeyRef:
-              name: postgresql-connection-info
+              name: postgresql-conn-info
               key: password
         ports:
         - containerPort: 8080

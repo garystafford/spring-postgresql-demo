@@ -1,15 +1,17 @@
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: springdemo-ingress
-  namespace: springdemo
+  name: dev-ingress
+  labels:
+    name: dev-ingress
+  namespace: dev
   annotations:
     kubernetes.io/ingress.class: istio
 spec:
   rules:
   - http:
       paths:
-      - path: /.*
+      - path: /dev/.*
         backend:
-          serviceName: springapp
+          serviceName: election
           servicePort: 8080
