@@ -20,7 +20,7 @@ spec:
       - name: election-v1
         image: garystafford/spring-postgresql-demo:1.0.0
         env:
-        - name: SPRING_PROFILE
+        - name: SPRING_PROFILES_ACTIVE
           value: dev
         - name: SPRING_DATASOURCE_HIKARI_MAXIMUM-POOL-SIZE
           value: 2
