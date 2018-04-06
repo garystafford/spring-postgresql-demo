@@ -3,17 +3,15 @@ apiVersion: config.istio.io/v1alpha2
 kind: RouteRule
 metadata:
   name: election-v2-canary
-  labels:
-    name: dev
+  namespace: dev
 spec:
   destination:
     name: election
-    namespace: dev
   match:
     request:
       headers:
         uri:
-          prefix: "/dev/"
+          prefix: /dev/
   rewrite:
     uri: /
   route:

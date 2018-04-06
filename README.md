@@ -149,6 +149,8 @@ Below is a partial list of the application's exposed resources. To see all resou
     -   `/profile/elections`
     -   `/elections/search/findByTitle?title=2012%20Presidential%20Election`
     -   `/elections/search/findByDescriptionContains?description=American`
+    -   `/elections/summary` (GET - via `ElectionController`)
+
 
 -   Votes (DB Table)
 
@@ -182,6 +184,8 @@ Below is a partial list of the application's exposed resources. To see all resou
     -   `/vote-totals` (GET only)
     -   `/profile/vote-totals`
     -   `/vote-totals/search/findByElection?election=2012%20Presidential%20Election`
+    -   `/election-votes/summary` (GET - via `VoteTotalsViewController`)
+
 
 ## References
 
