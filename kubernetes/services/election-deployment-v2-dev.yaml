@@ -4,7 +4,7 @@ metadata:
   namespace: dev
   name: election-v2
 spec:
-  replicas: 2
+  replicas: 1
   strategy: {}
   selector:
     matchLabels:

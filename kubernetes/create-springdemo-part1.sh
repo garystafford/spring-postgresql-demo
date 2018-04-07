@@ -7,7 +7,7 @@ export ISTIO_HOME="/Applications/istio-0.7.1"
 export GCP_DEPLOYMENT_MANAGER="$ISTIO_HOME/install/gcp/deployment_manager"
 
 export GCP_PROJECT="springdemo-199819"
-export GKE_CLUSTER="springdemo-istio-gke"
+export GKE_CLUSTER="election-nonprod-cluster"
 
 # deploy gke istio cluster
 gcloud deployment-manager deployments create springdemo-istio-demo-deployment \
@@ -19,7 +19,9 @@ gcloud container clusters get-credentials $GKE_CLUSTER \
   --zone us-east1-b --project $GCP_PROJECT
 
 # required dashboard access
-kubectl apply -f ./other/kube-system-cluster-admin.yaml
+kubectl apply -f ./other/clusterrolebinding-dashboard.yaml
+# sign in with token from:
+# kubectl -n kube-system describe secret kubernetes-dashboard-token
 
 # delete springdemo resources only
 #kubectl delete namespace dev test

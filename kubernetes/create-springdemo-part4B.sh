@@ -1,9 +1,9 @@
 #!/bin/bash
 
-# apply resources part 4A
+# apply resources part 4A: v2 to test
 
 # *** change to your own gke cluster's ranges! ***
-# gcloud container clusters describe springdemo-istio-gke \
+# gcloud container clusters describe election-nonprod-cluster \
 #   --zone us-east1-b --project springdemo-199819 \
 #   | egrep 'clusterIpv4Cidr|servicesIpv4Cidr'
 
