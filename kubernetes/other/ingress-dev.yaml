@@ -11,7 +11,7 @@ spec:
   rules:
   - http:
       paths:
-      - path: /.*
+      - path: /dev/.*
         backend:
           serviceName: election
           servicePort: 8080
