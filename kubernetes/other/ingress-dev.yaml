@@ -15,4 +15,3 @@ spec:
         backend:
           serviceName: election
           servicePort: 8080
-    host: api.dev.voter-demo.com
