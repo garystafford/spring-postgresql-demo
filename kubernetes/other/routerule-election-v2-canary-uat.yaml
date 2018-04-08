@@ -3,7 +3,7 @@ apiVersion: config.istio.io/v1alpha2
 kind: RouteRule
 metadata:
   name: election-v2-canary
-  namespace: dev
+  namespace: uat
 spec:
   destination:
     name: election
@@ -11,7 +11,7 @@ spec:
     request:
       httpHeaders:
         x-user:
-          exact: dev
+          exact: uat
   route:
   - labels:
       app: election

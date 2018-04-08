@@ -1,10 +1,10 @@
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: dev-ingress
+  name: uat-ingress
   labels:
-    name: dev-ingress
-  namespace: dev
+    name: uat-ingress
+  namespace: uat
   annotations:
     kubernetes.io/ingress.class: istio
 spec:
@@ -15,4 +15,4 @@ spec:
         backend:
           serviceName: election
           servicePort: 8080
-    host: api.dev.voter-demo.com
+    host: api.uat.voter-demo.com
