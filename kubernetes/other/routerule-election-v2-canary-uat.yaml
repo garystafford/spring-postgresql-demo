@@ -9,9 +9,11 @@ spec:
     name: election
   match:
     request:
-      httpHeaders:
-        x-user:
-          exact: uat
+      headers:
+        uri:
+          prefix: /uat/
+  rewrite:
+    uri: /
   route:
   - labels:
       app: election

@@ -1,4 +1,4 @@
-# canary uat version 2 of app along side version 1
+# canary dev version 2 of app along side version 1
 apiVersion: config.istio.io/v1alpha2
 kind: RouteRule
 metadata:
@@ -9,9 +9,11 @@ spec:
     name: election
   match:
     request:
-      httpHeaders:
-        x-user:
-          exact: dev
+      headers:
+        uri:
+          prefix: /dev/
+  rewrite:
+    uri: /
   route:
   - labels:
       app: election
