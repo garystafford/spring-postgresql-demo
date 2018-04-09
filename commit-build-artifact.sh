@@ -14,4 +14,6 @@ cd build/libs
 git init
 git add *.jar
 git commit -m "Deploy JAR build artifacts to GitHub"
-git push --force --quiet "git@github.com:garystafford/spring-postgresql-demo.git" master:build-artifacts-gke
+git push --force --quiet --progress \
+  "git@github.com:garystafford/spring-postgresql-demo.git" \
+  master:build-artifacts-gke

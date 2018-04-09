@@ -45,15 +45,11 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "23d73861-eef5-46c1-8618-4b51f8f2b703",
+						"id": "87a77ff0-9c52-4129-b6c9-2b8906f3f5b5",
 						"type": "text/javascript",
 						"exec": [
-							"pm.test(\"Status code is 404\", function () {",
-							"    pm.response.to.have.status(404);",
-							"});",
-							"",
-							"pm.test(\"Status code error 'Not Found'\", function () {",
-							"    pm.response.to.have.status(\"Not Found\");",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
 							"});"
 						]
 					}

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 export COLLECTION="spring-postgresql-demo.postman_collection.json"
-export ENVIRONMENT="spring-postgresql-demo_gke_dev.postman_environment.json"
+export ENVIRONMENT="spring-postgresql-demo_gke_test.postman_environment.json"
 
 newman run $COLLECTION \
   --environment $ENVIRONMENT \

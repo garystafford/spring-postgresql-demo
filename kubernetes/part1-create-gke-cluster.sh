@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# apply resources part 1: build non-prod gke/istio cluster
+# part 1: build non-prod gke/istio cluster
 
 # change to match your local environment
 export ISTIO_HOME="/Applications/istio-0.7.1"
@@ -19,13 +19,10 @@ gcloud container clusters get-credentials $GKE_CLUSTER \
   --zone us-east1-b --project $GCP_PROJECT
 
 # required dashboard access
-kubectl apply -f ./other/clusterrolebinding-dashboard.yaml
+kubectl apply -f ./roles/clusterrolebinding-dashboard.yaml
 
 # use dashboard token to sign into dashboard:
 kubectl -n kube-system describe secret kubernetes-dashboard-token
-
-# delete springdemo resources only
-#kubectl delete namespace dev test
 
 # delete gke cluster
 # gcloud deployment-manager deployments delete springdemo-istio-demo-deployment -q

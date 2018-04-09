@@ -10,7 +10,7 @@ spring:
     driver-class-name: org.postgresql.Driver
     jpa:
       show-sql: true
-message: The 'default' Profile is active
+message: The Spring 'default' Profile is active
 management:
   endpoints:
     web:
@@ -22,11 +22,11 @@ logging:
 ---
 spring:
   profiles: dev
-message: The 'dev' Profile is active
+message: The Spring 'dev' Profile is active
 ---
 spring:
   profiles: test
-message: The 'test' Profile is active
+message: The Spring 'test' Profile is active
 logging:
   level:
     root: INFO
@@ -35,7 +35,7 @@ spring:
   profiles: uat
   jpa:
     show-sql: false
-message: The 'uat' Profile is active
+message: The Spring 'uat' Profile is active
 management:
   endpoints:
     web:
@@ -49,7 +49,7 @@ spring:
   profiles: prod
   jpa:
     show-sql: false
-message: The 'prod' Profile is active
+message: The Spring 'prod' Profile is active
 management:
   endpoints:
     web:
