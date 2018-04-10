@@ -7,13 +7,6 @@ metadata:
 spec:
   destination:
     name: election
-  match:
-    request:
-      headers:
-        uri:
-          prefix: /dev/
-  rewrite:
-    uri: /
   route:
   - labels:
       app: election

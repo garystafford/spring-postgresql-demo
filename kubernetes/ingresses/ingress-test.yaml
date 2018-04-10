@@ -9,9 +9,10 @@ metadata:
     kubernetes.io/ingress.class: istio
 spec:
   rules:
-  - http:
+  - host: api.test.voter-demo.com
+    http:
       paths:
-      - path: /test/.*
+      - path: /.*
         backend:
           serviceName: election
           servicePort: 8080
