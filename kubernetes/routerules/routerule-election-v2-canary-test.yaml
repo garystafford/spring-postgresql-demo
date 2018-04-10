@@ -18,8 +18,8 @@ spec:
   - labels:
       app: election
       version: v2
-    weight: 100
-  - labels:
-      app: election
-      version: v1
-    weight: 0
+  #   weight: 100
+  # - labels:
+  #     app: election
+  #     version: v1
+  #   weight: 0
