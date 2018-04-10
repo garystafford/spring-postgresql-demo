@@ -2,7 +2,7 @@
 
 # should show routing between v1 and v2
 
-export URL="http://35.196.97.146"
+export URL="http://35.185.126.152"
 
 for i in {1..12}
 do

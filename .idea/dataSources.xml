@@ -13,5 +13,11 @@
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
       <jdbc-url>jdbc:postgresql://stampy.db.elephantsql.com:5432/dewyicib</jdbc-url>
     </data-source>
+    <data-source source="LOCAL" name="elections_dev@elections-dev.cldzl4hunvry.us-east-1.rds.amazonaws.com" uuid="2f55600b-b96f-4d69-9032-ceed21273723">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://elections-dev.cldzl4hunvry.us-east-1.rds.amazonaws.com:5432/elections_dev</jdbc-url>
+    </data-source>
   </component>
 </project>

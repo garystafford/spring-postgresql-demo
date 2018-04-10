@@ -40,7 +40,7 @@
 			"response": []
 		},
 		{
-			"name": "/foo",
+			"name": "/foo (404 error)",
 			"event": [
 				{
 					"listen": "test",
@@ -83,23 +83,22 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "9ff34beb-9e98-4a77-b7a9-14e366cb5e96",
+						"id": "f0682499-dabb-4637-bfe4-c94c0db28004",
 						"type": "text/javascript",
 						"exec": [
 							"var env = pm.environment.get(\"env\");",
-							"var version = \"2.0.0\";",
-							"",
+							"var version = pm.environment.get(\"version\");",
 							"",
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
 							"});",
 							"",
 							"pm.test(\"Body contains correct app version\", function () {",
-							"    pm.expect(pm.response.text()).to.include(\"PCF Spring PostgreSQL Demo v\" + version + \"\");",
+							"    pm.expect(pm.response.text()).to.include(\"PCF Spring PostgreSQL Demo \" + version + \"\");",
 							"});",
 							"",
 							"pm.test(\"Body contains correct active profile\", function () {",
-							"    pm.expect(pm.response.text()).to.include(\"The '\" + env + \"' Profile is active\");",
+							"    pm.expect(pm.response.text()).to.include(\"The Spring '\" + env + \"' Profile is active\");",
 							"});",
 							"",
 							"pm.test(\"Header 'server' contains value 'envoy'\", function () {",
@@ -273,6 +272,66 @@
 				"body": {
 					"mode": "raw",
 					"raw": "{\r\n  \"firstName\": \"Ron\",\r\n  \"lastName\": \"Paul\",\r\n  \"politicalParty\": \"Republican Party\",\r\n  \"homeState\": \"Texas\",\r\n  \"experience\": \"U.S. House of Representatives\"\r\n}"
+				},
+				"url": {
+					"raw": "{{protocol}}://{{host}}/{{env}}/candidates",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"{{env}}",
+						"candidates"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/candidates (500 error)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5f109e72-946d-4b7a-88b3-545b01409d69",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 500\", function () {",
+							"    pm.response.to.have.status(500);",
+							"});",
+							"",
+							"pm.test(\"Status code error 'Internal Server Error'\", function () {",
+							"    pm.response.to.have.status(\"Internal Server Error\");",
+							"});",
+							"",
+							"pm.test(\"Body contains string 'Validation failed'\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Validation failed\");",
+							"});"
+						]
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "b0543aa2-9a97-4df6-8c86-c33fdd4d6a6d",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"foo\": \"bar\"\r\n}"
 				},
 				"url": {
 					"raw": "{{protocol}}://{{host}}/{{env}}/candidates",

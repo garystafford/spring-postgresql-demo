@@ -1,13 +1,6 @@
 #!/bin/bash
 
-# apply resources part 3B: v2 to dev
-
-# *** change to your own gke cluster's ranges! ***
-# gcloud container clusters describe election-nonprod-cluster \
-#   --zone us-east1-b --project springdemo-199819 \
-#   | egrep 'clusterIpv4Cidr|servicesIpv4Cidr'
-
-export IP_RANGES="10.32.0.0/14,10.35.240.0/20"
+# apply resources part 4a: v2 to dev
 
 # election v2 deployment with manual sidecar injection
 istioctl kube-inject –kubeconfig "~/.kube/config" \
