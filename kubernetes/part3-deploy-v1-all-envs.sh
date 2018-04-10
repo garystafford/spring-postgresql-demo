@@ -29,3 +29,9 @@ kubectl apply -f ./services/election-service-dev.yaml
 kubectl apply -f ./services/election-service-test.yaml
 kubectl apply -f ./services/election-service-uat.yaml
 # kubectl describe services -n dev
+
+# route rules
+kubectl apply -f ./routerules/routerule-election-v1.yaml -n dev
+kubectl apply -f ./routerules/routerule-election-v1.yaml -n test
+kubectl apply -f ./routerules/routerule-election-v1.yaml -n uat
+# kubectl describe routerule -n dev

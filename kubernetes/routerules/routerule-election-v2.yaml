@@ -1,0 +1,19 @@
+# kubectl apply -f ./routerules/routerule-election-v2.yaml -n dev
+apiVersion: config.istio.io/v1alpha2
+kind: RouteRule
+metadata:
+  name: election-v2
+spec:
+  destination:
+    name: election
+  match:
+    request:
+      headers:
+        uri:
+          prefix: /v2/
+  rewrite:
+    uri: /
+  route:
+  - labels:
+      app: election
+      version: v2

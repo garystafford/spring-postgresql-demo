@@ -11,6 +11,6 @@ istioctl kube-inject –kubeconfig "~/.kube/config" \
   && rm election-deployment-istio.yaml
 # kubectl get deployments -n uat
 
-# routing
-kubectl apply -f ./routerules/routerule-election-v2-canary-uat.yaml
+# route rules
+kubectl apply -f ./routerules/routerule-election-v2.yaml -n uat
 # kubectl describe routerule -n uat
