@@ -4,10 +4,10 @@
 
 # election v2 deployment with manual sidecar injection
 istioctl kube-inject –kubeconfig "~/.kube/config" \
-  -f ./services/election-deployment-v2-uat.yaml \
+  -f ./deployments/election-deployment-v2.yaml \
   --includeIPRanges=$IP_RANGES > \
   election-deployment-istio.yaml \
-  && kubectl apply -f election-deployment-istio.yaml \
+  && kubectl apply -f election-deployment-istio.yaml -n uat \
   && rm election-deployment-istio.yaml
 # kubectl get deployments -n uat
 

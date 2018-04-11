@@ -1,0 +1,17 @@
+# kubectl apply -f ./routerules/routerule-election-canary.yaml -n test
+apiVersion: config.istio.io/v1alpha2
+kind: RouteRule
+metadata:
+  name: election-canary
+spec:
+  destination:
+    name: election
+  route:
+  - labels:
+      app: election
+      version: v2
+    weight: 50
+  - labels:
+      app: election
+      version: v1
+    weight: 50

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# run from command line
+# *** run from command line ***
 # capture the clusterIpv4Cidr and servicesIpv4Cidr values
 # required for manual sidecar injection with kube-inject
 
