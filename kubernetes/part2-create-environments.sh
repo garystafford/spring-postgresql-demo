@@ -6,7 +6,7 @@
 kubectl apply -f ./namespaces/namespace-dev.yaml
 kubectl apply -f ./namespaces/namespace-test.yaml
 kubectl apply -f ./namespaces/namespace-uat.yaml
-# kubectl get namespace
+# kubectl get namespaces
 # kubectl describe namespace dev
 
 # ingress
@@ -23,3 +23,5 @@ kubectl apply -f ./secrets/secret-postgresql-conn-info-uat.yaml
 
 # delete springdemo resources only
 #kubectl delete namespace dev test uat
+
+kubectl get namespaces

@@ -7,12 +7,17 @@ ISTIO_HOME="/Applications/istio-0.7.1"
 GCP_DEPLOYMENT_MANAGER="$ISTIO_HOME/install/gcp/deployment_manager"
 GCP_PROJECT="springdemo-199819"
 GKE_CLUSTER="election-nonprod-cluster"
+ISTIO_VER="0.7.1"
 GCP_ZONE="us-east1-b"
+NODE_COUNT="2"
+INSTANCE_TYPE="n1-standard-1"
 
 # deploy gke istio cluster
 gcloud deployment-manager deployments create springdemo-istio-demo-deployment \
   --template=$GCP_DEPLOYMENT_MANAGER/istio-cluster.jinja \
-  --properties gkeClusterName:$GKE_CLUSTER,zone:$GCP_ZONE,initialNodeCount:2,instanceType:n1-standard-1,enableAutomaticSidecarInjection:false,enableMutualTLS:true,enableBookInfoSample:false
+  --properties "gkeClusterName:$GKE_CLUSTER,installIstioRelease:$ISTIO_VER,"\
+"zone:$GCP_ZONE,initialNodeCount:$NODE_COUNT,instanceType:$INSTANCE_TYPE,"\
+"enableAutomaticSidecarInjection:false,enableMutualTLS:true,enableBookInfoSample:false"
 
 # get creds for cluster
 gcloud container clusters get-credentials $GKE_CLUSTER \
