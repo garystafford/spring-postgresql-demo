@@ -186,7 +186,6 @@ Below is a partial list of the application's exposed resources. To see all resou
     -   `/vote-totals/search/findByElection?election=2012%20Presidential%20Election`
     -   `/election-votes/summary` (GET - via `VoteTotalsViewController`)
 
-
 ## References
 
 -   <https://auth0.com/blog/integrating-spring-data-jpa-postgresql-liquibase>
