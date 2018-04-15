@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="spring-postgresql-demo-v2" time="9.639">
+  <testsuite name="/" id="a93614a2-8d74-480a-842e-948912cfb073" tests="1" time="0.133">
+    <testcase name="Status code is 200" time="0.133"/>
+  </testsuite>
+  <testsuite name="/foo (404 error)" id="885b6267-7297-4b9e-871f-bfe7142f2a82" tests="2" time="0.307">
+    <testcase name="Status code is 404" time="0.307"/>
+    <testcase name="Status code error 'Not Found'" time="0.307"/>
+  </testsuite>
+  <testsuite name="/actuator/env" id="d6864e68-bc4c-431e-bde8-5675296a9ff0" tests="4" time="0.063">
+    <testcase name="Status code is 200" time="0.063"/>
+    <testcase name="Body contains correct app version" time="0.063"/>
+    <testcase name="Body contains correct active profile" time="0.063"/>
+    <testcase name="Header 'server' contains value 'envoy'" time="0.063"/>
+  </testsuite>
+  <testsuite name="/actuator/mappings" id="7686f947-b521-4248-9634-3ef30b555901" tests="1" time="0.89">
+    <testcase name="Status code is 200" time="0.89"/>
+  </testsuite>
+  <testsuite name="/actuator/configprops" id="c0e62d93-768d-483a-93e5-8f4f056f1e9f" tests="1" time="0.923">
+    <testcase name="Status code is 200" time="0.923"/>
+  </testsuite>
+  <testsuite name="/candidates" id="b060fe70-4088-4f8c-b99c-efe86d344e2e" tests="1" time="0.814">
+    <testcase name="Status code is 200" time="0.814"/>
+  </testsuite>
+  <testsuite name="/candidates" id="39fc2381-7e1b-406c-8f82-d48bcc46a084" tests="1" time="0.447">
+    <testcase name="Status code is 201" time="0.447"/>
+  </testsuite>
+  <testsuite name="/candidates (500 error)" id="8ce614d7-f271-4b64-b9bc-44cb8bc87b3f" tests="3" time="0.851">
+    <testcase name="Status code is 500" time="0.851"/>
+    <testcase name="Status code error 'Internal Server Error'" time="0.851"/>
+    <testcase name="Body contains string 'Validation failed'" time="0.851"/>
+  </testsuite>
+  <testsuite name="/candidates/{{candidateId}}" id="0e446825-f067-4999-87ea-a81a184966fa" tests="1" time="0.644">
+    <testcase name="Status code is 200" time="0.644"/>
+  </testsuite>
+  <testsuite name="/candidates/{{candidateId}}" id="7d448ba6-a4f9-43ce-85fd-70c0a19774b4" tests="1" time="0.574">
+    <testcase name="Status code is 200" time="0.574"/>
+  </testsuite>
+  <testsuite name="/candidates/{{candidateId}}" id="6969cac4-ad04-46ae-8ded-189f156596bd" tests="1" time="0.539">
+    <testcase name="Status code is 204" time="0.539"/>
+  </testsuite>
+  <testsuite name="/candidates/summary" id="153313df-c81a-414e-ae45-84d5810c696a" tests="1" time="0.374">
+    <testcase name="Status code is 200" time="0.374"/>
+  </testsuite>
+  <testsuite name="/candidates/summary/{election}" id="57a604d1-3aac-4c69-a3d6-e3859b653c66" tests="1" time="0.158">
+    <testcase name="Status code is 200" time="0.158"/>
+  </testsuite>
+  <testsuite name="/candidates/search/findByLastName?lastName=Paul" id="9091b56f-991d-47f7-8de5-52c36f59b54c" tests="1" time="0.225">
+    <testcase name="Status code is 200" time="0.225"/>
+  </testsuite>
+  <testsuite name="/election-candidates" id="98fd1543-824d-49f6-955a-0facf888ea1d" tests="1" time="0.503">
+    <testcase name="Status code is 200" time="0.503"/>
+  </testsuite>
+  <testsuite name="/votes" id="a2e80b30-1753-433d-8fce-d657315cd5d2" tests="1" time="0.26">
+    <testcase name="Status code is 201" time="0.26"/>
+  </testsuite>
+  <testsuite name="/votes/{{voteId}}" id="2c11113e-fcfc-4607-ab60-df6a4dd3b89e" tests="1" time="0.371">
+    <testcase name="Status code is 200" time="0.371"/>
+  </testsuite>
+  <testsuite name="/votes?page=1&amp;size=25" id="8ad90218-77c1-437d-84e4-2f472eb06f04" tests="1" time="1.09">
+    <testcase name="Status code is 200" time="1.09"/>
+  </testsuite>
+  <testsuite name="/vote-totals" id="39a4526a-dbc5-4d13-bf2f-4db03e1a4a10" tests="1" time="0.473">
+    <testcase name="Status code is 200" time="0.473"/>
+  </testsuite>
+</testsuites>
