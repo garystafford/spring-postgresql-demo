@@ -16,9 +16,9 @@ kubectl apply -f ./ingresses/ingress-uat.yaml
 # kubectl get ingresses -n dev
 
 # secrets
-kubectl apply -f ../../spring-postgresql-demo-secrets/secret-postgresql-conn-info-dev.yaml
-kubectl apply -f ../../spring-postgresql-demo-secrets/secret-postgresql-conn-info-test.yaml
-kubectl apply -f ../../spring-postgresql-demo-secrets/secret-postgresql-conn-info-uat.yaml
+kubectl apply -f ./secrets/secret-postgresql-conn-info-dev.yaml
+kubectl apply -f ./secrets/secret-postgresql-conn-info-test.yaml
+kubectl apply -f ./secrets/secret-postgresql-conn-info-uat.yaml
 # kubectl describe secrets -n dev -l type=db
 
 # delete springdemo resources only
