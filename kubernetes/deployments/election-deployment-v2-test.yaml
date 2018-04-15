@@ -3,6 +3,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: election-v2
+  namespace: test
 spec:
   replicas: 2
   strategy: {}
@@ -21,7 +22,7 @@ spec:
         image: garystafford/spring-postgresql-demo:2.0.0
         env:
         - name: SPRING_PROFILES_ACTIVE
-          value: dev
+          value: test
         - name: SPRING_DATASOURCE_HIKARI_MAXIMUM-POOL-SIZE
           value: 5
         - name: SPRING_DATASOURCE_URL

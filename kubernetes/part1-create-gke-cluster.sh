@@ -9,7 +9,7 @@ GCP_PROJECT="springdemo-199819"
 GKE_CLUSTER="election-nonprod-cluster"
 ISTIO_VER="0.7.1"
 GCP_ZONE="us-east1-b"
-NODE_COUNT="2"
+NODE_COUNT="1"
 INSTANCE_TYPE="n1-standard-1"
 
 # deploy gke istio cluster

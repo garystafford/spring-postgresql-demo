@@ -1,0 +1,47 @@
+# kubectl apply -f ./routerules/routerule-election-v2.yaml -n dev
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: election-v2
+  namespace: uat
+spec:
+  replicas: 2
+  strategy: {}
+  selector:
+    matchLabels:
+      app: election
+      version: v2
+  template:
+    metadata:
+      labels:
+        app: election
+        version: v2
+    spec:
+      containers:
+      - name: election-v2
+        image: garystafford/spring-postgresql-demo:2.0.0
+        env:
+        - name: SPRING_PROFILES_ACTIVE
+          value: uat
+        - name: MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE
+          value: '*'
+        - name: SPRING_DATASOURCE_HIKARI_MAXIMUM-POOL-SIZE
+          value: 5
+        - name: SPRING_DATASOURCE_URL
+          valueFrom:
+            secretKeyRef:
+              name: postgresql-conn-info
+              key: url
+        - name: SPRING_DATASOURCE_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: postgresql-conn-info
+              key: username
+        - name: SPRING_DATASOURCE_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: postgresql-conn-info
+              key: password
+        ports:
+        - containerPort: 8080
+      restartPolicy: Always
