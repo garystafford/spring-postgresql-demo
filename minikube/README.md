@@ -7,23 +7,15 @@ Before deploying to GKE, you should always test your application, as well as you
 ```bash
 # create cluster
 minikube start
+minikube status
 
 # install Istio 0.7.1 without mTLS
 kubectl apply -f $ISTIO_HOME/install/kubernetes/istio.yaml
 
 # deploy v2 to local minikube dev environment
 sh ./part1-create-environment.sh
-sh ./part2-deploy-v2-dev.sh
-
-# discover URL and port for to connect to v2
-# https://istio.io/docs/guides/bookinfo.html
-# adjust for minikube ip
-export GATEWAY_URL=$(minikube ip):$(kubectl get svc istio-ingress -n istio-system -o 'jsonpath={.spec.ports[0].nodePort}')
-echo $GATEWAY_URL
-
-# smoke test election-v2
-curl $GATEWAY_URL/v2/
-curl $GATEWAY_URL/dev/v2/actuator/health && echo
+sh ./part2-deploy-v2.sh
+sh ./part3-smoke-test.sh
 
 # kubernetes dashboard
 minikube dashboard
@@ -35,8 +27,6 @@ minikube dashboard
 brew cask upgrade minikube
 
 minikube version
-minikube status
-minikube dashboard
 
 minikube get-k8s-versions
 

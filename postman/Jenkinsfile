@@ -1,0 +1,23 @@
+#!groovy
+
+pipeline {
+ agent any
+ stages {
+  stage('Checkout') {
+   steps {
+    git changelog: false, poll: false,
+     url: 'https://github.com/garystafford/spring-postgresql-demo'
+   }
+  }
+  stage('Test') {
+   steps {
+    dir('postman') {
+     nodejs('nodejs') {
+      sh 'sh newman-minikube.sh'
+     }
+     junit '**/newman/*.xml'
+    }
+   }
+  }
+ }
+}

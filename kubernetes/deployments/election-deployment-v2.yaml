@@ -23,7 +23,7 @@ spec:
         - name: SPRING_PROFILES_ACTIVE
           value: dev
         - name: SPRING_DATASOURCE_HIKARI_MAXIMUM-POOL-SIZE
-          value: 2
+          value: 5
         - name: SPRING_DATASOURCE_URL
           valueFrom:
             secretKeyRef:
