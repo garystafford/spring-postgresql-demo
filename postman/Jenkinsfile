@@ -5,7 +5,7 @@ pipeline {
  stages {
   stage('Checkout') {
    steps {
-    git changelog: false, poll: false,
+    git changelog: true, poll: false,
      url: 'https://github.com/garystafford/spring-postgresql-demo'
    }
   }
@@ -13,7 +13,7 @@ pipeline {
    steps {
     dir('postman') {
      nodejs('nodejs') {
-      sh 'sh ./newman-test-uat.sh'
+      sh 'sh newman-test-uat.sh'
      }
      junit '**/newman/*.xml'
     }
