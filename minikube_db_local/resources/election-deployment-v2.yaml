@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: election-v2
+  namespace: dev
+spec:
+  replicas: 1
+  strategy: {}
+  selector:
+    matchLabels:
+      app: election
+      version: v2
+  template:
+    metadata:
+      labels:
+        app: election
+        version: v2
+    spec:
+      containers:
+      - name: election-v2
+        image: garystafford/spring-postgresql-demo:2.0.0
+        env:
+        - name: SPRING_DATASOURCE_HIKARI_MAXIMUM-POOL-SIZE
+          value: 2
+        - name: SPRING_DATASOURCE_URL
+          value: jdbc:postgresql://postgres:5432/elections
+        ports:
+        - containerPort: 8080
+      restartPolicy: Always

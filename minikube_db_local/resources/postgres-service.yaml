@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    istio-injection: enabled
+    app: postgres
+  name: postgres
+  namespace: dev
+spec:
+  ports:
+  - name: http
+    port: 5432
+  selector:
+    app: postgres
+status: {}

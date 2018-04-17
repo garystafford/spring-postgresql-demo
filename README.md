@@ -137,6 +137,7 @@ Below is a partial list of the application's exposed resources. To see all resou
     -   `/candidates`
     -   `/candidates/{id}`
     -   `/profile/candidates`
+    -   `/candidates/search`
     -   `/candidates/search/findByLastName?lastName=Obama`
     -   `/candidates/search/findByPoliticalParty?politicalParty=Democratic%20Party`
     -   `/candidates/summary` (GET - via `CandidateController`)
@@ -147,6 +148,7 @@ Below is a partial list of the application's exposed resources. To see all resou
     -   `/elections`
     -   `/elections/{id}`
     -   `/profile/elections`
+    -   `/elections/search`
     -   `/elections/search/findByTitle?title=2012%20Presidential%20Election`
     -   `/elections/search/findByDescriptionContains?description=American`
     -   `/elections/summary` (GET - via `ElectionController`)
