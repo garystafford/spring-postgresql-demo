@@ -1,0 +1,252 @@
+{
+	"info": {
+		"_postman_id": "7f0a55c7-9fb1-4267-8e3f-21dab0bae780",
+		"name": "election-k8s-smoke",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "/",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7c3fd311-1e9e-4b1d-b7ca-c1db969d9099",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"_links\");",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "{{protocol}}://{{host}}/{{version}}/",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"{{version}}",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/actuator/health",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "aa2ffafb-9166-4537-89fe-ef51a3c8fc52",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Your test name\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.status).to.eql(\"UP\");",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "{{protocol}}://{{host}}/{{version}}/actuator/health",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"{{version}}",
+						"actuator",
+						"health"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/actuator/env",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "25c7828d-ad17-4ee7-81d7-406f0be80036",
+						"type": "text/javascript",
+						"exec": [
+							"var env = pm.environment.get(\"env\");",
+							"var version = pm.environment.get(\"version\");",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Body contains correct app version\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"PCF Spring PostgreSQL Demo \" + version + \".0.0\");",
+							"});",
+							"",
+							"pm.test(\"Body contains correct active profile\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"The Spring '\" + env + \"' Profile is active\");",
+							"});",
+							"",
+							"pm.test(\"Header 'server' contains value 'envoy'\", function () {",
+							"    pm.expect(postman.getResponseHeader(\"server\")).to.include(\"envoy\");",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "{{protocol}}://{{host}}/{{version}}/actuator/env",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"{{version}}",
+						"actuator",
+						"env"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/actuator/mappings",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "fbc9a7b2-8e65-4844-9a1c-137bdf093b90",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "{{protocol}}://{{host}}/{{version}}/actuator/configprops",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"{{version}}",
+						"actuator",
+						"configprops"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/actuator/configprops",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3f55f86a-89a9-417c-a7c1-79655fd197d4",
+						"type": "text/javascript",
+						"exec": [
+							"var version = pm.environment.get(\"version\");",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Body contains correct app version\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"PCF Spring PostgreSQL Demo \" + version + \".0.0\");",
+							"});",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "{{protocol}}://{{host}}/{{version}}/actuator/configprops",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"{{version}}",
+						"actuator",
+						"configprops"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/foo (404 error)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "23d73861-eef5-46c1-8618-4b51f8f2b703",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {",
+							"    pm.response.to.have.status(404);",
+							"});",
+							"",
+							"pm.test(\"Status code error 'Not Found'\", function () {",
+							"    pm.response.to.have.status(\"Not Found\");",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "{{protocol}}://{{host}}/{{version}}/foo",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"{{version}}",
+						"foo"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

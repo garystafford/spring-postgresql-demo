@@ -3,17 +3,27 @@
 pipeline {
  agent any
  stages {
-  stage('Checkout') {
+  stage('Checkout SCM') {
    steps {
     git changelog: true, poll: false,
      url: 'https://github.com/garystafford/spring-postgresql-demo'
    }
   }
-  stage('Test') {
+  stage('Smoke Tests') {
    steps {
     dir('postman') {
      nodejs('nodejs') {
-      sh 'sh newman-test-minikube.sh'
+      sh 'sh newman-smoke-tests-minikube.sh'
+     }
+     junit '**/newman/*.xml'
+    }
+   }
+  }
+  stage('Integration Tests') {
+   steps {
+    dir('postman') {
+     nodejs('nodejs') {
+      sh 'sh newman-integration-tests-minikube.sh'
      }
      junit '**/newman/*.xml'
     }
