@@ -49,14 +49,14 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "aa2ffafb-9166-4537-89fe-ef51a3c8fc52",
+						"id": "7498e548-5ccc-44b4-8440-16414bb15090",
 						"type": "text/javascript",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
 							"});",
 							"",
-							"pm.test(\"Your test name\", function () {",
+							"pm.test(\"Status value is UP\", function () {",
 							"    var jsonData = pm.response.json();",
 							"    pm.expect(jsonData.status).to.eql(\"UP\");",
 							"});"
