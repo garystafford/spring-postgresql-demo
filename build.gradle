@@ -1,12 +1,14 @@
 buildscript {
     ext {
-        springBootVersion = '2.0.0.RELEASE'
+        springBootVersion = '2.0.1.RELEASE'
     }
     repositories {
         jcenter()
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath ("org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:2.6.2")
+        classpath ("io.spring.gradle:dependency-management-plugin:1.0.5.RELEASE")
     }
 }
 
@@ -15,9 +17,10 @@ apply plugin: 'eclipse'
 apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
+apply plugin: 'org.sonarqube'
 
 def application_name = 'spring-postgresql-demo'
-def major = '2.0'
+def major = '2.1'
 def minor = System.env.TRAVIS_BUILD_NUMBER ?: '0'
 def artifact_version = major + '.' + minor
 
@@ -32,7 +35,7 @@ repositories {
 }
 
 ext {
-    springBootVersion = '2.0.0.RELEASE'
+    springBootVersion = '2.0.1.RELEASE'
     springfoxVersion = '2.8.0'
 }
 
@@ -45,7 +48,15 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-actuator:${springBootVersion}")
     compile("io.springfox:springfox-swagger2:${springfoxVersion}")
     compile("io.springfox:springfox-swagger-ui:${springfoxVersion}")
-    compile('org.liquibase:liquibase-core:3.5.5')
-    runtime('org.postgresql:postgresql:42.2.2')
+    compile("org.liquibase:liquibase-core:3.5.5")
+    compile("org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:2.6.2")
+    runtime("org.postgresql:postgresql:42.2.2")
     testCompile("org.springframework.boot:spring-boot-starter-test:${springBootVersion}")
+}
+
+test {
+    testLogging {
+        events "passed", "skipped", "failed", "standardOut", "standardError"
+        exceptionFormat "full"
+    }
 }
