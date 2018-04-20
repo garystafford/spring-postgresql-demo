@@ -17,7 +17,7 @@ services:
 
   springdemo:
     build: .
-    image: garystafford/spring-postgresql-demo:2.0.0
+    image: garystafford/spring-postgresql-demo:2.1.0
     networks:
       - postgres-demo
     ports:

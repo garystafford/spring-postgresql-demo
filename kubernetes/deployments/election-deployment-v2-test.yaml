@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
       - name: election-v2
-        image: garystafford/spring-postgresql-demo:2.0.0
+        image: garystafford/spring-postgresql-demo:2.1.0
         env:
         - name: SPRING_PROFILES_ACTIVE
           value: test
