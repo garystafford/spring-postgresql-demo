@@ -1,0 +1,47 @@
+#!groovy
+
+pipeline {
+ agent any
+ tools {
+  gradle 'gradle'
+ }
+ stages {
+  stage('Checkout SCM') {
+   steps {
+    git changelog: true, poll: true,
+     branch: 'master',
+     url: 'https://github.com/garystafford/spring-postgresql-demo'
+   }
+  }
+  stage('Build') {
+   steps {
+    sh 'gradle clean build'
+   }
+  }
+  stage('Unit Test') {
+   steps {
+    sh 'gradle test'
+   }
+  }
+  stage('SonarQube Analysis') {
+   steps {
+    withSonarQubeEnv('Local SonarQube') {
+     sh 'gradle sonarqube'
+    }
+   }
+  }
+  stage('Publish') {
+   steps {
+    withCredentials([string(credentialsId: 'GIT_TOKEN', variable: 'GIT_TOKEN')]) {
+     sh 'cd build/libs \
+         && git init \
+         && git add *.jar \
+         && git commit -m "Deploy JAR build artifacts to GitHub" \
+         && git push --force --quiet --progress \
+            "https://x-access-token:$GIT_TOKEN@github.com/garystafford/spring-postgresql-demo.git" \
+            master:build-artifacts-gke'
+    }
+   }
+  }
+ }
+}
