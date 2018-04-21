@@ -15,10 +15,10 @@ def artifact_version = major + '.' + minor
 group = application_name
 version = artifact_version
 
-jar {
-    baseName = application_name
-    version =  artifact_version
-}
+// jar {
+//     baseName = application_name
+//     version =  artifact_version
+// }
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
