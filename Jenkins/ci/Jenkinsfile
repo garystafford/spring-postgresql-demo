@@ -6,7 +6,7 @@ pipeline {
   gradle 'gradle'
  }
  stages {
-  stage('Checkout SCM') {
+  stage('Checkout from GitHub') {
    steps {
     git changelog: true, poll: true,
      branch: 'h2',
@@ -23,6 +23,7 @@ pipeline {
      withEnv(['SPRING_DATASOURCE_URL=jdbc:h2:file:~/elections']) {
        sh 'gradle cleanTest test'
      }
+     junit '**/build/test-results/test/*.xml'
    }
   }
   stage('SonarQube Analysis') {
@@ -32,7 +33,7 @@ pipeline {
     }
    }
   }
-  stage('Publish to GitHub') {
+  stage('Publish Artifact') {
    steps {
     withCredentials([string(credentialsId: 'GIT_TOKEN', variable: 'GIT_TOKEN')]) {
      sh 'cd build/libs \
@@ -40,7 +41,7 @@ pipeline {
          && git config user.name "jenkins-ci" \
          && git config user.email "jenkins-ci@jenkins-ci.com" \
          && git add *.jar \
-         && git commit -m "Deploy JAR build artifacts to GitHub" \
+         && git commit -m "Deploy JAR build artifact to GitHub" \
          && git push --force --quiet --progress \
             "https://x-access-token:$GIT_TOKEN@github.com/garystafford/spring-postgresql-demo.git" \
             master:build-artifacts-gke'
