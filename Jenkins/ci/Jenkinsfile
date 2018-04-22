@@ -9,7 +9,7 @@ pipeline {
   stage('Checkout SCM') {
    steps {
     git changelog: true, poll: true,
-     branch: 'master',
+     branch: 'h2',
      url: 'https://github.com/garystafford/spring-postgresql-demo'
    }
   }
@@ -20,8 +20,7 @@ pipeline {
   }
   stage('Unit Test') {
    steps {
-     withEnv(['SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/elections',
-              'SPRING_LIQUIBASE_ENABLED=false']) {
+     withEnv(['SPRING_DATASOURCE_URL=jdbc:h2:file:~/elections']) {
        sh 'gradle cleanTest test'
      }
    }
