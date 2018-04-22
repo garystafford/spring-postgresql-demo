@@ -13,14 +13,17 @@ pipeline {
      url: 'https://github.com/garystafford/spring-postgresql-demo'
    }
   }
-  stage('Build') {
+  stage('Build JAR') {
    steps {
-    sh 'gradle clean build'
+    sh 'gradle clean build -x test'
    }
   }
   stage('Unit Test') {
    steps {
-    sh 'gradle test'
+     withEnv(['SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/elections',
+              'SPRING_LIQUIBASE_ENABLED=false']) {
+       sh 'gradle cleanTest test'
+     }
    }
   }
   stage('SonarQube Analysis') {
@@ -30,11 +33,13 @@ pipeline {
     }
    }
   }
-  stage('Publish') {
+  stage('Publish to GitHub') {
    steps {
     withCredentials([string(credentialsId: 'GIT_TOKEN', variable: 'GIT_TOKEN')]) {
      sh 'cd build/libs \
          && git init \
+         && git config user.name "jenkins-ci" \
+         && git config user.email "jenkins-ci@jenkins-ci.com" \
          && git add *.jar \
          && git commit -m "Deploy JAR build artifacts to GitHub" \
          && git push --force --quiet --progress \

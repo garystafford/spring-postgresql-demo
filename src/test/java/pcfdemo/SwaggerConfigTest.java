@@ -1,5 +1,8 @@
 package pcfdemo;
 
+import liquibase.Liquibase;
+import liquibase.integration.spring.SpringLiquibase;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +18,12 @@ public class SwaggerConfigTest {
 
     @Autowired
     private SwaggerConfig swaggerConfig;
+
+    @BeforeClass
+    public static void switchOffLiquibase() {
+        SpringLiquibase liquibase = new SpringLiquibase();
+        liquibase.setShouldRun(false);
+    }
 
     @Test
     public void apiInfo_Docket_DocumentationType_Swagger() {

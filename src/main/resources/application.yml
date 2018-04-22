@@ -4,12 +4,16 @@ spring:
   application:
     name: PCF Spring PostgreSQL Demo v2.0.0
   datasource:
-    url: jdbc:postgresql://localhost:5432/elections
-    username: postgres
-    password: postgres1234
-    driver-class-name: org.postgresql.Driver
+    url: jdbc:h2:file:~/elections
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
     jpa:
       show-sql: true
+  h2:
+    console:
+      enabled: true
+      path: /h2
 message: The Spring 'default' Profile is active
 management:
   endpoints:
@@ -22,6 +26,13 @@ logging:
 ---
 spring:
   profiles: dev
+  datasource:
+    url: jdbc:postgresql://localhost:5432/elections
+    username: postgres
+    password: postgres1234
+    driver-class-name: org.postgresql.Driver
+    jpa:
+      show-sql: true
 message: The Spring 'dev' Profile is active
 ---
 spring:

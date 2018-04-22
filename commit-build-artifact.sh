@@ -12,6 +12,8 @@ set -xe
 cd build/libs
 
 git init
+git config user.name "garystafford"
+git config user.email "garystafford@rochester.rr.com"
 git add *.jar
 git commit -m "Deploy JAR build artifacts to GitHub"
 git push --force --quiet --progress \
