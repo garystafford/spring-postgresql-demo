@@ -1,16 +1,19 @@
 #!groovy
 
+def ARTIFACT_NAME = "spring-postgresql-demo"
+def ARTIFACT_VERSION = "2.1"
+
 pipeline {
  agent any
  tools {
   gradle 'gradle'
  }
  stages {
-  stage('Checkout from GitHub') {
+  stage('Checkout GitHub') {
    steps {
     git changelog: true, poll: true,
      branch: 'h2',
-     url: 'https://github.com/garystafford/spring-postgresql-demo'
+     url: "https://github.com/garystafford/${ARTIFACT_NAME}"
    }
   }
   stage('Build JAR') {
@@ -29,22 +32,23 @@ pipeline {
   stage('SonarQube Analysis') {
    steps {
     withSonarQubeEnv('Local SonarQube') {
-     sh 'gradle sonarqube -Dsonar.projectName=spring-postgresql-demo'
+     sh "gradle sonarqube -Dsonar.projectName=${ARTIFACT_NAME}"
     }
    }
   }
   stage('Publish Artifact') {
    steps {
     withCredentials([string(credentialsId: 'GIT_TOKEN', variable: 'GIT_TOKEN')]) {
-     sh 'cd build/libs \
+     sh "cd build/libs \
          && git init \
-         && git config user.name "jenkins-ci" \
-         && git config user.email "jenkins-ci@jenkins-ci.com" \
+         && git config user.name \"jenkins-ci\" \
+         && git config user.email \"jenkins-ci@jenkins-ci.com\" \
+         && mv *.jar ${ARTIFACT_NAME}-${ARTIFACT_VERSION}.${BUILD_NUMBER}.jar \
          && git add *.jar \
-         && git commit -m "Deploy JAR build artifact to GitHub" \
+         && git commit -m \"Publish ${ARTIFACT_NAME}-${ARTIFACT_VERSION}.${BUILD_NUMBER}.jar\" \
          && git push --force --quiet --progress \
-            "https://x-access-token:$GIT_TOKEN@github.com/garystafford/spring-postgresql-demo.git" \
-            master:build-artifacts-gke'
+            \"https://x-access-token:${GIT_TOKEN}@github.com/garystafford/${ARTIFACT_NAME}.git\" \
+            master:build-artifacts-gke"
     }
    }
   }
