@@ -1,7 +1,7 @@
 #!groovy
 
 def DOCKER_HUB_ACCOUNT = "garystafford"
-def IMAGE_NAME = "spring-postgresql-demo"
+def PROJECT_NAME = "spring-postgresql-demo"
 // def IMAGE_TAG = "2.1.0"
 
 pipeline {
@@ -16,7 +16,7 @@ stages {
    steps {
     git changelog: true, poll: true,
      branch: 'h2',
-     url: "https://github.com/garystafford/${IMAGE_NAME}"
+     url: "https://github.com/garystafford/${PROJECT_NAME}"
    }
   }
   stage('Build Image') {
@@ -32,8 +32,8 @@ stages {
     dir('docker') {
       // sh 'ls -al'
       sh 'docker version'
-      sh "docker build --file Dockerfile_Jenkins --no-cache --tag ${DOCKER_HUB_ACCOUNT}/${IMAGE_NAME}:${params.IMAGE_TAG} ."
-      sh "docker push ${DOCKER_HUB_ACCOUNT}/${IMAGE_NAME}:${params.IMAGE_TAG}"
+      sh "docker build --file Dockerfile_Jenkins --no-cache --tag ${DOCKER_HUB_ACCOUNT}/${PROJECT_NAME}:${params.IMAGE_TAG} ."
+      sh "docker push ${DOCKER_HUB_ACCOUNT}/${PROJECT_NAME}:${params.IMAGE_TAG}"
     }
    }
   }
