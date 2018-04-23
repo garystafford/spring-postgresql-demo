@@ -58,4 +58,12 @@ pipeline {
    }
   }
  }
+ post {
+  success {
+   slackSend(color: '#008000', message: "SUCCESS: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
+  }
+  failure {
+   slackSend(color: '#FF0000', message: "FAILURE: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
+  }
+ }
 }
