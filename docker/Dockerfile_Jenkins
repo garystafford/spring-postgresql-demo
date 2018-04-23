@@ -4,9 +4,8 @@ ENV REFRESHED_AT 2018-04-22
 EXPOSE 8080
 RUN set -ex \
   && apk update \
-  && apk upgrade \
-  && apk add git
+  && apk upgrade
 RUN mkdir /springdemo
-COPY *.jar /springdemo
+COPY *.jar /springdemo/
 WORKDIR springdemo
 CMD [ "java", "-Djava.security.egd=file:/dev/./urandom", "-jar", "springdemo/spring-postgresql-demo.jar" ]
