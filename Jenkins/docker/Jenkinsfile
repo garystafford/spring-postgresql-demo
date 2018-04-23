@@ -2,11 +2,16 @@
 
 def DOCKER_HUB_ACCOUNT = "garystafford"
 def IMAGE_NAME = "spring-postgresql-demo"
-def IMAGE_TAG = "2.1.0"
+// def IMAGE_TAG = "2.1.0"
 
 pipeline {
  agent any
- stages {
+ parameters {
+  string defaultValue: 'latest',
+    description: 'Tag applied to new Docker Image',
+    name: 'IMAGE_TAG', trim: true
+}
+stages {
   stage('Checkout GitHub') {
    steps {
     git changelog: true, poll: true,
@@ -17,18 +22,18 @@ pipeline {
   stage('Build Image') {
    steps {
     copyArtifacts filter: 'build/libs/*.jar', fingerprintArtifacts: true,
-        flatten: true, projectName: 'election-ci', selector: lastSuccessful(),
-        target: 'docker/'
+      flatten: true, projectName: 'election-ci', selector: lastSuccessful(),
+      target: 'docker/'
     withCredentials([usernamePassword(credentialsId: 'DOCKER_HUB',
-        usernameVariable: 'DOCKER_HUB_USERNAME',
-        passwordVariable: 'DOCKER_HUB_PASSWORD')]) {
-      sh 'docker version'
+      usernameVariable: 'DOCKER_HUB_USERNAME',
+      passwordVariable: 'DOCKER_HUB_PASSWORD')]) {
       sh "docker login --username ${DOCKER_HUB_USERNAME} --password ${DOCKER_HUB_PASSWORD}"
     }
     dir('docker') {
       // sh 'ls -al'
-      sh "docker build --file Dockerfile_Jenkins --no-cache -t ${DOCKER_HUB_ACCOUNT}/${IMAGE_NAME}:${IMAGE_TAG} ."
-      sh "docker push ${DOCKER_HUB_ACCOUNT}/${IMAGE_NAME}:${IMAGE_TAG}"
+      sh 'docker version'
+      sh "docker build --file Dockerfile_Jenkins --no-cache --tag ${DOCKER_HUB_ACCOUNT}/${IMAGE_NAME}:${params.IMAGE_TAG} ."
+      sh "docker push ${DOCKER_HUB_ACCOUNT}/${IMAGE_NAME}:${params.IMAGE_TAG}"
     }
    }
   }

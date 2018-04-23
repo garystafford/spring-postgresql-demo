@@ -19,13 +19,14 @@ pipeline {
   }
   stage('Build') {
    steps {
-    sh 'gradle clean build -x test'
+     sh 'gradle wrapper'
+     sh './gradlew clean build -x test -ParchiveName=${ARTIFACT_NAME}'
    }
   }
   stage('Unit Test') {
    steps {
      withEnv(['SPRING_DATASOURCE_URL=jdbc:h2:file:~/elections']) {
-       sh 'gradle cleanTest test'
+       sh './gradlew cleanTest test'
      }
      junit '**/build/test-results/test/*.xml'
    }
@@ -33,7 +34,7 @@ pipeline {
   stage('SonarQube Analysis') {
    steps {
     withSonarQubeEnv('Local SonarQube') {
-     sh "gradle sonarqube -Dsonar.projectName=${ARTIFACT_PREFIX}"
+     sh "./gradlew sonarqube -Dsonar.projectName=${ARTIFACT_PREFIX}"
     }
    }
   }
