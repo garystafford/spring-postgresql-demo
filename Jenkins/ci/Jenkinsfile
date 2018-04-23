@@ -1,7 +1,8 @@
 #!groovy
 
-def ARTIFACT_NAME = "spring-postgresql-demo"
+def ARTIFACT_PREFIX = "spring-postgresql-demo"
 def ARTIFACT_VERSION = "2.1"
+def ARTIFACT_NAME = "${ARTIFACT_PREFIX}-${ARTIFACT_VERSION}.${BUILD_NUMBER}"
 
 pipeline {
  agent any
@@ -13,10 +14,10 @@ pipeline {
    steps {
     git changelog: true, poll: true,
      branch: 'h2',
-     url: "https://github.com/garystafford/${ARTIFACT_NAME}"
+     url: "https://github.com/garystafford/${ARTIFACT_PREFIX}"
    }
   }
-  stage('Build JAR') {
+  stage('Build') {
    steps {
     sh 'gradle clean build -x test'
    }
@@ -32,23 +33,29 @@ pipeline {
   stage('SonarQube Analysis') {
    steps {
     withSonarQubeEnv('Local SonarQube') {
-     sh "gradle sonarqube -Dsonar.projectName=${ARTIFACT_NAME}"
+     sh "gradle sonarqube -Dsonar.projectName=${ARTIFACT_PREFIX}"
     }
    }
+  }
+  stage('Archive Artifact') {
+    steps {
+        sh "mv build/libs/*.jar build/libs/${ARTIFACT_NAME}.jar"
+        archiveArtifacts 'build/libs/*.jar'
+    }
   }
   stage('Publish Artifact') {
    steps {
     withCredentials([string(credentialsId: 'GIT_TOKEN', variable: 'GIT_TOKEN')]) {
-     sh "cd build/libs \
-         && git init \
-         && git config user.name \"jenkins-ci\" \
-         && git config user.email \"jenkins-ci@jenkins-ci.com\" \
-         && mv *.jar ${ARTIFACT_NAME}-${ARTIFACT_VERSION}.${BUILD_NUMBER}.jar \
-         && git add *.jar \
-         && git commit -m \"Publish ${ARTIFACT_NAME}-${ARTIFACT_VERSION}.${BUILD_NUMBER}.jar\" \
-         && git push --force --quiet --progress \
-            \"https://x-access-token:${GIT_TOKEN}@github.com/garystafford/${ARTIFACT_NAME}.git\" \
-            master:build-artifacts-gke"
+        dir('build/libs/') {
+             sh "git init \
+             && git config user.name \"jenkins-ci\" \
+             && git config user.email \"jenkins-ci@jenkins-ci.com\" \
+             && git add *.jar \
+             && git commit -m \"Publish ${ARTIFACT_NAME}.jar\" \
+             && git push --force --quiet --progress \
+                \"https://x-access-token:${GIT_TOKEN}@github.com/garystafford/${ARTIFACT_PREFIX}.git\" \
+                master:build-artifacts-gke"
+      }
     }
    }
   }

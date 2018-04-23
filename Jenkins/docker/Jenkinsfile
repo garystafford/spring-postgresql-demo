@@ -1,0 +1,36 @@
+#!groovy
+
+def DOCKER_HUB_ACCOUNT = "garystafford"
+def IMAGE_NAME = "spring-postgresql-demo"
+def IMAGE_TAG = "2.1.0"
+
+pipeline {
+ agent any
+ stages {
+  stage('Checkout GitHub') {
+   steps {
+    git changelog: true, poll: true,
+     branch: 'h2',
+     url: "https://github.com/garystafford/${IMAGE_NAME}"
+   }
+  }
+  stage('Build Image') {
+   steps {
+    copyArtifacts filter: 'build/libs/*.jar', fingerprintArtifacts: true,
+        flatten: true, projectName: 'election-ci', selector: lastSuccessful(),
+        target: 'docker/'
+    withCredentials([usernamePassword(credentialsId: 'DOCKER_HUB',
+        usernameVariable: 'DOCKER_HUB_USERNAME',
+        passwordVariable: 'DOCKER_HUB_PASSWORD')]) {
+      sh 'docker version'
+      sh "docker login --username ${DOCKER_HUB_USERNAME} --password ${DOCKER_HUB_PASSWORD}"
+    }
+    dir('docker') {
+      // sh 'ls -al'
+      sh "docker build --file Dockerfile_Jenkins --no-cache -t ${DOCKER_HUB_ACCOUNT}/${IMAGE_NAME}:${IMAGE_TAG} ."
+      sh "docker push ${DOCKER_HUB_ACCOUNT}/${IMAGE_NAME}:${IMAGE_TAG}"
+    }
+   }
+  }
+ }
+}
