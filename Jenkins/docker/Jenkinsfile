@@ -31,8 +31,15 @@ stages {
     }
     dir('docker') {
       // sh 'ls -al'
-      sh 'docker version'
+      // sh 'docker version'
       sh "docker build --file Dockerfile_Jenkins --no-cache --tag ${DOCKER_HUB_ACCOUNT}/${PROJECT_NAME}:${params.IMAGE_TAG} ."
+    }
+   }
+  }
+  stage('Push Image') {
+   steps {
+    dir('docker') {
+      // sh 'ls -al'
       sh "docker push ${DOCKER_HUB_ACCOUNT}/${PROJECT_NAME}:${params.IMAGE_TAG}"
     }
    }
