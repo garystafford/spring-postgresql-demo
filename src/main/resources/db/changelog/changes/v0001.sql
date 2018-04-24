@@ -6,15 +6,12 @@
 ------------------------------
 CREATE TABLE IF NOT EXISTS candidate (
   id              SERIAL PRIMARY KEY     NOT NULL,
-  first_name      TEXT                   NOT NULL,
-  last_name       TEXT                   NOT NULL,
-  political_party TEXT                   NOT NULL,
-  home_state      TEXT,
+  first_name      varchar(30)            NOT NULL,
+  last_name       varchar(40)            NOT NULL,
+  political_party varchar(50)            NOT NULL,
+  home_state      varchar(20),
   experience      TEXT
 );
-
-CREATE INDEX IF NOT EXISTS IX_Candidate_LastName
-  ON candidate (last_name);
 
 ------------------------------
 -- election table
@@ -22,14 +19,11 @@ CREATE INDEX IF NOT EXISTS IX_Candidate_LastName
 CREATE TABLE IF NOT EXISTS election (
   id          SERIAL PRIMARY KEY     NOT NULL,
   date        DATE                   NOT NULL,
-  type        TEXT                   NOT NULL,
-  title       TEXT                   NOT NULL,
+  type        varchar(40)            NOT NULL,
+  title       varchar(40)            NOT NULL,
   term        SMALLINT               NOT NULL,
   description TEXT
 );
-
-CREATE INDEX IF NOT EXISTS IX_Election_Title
-  ON election (title);
 
 ------------------------------
 -- election_candidate table

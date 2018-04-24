@@ -7,18 +7,11 @@ plugins {
   id 'idea'
 }
 
-def application_name = 'spring-postgresql-demo'
 def major = '2.1'
 def minor = System.env.TRAVIS_BUILD_NUMBER ?: '0'
 def artifact_version = major + '.' + minor
 
-group = application_name
 version = artifact_version
-
-// jar {
-//     baseName = application_name
-//     version =  artifact_version
-// }
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
@@ -39,6 +32,7 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-hateoas:${springBootVersion}")
     compile("org.springframework.boot:spring-boot-starter-web:${springBootVersion}")
     compile("org.springframework.boot:spring-boot-starter-actuator:${springBootVersion}")
+    compile('com.h2database:h2:1.4.197')
     compile("io.springfox:springfox-swagger2:${springfoxVersion}")
     compile("io.springfox:springfox-swagger-ui:${springfoxVersion}")
     compile("org.liquibase:liquibase-core:3.5.5")

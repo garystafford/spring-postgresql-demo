@@ -1,12 +1,14 @@
 #!groovy
 
+def PROJECT_NAME = "spring-postgresql-demo"
+
 pipeline {
  agent any
  stages {
   stage('Checkout SCM') {
    steps {
     git changelog: true, poll: false,
-     url: 'https://github.com/garystafford/spring-postgresql-demo'
+     url: "https://github.com/garystafford/${PROJECT_NAME}"
    }
   }
   stage('Smoke Tests') {

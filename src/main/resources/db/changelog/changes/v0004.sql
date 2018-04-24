@@ -1,5 +1,5 @@
 --liquibase formatted sql
---changeset gary.stafford:elections-sql splitStatements:false
+--changeset gary.stafford:elections-sql splitStatements:false dbms:postgresql
 
 -----------------------------------
 -- generate completely random votes
