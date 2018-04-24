@@ -1,0 +1,28 @@
+#!groovy
+
+def PROJECT_NAME = "spring-postgresql-demo"
+
+pipeline {
+ agent any
+ tools {
+  gradle 'gradle'
+ }
+ stages {
+  stage('Checkout GitHub') {
+   steps {
+    git changelog: true, poll: true,
+     branch: 'h2',
+     url: "https://github.com/garystafford/${PROJECT_NAME}"
+   }
+  }
+  stage('Create GKE Cluster') {
+   steps {
+    withCredentials([string(credentialsId: 'GIT_TOKEN', variable: 'GIT_TOKEN')]) {
+        dir('kubernetes/') {
+             sh 'sh part1-create-gke-cluster.sh'
+      }
+    }
+   }
+  }
+ }
+}
