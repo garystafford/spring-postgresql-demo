@@ -14,8 +14,8 @@ pipeline {
         }
         stage('Create GKE Cluster') {
             steps {
-                dir('jenkins/') {
-                    sh 'sh ./install-istio.sh'
+                dir('kubernetes/') {
+                    sh 'sh ./part1B-get-cluster-creds.sh'
                 }
             }
         }
