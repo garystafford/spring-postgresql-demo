@@ -31,7 +31,7 @@ pipeline {
   }
   stage('SonarQube Analysis') {
    steps {
-    withSonarQubeEnv('Local SonarQube') {
+    withSonarQubeEnv('sonarqube') {
      sh "./gradlew sonarqube -Dsonar.projectName=${PROJECT_NAME}"
     }
    }
