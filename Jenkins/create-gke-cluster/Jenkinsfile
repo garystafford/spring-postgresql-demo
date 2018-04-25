@@ -4,9 +4,6 @@ def PROJECT_NAME = "spring-postgresql-demo"
 
 pipeline {
     agent any
-    tools {
-        gradle 'gradle'
-    }
     stages {
         stage('Checkout GitHub') {
             steps {
@@ -18,7 +15,7 @@ pipeline {
         stage('Create GKE Cluster') {
             steps {
                 dir('jenkins/') {
-                    sh 'sh install-istio.sh'
+                    sh 'sh ./install-istio.sh'
                 }
             }
         }
