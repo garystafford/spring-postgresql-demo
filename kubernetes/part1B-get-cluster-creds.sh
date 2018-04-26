@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# part 1B: get gke/istio cluster creds
+# part 1b: get gke/istio cluster creds
 
 # change to match your environment
 GCP_PROJECT="springdemo-199819"
