@@ -16,7 +16,13 @@ pipeline {
             steps {
                 dir('kubernetes') {
                     sh 'sh ./part2-create-environments.sh'
-                    sh 'sh ./get-cluster-ip-ranges.sh'
+                }
+            }
+        }
+        stage('Get Cluster CIDRs') {
+            steps {
+                dir('kubernetes') {
+                    sh 'export IP_RANGES=$(sh ./get-cluster-ip-ranges.sh)'
                 }
             }
         }

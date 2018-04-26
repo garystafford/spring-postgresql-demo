@@ -2,7 +2,6 @@
 
 def DOCKER_HUB_ACCOUNT = "garystafford"
 def PROJECT_NAME = "spring-postgresql-demo"
-// def IMAGE_TAG = "2.1.0"
 
 pipeline {
     agent any
@@ -30,8 +29,6 @@ pipeline {
                     sh "docker login --username ${DOCKER_HUB_USERNAME} --password ${DOCKER_HUB_PASSWORD}"
                 }
                 dir('docker') {
-                    // sh 'ls -al'
-                    // sh 'docker version'
                     sh "docker build --file Dockerfile_Jenkins --no-cache --tag ${DOCKER_HUB_ACCOUNT}/${PROJECT_NAME}:${params.IMAGE_TAG} ."
                 }
             }
@@ -39,7 +36,6 @@ pipeline {
         stage('Push Image') {
             steps {
                 dir('docker') {
-                    // sh 'ls -al'
                     sh "docker push ${DOCKER_HUB_ACCOUNT}/${PROJECT_NAME}:${params.IMAGE_TAG}"
                 }
             }
