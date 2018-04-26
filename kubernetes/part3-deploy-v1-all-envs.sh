@@ -2,7 +2,7 @@
 
 # part 3: deploy v1 to all environments
 
-echo $IP_RANGES
+env | sort
 
 # election v1 deployment with manual sidecar injection
 istioctl kube-inject –kubeconfig "~/.kube/config" \
