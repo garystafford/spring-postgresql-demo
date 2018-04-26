@@ -12,20 +12,24 @@ pipeline {
                         url: "https://github.com/garystafford/${PROJECT_NAME}"
             }
         }
-        dir('kubernetes') {
-            stage('Build Environments') {
-                steps {
+        stage('Build Environments') {
+            steps {
+                dir('kubernetes') {
                     sh 'sh ./part2-create-environments.sh'
                     sh 'sh ./get-cluster-ip-ranges.sh'
                 }
             }
-            stage('Deploy Postgres to dev') {
-                steps {
+        }
+        stage('Deploy Postgres to dev') {
+            steps {
+                dir('kubernetes') {
                     sh 'sh ./deploy-postgres-local.sh'
                 }
             }
-            stage('Deploy Election v1') {
-                steps {
+        }
+        stage('Deploy Election v1') {
+            steps {
+                dir('kubernetes') {
                     sh 'sh ./part3-deploy-v1-all-envs.sh'
                 }
             }
