@@ -33,9 +33,10 @@ pipeline {
                 }
             }
         }
-        stage('Deploy Election v1') {
+        stage('Deploy Election v1 to dev') {
             environment { // get cluster ip ranges for deploy script
-                IP_RANGE = sh(returnStdout: true, script: 'sh ./kubernetes/get-cluster-ip-ranges.sh')
+                IP_RANGES = sh(returnStdout: true,
+                        script: 'sh ./kubernetes/get-cluster-ip-ranges.sh')
             }
             steps {
                 dir('kubernetes') {
