@@ -36,6 +36,6 @@ kubectl apply -f ./routerules/routerule-election-v1.yaml -n test
 kubectl apply -f ./routerules/routerule-election-v1.yaml -n uat
 # kubectl describe routerule -n dev
 
-# kubectl get pods -n dev
-# kubectl get pods -n test
-# kubectl get pods -n uat
+kubectl get pods -n dev
+kubectl get pods -n test
+kubectl get pods -n uat
