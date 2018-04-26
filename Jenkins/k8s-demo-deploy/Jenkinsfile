@@ -15,7 +15,7 @@ pipeline {
         stage('Get Cluster Creds') {
             steps {
                 dir('kubernetes') {
-                    sh 'sh ./part1B-get-cluster-creds'
+                    sh 'sh ./part1b-get-cluster-creds'
                 }
             }
         }
@@ -40,7 +40,7 @@ pipeline {
             steps {
                 dir('kubernetes') {
                     sh 'env | sort'
-                    sh 'sh ./part3A-deploy-v1-dev.sh'
+                    sh 'sh ./part3a-deploy-v1-dev.sh'
                 }
             }
         }
