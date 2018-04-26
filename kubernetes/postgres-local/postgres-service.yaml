@@ -7,8 +7,9 @@ metadata:
   name: postgres
 spec:
   ports:
-  - name: foo
+  - protocol: TCP
     port: 5432
+    targetPort: 5432
   selector:
     app: postgres
 status: {}

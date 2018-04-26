@@ -5,8 +5,7 @@
 # election v1 deployment with manual sidecar injection
 # kubectl apply -f ./deployments/election-deployment-v1-dev.yaml
 istioctl kube-inject –kubeconfig "~/.kube/config" \
-  -f ./deployments/election-deployment-v1-dev.yaml \
-  --includeIPRanges=$IP_RANGES > \
+  -f ./deployments/election-deployment-v1-dev.yaml > \
   election-deployment-istio.yaml \
   && kubectl apply -f election-deployment-istio.yaml \
   && rm election-deployment-istio.yaml
