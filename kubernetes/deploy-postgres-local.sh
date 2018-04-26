@@ -9,4 +9,4 @@ kubectl apply -f ./postgres-local/postgres-deployment.yaml -n dev
 
 kubectl apply -f ./postgres-local/postgres-service.yaml -n dev
 
-kubectl get pods -dev
+kubectl get pods -n dev

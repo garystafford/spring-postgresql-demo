@@ -1,0 +1,34 @@
+#!groovy
+
+def PROJECT_NAME = "spring-postgresql-demo"
+
+pipeline {
+    agent any
+    stages {
+        stage('Checkout GitHub') {
+            steps {
+                git changelog: true, poll: true,
+                        branch: 'h2',
+                        url: "https://github.com/garystafford/${PROJECT_NAME}"
+            }
+        }
+        dir('kubernetes') {
+            stage('Build Environments') {
+                steps {
+                    sh 'sh ./part2-create-environments.sh'
+                    sh 'sh ./get-cluster-ip-ranges.sh'
+                }
+            }
+            stage('Deploy Postgres to dev') {
+                steps {
+                    sh 'sh ./deploy-postgres-local.sh'
+                }
+            }
+            stage('Deploy Election v1') {
+                steps {
+                    sh 'sh ./part3-deploy-v1-all-envs.sh'
+                }
+            }
+        }
+    }
+}

@@ -3,67 +3,67 @@
 def PROJECT_NAME = "spring-postgresql-demo"
 
 pipeline {
- agent any
- tools {
-  gradle 'gradle'
- }
- stages {
-  stage('Checkout GitHub') {
-   steps {
-    git changelog: true, poll: true,
-     branch: 'h2',
-     url: "https://github.com/garystafford/${PROJECT_NAME}"
-   }
-  }
-  stage('Build') {
-   steps {
-     sh 'gradle wrapper'
-     sh './gradlew clean build -x test'
-   }
-  }
-  stage('Unit Test') {
-   steps {
-     withEnv(['SPRING_DATASOURCE_URL=jdbc:h2:file:~/elections']) {
-       sh './gradlew cleanTest test'
-     }
-     junit '**/build/test-results/test/*.xml'
-   }
-  }
-  stage('SonarQube Analysis') {
-   steps {
-    withSonarQubeEnv('sonarqube') {
-     sh "./gradlew sonarqube -Dsonar.projectName=${PROJECT_NAME}"
+    agent any
+    tools {
+        gradle 'gradle'
     }
-   }
-  }
-  stage('Archive Artifact') {
-    steps {
-        archiveArtifacts 'build/libs/*.jar'
-    }
-  }
-  stage('Publish Artifact') {
-   steps {
-    withCredentials([string(credentialsId: 'GIT_TOKEN', variable: 'GIT_TOKEN')]) {
-        dir('build/libs/') {
-             sh "git init \
-             && git config user.name \"jenkins-ci\" \
-             && git config user.email \"jenkins-ci@jenkins-ci.com\" \
-             && git add *.jar \
+    stages {
+        stage('Checkout GitHub') {
+            steps {
+                git changelog: true, poll: true,
+                        branch: 'h2',
+                        url: "https://github.com/garystafford/${PROJECT_NAME}"
+            }
+        }
+        stage('Build') {
+            steps {
+                sh 'gradle wrapper'
+                sh './gradlew clean build -x test'
+            }
+        }
+        stage('Unit Test') {
+            steps {
+                withEnv(['SPRING_DATASOURCE_URL=jdbc:h2:file:~/elections']) {
+                    sh './gradlew cleanTest test'
+                }
+                junit '**/build/test-results/test/*.xml'
+            }
+        }
+        stage('SonarQube Analysis') {
+            steps {
+                withSonarQubeEnv('sonarqube') {
+                    sh "./gradlew sonarqube -Dsonar.projectName=${PROJECT_NAME}"
+                }
+            }
+        }
+        stage('Archive Artifact') {
+            steps {
+                archiveArtifacts 'build/libs/*.jar'
+            }
+        }
+        stage('Publish Artifact') {
+            steps {
+                withCredentials([string(credentialsId: 'GIT_TOKEN', variable: 'GIT_TOKEN')]) {
+                    dir('build/libs/') {
+                        sh "git init \
+                        && git config user.name \"jenkins-ci\" \
+                        && git config user.email \"jenkins-ci@jenkins-ci.com\" \
+                        && git add *.jar \
              && git commit -m \"Publish build artifact\" \
-             && git push --force --quiet --progress \
+                        && git push --force --quiet --progress \
                 \"https://x-access-token:${GIT_TOKEN}@github.com/garystafford/${PROJECT_NAME}.git\" \
-                master:build-artifacts-gke"
-      }
+                        master:build-artifacts-gke"
+                    }
+                }
+            }
+        }
     }
-   }
-  }
- }
- post {
-  success {
-   slackSend(color: '#008000', message: "SUCCESS: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
-  }
-  failure {
-   slackSend(color: '#FF0000', message: "FAILURE: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
-  }
- }
+    post {
+        success {
+            slackSend(color: '#008000', message: "SUCCESS: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
+        }
+        failure {
+            slackSend(color: '#FF0000', message: "FAILURE: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
+        }
+    }
 }

@@ -3,33 +3,33 @@
 def PROJECT_NAME = "spring-postgresql-demo"
 
 pipeline {
- agent any
- stages {
-  stage('Checkout SCM') {
-   steps {
-    git changelog: true, poll: false,
-     url: "https://github.com/garystafford/${PROJECT_NAME}"
-   }
-  }
-  stage('Smoke Tests') {
-   steps {
-    dir('postman') {
-     nodejs('nodejs') {
-      sh 'sh newman-smoke-tests-minikube.sh'
-     }
-     junit '**/newman/*.xml'
+    agent any
+    stages {
+        stage('Checkout SCM') {
+            steps {
+                git changelog: true, poll: false,
+                        url: "https://github.com/garystafford/${PROJECT_NAME}"
+            }
+        }
+        stage('Smoke Tests') {
+            steps {
+                dir('postman') {
+                    nodejs('nodejs') {
+                        sh 'sh newman-smoke-tests-minikube.sh'
+                    }
+                    junit '**/newman/*.xml'
+                }
+            }
+        }
+        stage('Integration Tests') {
+            steps {
+                dir('postman') {
+                    nodejs('nodejs') {
+                        sh 'sh newman-integration-tests-minikube.sh'
+                    }
+                    junit '**/newman/*.xml'
+                }
+            }
+        }
     }
-   }
-  }
-  stage('Integration Tests') {
-   steps {
-    dir('postman') {
-     nodejs('nodejs') {
-      sh 'sh newman-integration-tests-minikube.sh'
-     }
-     junit '**/newman/*.xml'
-    }
-   }
-  }
- }
 }
