@@ -15,3 +15,7 @@ aws rds delete-db-instance \
   --db-instance-identifier elections-dev \
   --skip-final-snapshot
 ```
+
+```bash
+kubectl -n dev run curl --image=radial/busyboxplus:curl -i --tty
+```

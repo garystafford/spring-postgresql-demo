@@ -26,7 +26,20 @@ spec:
         - name: SPRING_DATASOURCE_HIKARI_MAXIMUM-POOL-SIZE
           value: 2
         - name: SPRING_DATASOURCE_URL
-          value: jdbc:postgresql://postgres:5432/elections
+          valueFrom:
+            secretKeyRef:
+              name: postgresql-conn-info
+              key: url
+        - name: SPRING_DATASOURCE_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: postgresql-conn-info
+              key: username
+        - name: SPRING_DATASOURCE_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: postgresql-conn-info
+              key: password
         ports:
         - containerPort: 8080
       restartPolicy: Always
