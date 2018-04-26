@@ -15,7 +15,7 @@ pipeline {
         stage('Get Cluster Creds') {
             steps {
                 dir('kubernetes') {
-                    sh 'sh ./part1b-get-cluster-creds'
+                    sh 'sh ./part1b-get-cluster-creds.sh'
                 }
             }
         }
