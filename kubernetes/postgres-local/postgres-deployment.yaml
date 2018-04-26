@@ -2,7 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    istio-injection: enabled
     app: postgres
   name: postgres
 spec:
@@ -14,7 +13,6 @@ spec:
   template:
     metadata:
       labels:
-        istio-injection: enabled
         app: postgres
     spec:
       containers:
@@ -22,8 +20,6 @@ spec:
         env:
         - name: POSTGRES_DB
           value: elections
-        - name: PGDATA
-          value: /var/lib/postgresql/data/pgdata
         - name: POSTGRES_PASSWORD
           value: postgres1234
         - name: POSTGRES_USERNAME
