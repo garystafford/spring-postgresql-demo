@@ -19,12 +19,12 @@ spec:
     spec:
       containers:
       - name: election-v1
-        image: garystafford/spring-postgresql-demo:1.0.0
+        image: garystafford/spring-postgresql-demo:1.1.0
         env:
         - name: SPRING_PROFILES_ACTIVE
           value: dev
         - name: SPRING_DATASOURCE_HIKARI_MAXIMUM-POOL-SIZE
-          value: 2
+          value: '2'
         - name: SPRING_DATASOURCE_URL
           valueFrom:
             secretKeyRef:

@@ -2,40 +2,43 @@
 
 def DOCKER_HUB_ACCOUNT = "garystafford"
 def PROJECT_NAME = "spring-postgresql-demo"
-// def IMAGE_TAG = "2.1.0"
 
 pipeline {
- agent any
- parameters {
-  string defaultValue: 'latest',
-    description: 'Tag applied to new Docker Image',
-    name: 'IMAGE_TAG', trim: true
-}
-stages {
-  stage('Checkout GitHub') {
-   steps {
-    git changelog: true, poll: true,
-     branch: 'h2',
-     url: "https://github.com/garystafford/${PROJECT_NAME}"
-   }
-  }
-  stage('Build Image') {
-   steps {
-    copyArtifacts filter: 'build/libs/*.jar', fingerprintArtifacts: true,
-      flatten: true, projectName: 'election-ci', selector: lastSuccessful(),
-      target: 'docker/'
-    withCredentials([usernamePassword(credentialsId: 'DOCKER_HUB',
-      usernameVariable: 'DOCKER_HUB_USERNAME',
-      passwordVariable: 'DOCKER_HUB_PASSWORD')]) {
-      sh "docker login --username ${DOCKER_HUB_USERNAME} --password ${DOCKER_HUB_PASSWORD}"
+    agent any
+    parameters {
+        string defaultValue: 'latest',
+                description: 'Tag applied to new Docker Image',
+                name: 'IMAGE_TAG', trim: true
     }
-    dir('docker') {
-      // sh 'ls -al'
-      sh 'docker version'
-      sh "docker build --file Dockerfile_Jenkins --no-cache --tag ${DOCKER_HUB_ACCOUNT}/${PROJECT_NAME}:${params.IMAGE_TAG} ."
-      sh "docker push ${DOCKER_HUB_ACCOUNT}/${PROJECT_NAME}:${params.IMAGE_TAG}"
+    stages {
+        stage('Checkout GitHub') {
+            steps {
+                git changelog: true, poll: false,
+                        branch: 'master',
+                        url: "https://github.com/garystafford/${PROJECT_NAME}"
+            }
+        }
+        stage('Build Image') { // uses option 1 from ci job to build Dockerfile
+            steps {
+                copyArtifacts filter: 'build/libs/*.jar', fingerprintArtifacts: true,
+                        flatten: true, projectName: 'election-ci', selector: lastSuccessful(),
+                        target: 'docker/'
+                withCredentials([usernamePassword(credentialsId: 'DOCKER_HUB',
+                        usernameVariable: 'DOCKER_HUB_USERNAME',
+                        passwordVariable: 'DOCKER_HUB_PASSWORD')]) {
+                    sh "docker login --username ${DOCKER_HUB_USERNAME} --password ${DOCKER_HUB_PASSWORD}"
+                }
+                dir('docker') {
+                    sh "docker build --file Dockerfile_Jenkins --no-cache --tag ${DOCKER_HUB_ACCOUNT}/${PROJECT_NAME}:${params.IMAGE_TAG} ."
+                }
+            }
+        }
+        stage('Push Image') {
+            steps {
+                dir('docker') {
+                    sh "docker push ${DOCKER_HUB_ACCOUNT}/${PROJECT_NAME}:${params.IMAGE_TAG}"
+                }
+            }
+        }
     }
-   }
-  }
- }
 }

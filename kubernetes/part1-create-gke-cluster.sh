@@ -5,10 +5,12 @@
 # change to match your environment
 ISTIO_HOME="/Applications/istio-0.7.1"
 GCP_DEPLOYMENT_MANAGER="$ISTIO_HOME/install/gcp/deployment_manager"
+
 GCP_PROJECT="springdemo-199819"
 GKE_CLUSTER="election-nonprod-cluster"
-ISTIO_VER="0.7.1"
 GCP_ZONE="us-east1-b"
+
+ISTIO_VER="0.7.1"
 NODE_COUNT="1"
 INSTANCE_TYPE="n1-standard-1"
 

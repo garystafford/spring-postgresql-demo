@@ -2,6 +2,8 @@
 
 # part 2: deploy v2 to minimkube local dev
 
+kubectl config use-context minikube
+
 # election v2 deployment with manual sidecar injection
 istioctl kube-inject –kubeconfig "~/.kube/config" \
   -f ./resources/election-deployment-v2.yaml \

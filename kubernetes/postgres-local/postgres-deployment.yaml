@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: postgres
+  name: postgres
+spec:
+  selector:
+    matchLabels:
+      app: postgres
+  replicas: 1
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: postgres
+    spec:
+      containers:
+      - image: postgres:10.3-alpine
+        env:
+        - name: POSTGRES_DB
+          value: elections
+        - name: POSTGRES_PASSWORD
+          value: postgres1234
+        - name: POSTGRES_USERNAME
+          value: postgres
+        name: postgres
+        ports:
+        - containerPort: 5432
+      restartPolicy: Always
+status: {}
