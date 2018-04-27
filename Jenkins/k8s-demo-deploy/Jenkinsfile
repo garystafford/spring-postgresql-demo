@@ -7,8 +7,8 @@ pipeline {
     stages {
         stage('Checkout GitHub') {
             steps {
-                git changelog: true, poll: true,
-                        branch: 'h2',
+                git changelog: true, poll: false,
+                        branch: 'master',
                         url: "https://github.com/garystafford/${PROJECT_NAME}"
             }
         }
@@ -19,17 +19,17 @@ pipeline {
                 }
             }
         }
-        stage('Build Environments') {
+        stage('Build Environments') { // dev, test, uat
             steps {
                 dir('kubernetes') {
                     sh 'sh ./part2-create-environments.sh'
                 }
             }
         }
-        stage('Deploy Postgres to dev') {
+        stage('Deploy Postgres to dev') { // doesn't work with istio!
             steps {
                 dir('kubernetes') {
-                    sh 'sh ./deploy-postgres-local.sh'
+                    sh 'sh ./deploy-postgres-gke-dev.sh'
                 }
             }
         }
@@ -42,6 +42,16 @@ pipeline {
                 dir('kubernetes') {
                     sh 'env | sort'
                     sh 'sh ./part3a-deploy-v1-dev.sh'
+                }
+            }
+        }
+        stage('Smoke Test') { // assumes 'api.dev.voter-demo.com' reachable
+            steps {
+                dir('postman') {
+                    nodejs('nodejs') {
+                        sh 'sh newman-smoke-tests-minikube.sh'
+                    }
+                    junit '**/newman/*.xml'
                 }
             }
         }

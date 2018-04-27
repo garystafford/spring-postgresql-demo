@@ -11,7 +11,7 @@ pipeline {
         stage('Checkout GitHub') {
             steps {
                 git changelog: true, poll: true,
-                        branch: 'h2',
+                        branch: 'master',
                         url: "https://github.com/garystafford/${PROJECT_NAME}"
             }
         }
@@ -21,7 +21,7 @@ pipeline {
                 sh './gradlew clean build -x test'
             }
         }
-        stage('Unit Test') {
+        stage('Unit Test') { // unit test against h2
             steps {
                 withEnv(['SPRING_DATASOURCE_URL=jdbc:h2:file:~/elections']) {
                     sh './gradlew cleanTest test'
@@ -36,12 +36,12 @@ pipeline {
                 }
             }
         }
-        stage('Archive Artifact') {
+        stage('Archive Artifact') { // option 1 to build Dockerfile in next pipeline
             steps {
                 archiveArtifacts 'build/libs/*.jar'
             }
         }
-        stage('Publish Artifact') {
+        stage('Publish Artifact') { // option 2 to build Dockerfile in next pipeline
             steps {
                 withCredentials([string(credentialsId: 'GIT_TOKEN', variable: 'GIT_TOKEN')]) {
                     dir('build/libs/') {

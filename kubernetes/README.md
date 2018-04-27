@@ -1,4 +1,4 @@
-# Kubernetes Installation
+# Kubernetes Installation Notes
 
 ## Amazon RDS
 
