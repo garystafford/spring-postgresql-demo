@@ -1,6 +1,8 @@
 #!/bin/bash
 
-# *** run from command line ***
+# run this command line:
+# export IP_RANGES=$(sh ./get-cluster-ip-ranges.sh)
+
 # capture the clusterIpv4Cidr and servicesIpv4Cidr values
 # required for manual sidecar injection with kube-inject
 

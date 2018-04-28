@@ -1,13 +1,14 @@
 #!groovy
 
 def PROJECT_NAME = "spring-postgresql-demo"
+def ENVIRONMENT = "uat"
 
 pipeline {
     agent any
     stages {
         stage('Checkout SCM') {
             steps {
-                git changelog: true, poll: false,
+                git changelog: true, poll: true,
                         branch: 'master',
                         url: "https://github.com/garystafford/${PROJECT_NAME}"
             }
@@ -16,7 +17,7 @@ pipeline {
             steps {
                 dir('postman') {
                     nodejs('nodejs') {
-                        sh 'sh newman-smoke-tests-minikube.sh'
+                        sh "sh ./newman-smoke-tests-${ENVIRONMENT}.sh"
                     }
                     junit '**/newman/*.xml'
                 }
@@ -26,7 +27,7 @@ pipeline {
             steps {
                 dir('postman') {
                     nodejs('nodejs') {
-                        sh 'sh newman-integration-tests-minikube.sh'
+                        sh "sh ./newman-integration-tests-${ENVIRONMENT}.sh"
                     }
                     junit '**/newman/*.xml'
                 }
