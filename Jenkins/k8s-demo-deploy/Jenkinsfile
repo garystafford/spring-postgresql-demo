@@ -1,6 +1,8 @@
 #!groovy
 
+def ACCOUNT = "garystafford"
 def PROJECT_NAME = "spring-postgresql-demo"
+def ENVIRONMENT = "dev"
 
 pipeline {
     agent any
@@ -9,7 +11,7 @@ pipeline {
             steps {
                 git changelog: true, poll: false,
                         branch: 'master',
-                        url: "https://github.com/garystafford/${PROJECT_NAME}"
+                        url: "https://github.com/${ACCOUNT}/${PROJECT_NAME}"
             }
         }
         stage('Get Cluster Creds') {
@@ -49,7 +51,7 @@ pipeline {
             steps {
                 dir('postman') {
                     nodejs('nodejs') {
-                        sh 'sh newman-smoke-tests-minikube.sh'
+                        sh "sh ./newman-smoke-tests-${ENVIRONMENT}.sh"
                     }
                     junit '**/newman/*.xml'
                 }

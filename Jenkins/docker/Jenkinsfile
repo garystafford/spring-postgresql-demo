@@ -1,6 +1,6 @@
 #!groovy
 
-def DOCKER_HUB_ACCOUNT = "garystafford"
+def ACCOUNT = "garystafford"
 def PROJECT_NAME = "spring-postgresql-demo"
 
 pipeline {
@@ -15,7 +15,7 @@ pipeline {
             steps {
                 git changelog: true, poll: false,
                         branch: 'master',
-                        url: "https://github.com/garystafford/${PROJECT_NAME}"
+                        url: "https://github.com/${ACCOUNT}/${PROJECT_NAME}"
             }
         }
         stage('Build Image') { // uses option 1 from ci job to build Dockerfile
@@ -29,14 +29,14 @@ pipeline {
                     sh "docker login --username ${DOCKER_HUB_USERNAME} --password ${DOCKER_HUB_PASSWORD}"
                 }
                 dir('docker') {
-                    sh "docker build --file Dockerfile_Jenkins --no-cache --tag ${DOCKER_HUB_ACCOUNT}/${PROJECT_NAME}:${params.IMAGE_TAG} ."
+                    sh "docker build --file Dockerfile_Jenkins --no-cache --tag ${ACCOUNT}/${PROJECT_NAME}:${params.IMAGE_TAG} ."
                 }
             }
         }
         stage('Push Image') {
             steps {
                 dir('docker') {
-                    sh "docker push ${DOCKER_HUB_ACCOUNT}/${PROJECT_NAME}:${params.IMAGE_TAG}"
+                    sh "docker push ${ACCOUNT}/${PROJECT_NAME}:${params.IMAGE_TAG}"
                 }
             }
         }

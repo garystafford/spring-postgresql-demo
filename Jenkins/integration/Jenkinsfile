@@ -1,7 +1,8 @@
 #!groovy
 
+def ACCOUNT = "garystafford"
 def PROJECT_NAME = "spring-postgresql-demo"
-def ENVIRONMENT = "uat"
+def ENVIRONMENT = "dev"
 
 pipeline {
     agent any
@@ -10,7 +11,7 @@ pipeline {
             steps {
                 git changelog: true, poll: true,
                         branch: 'master',
-                        url: "https://github.com/garystafford/${PROJECT_NAME}"
+                        url: "https://github.com/${ACCOUNT}/${PROJECT_NAME}"
             }
         }
         stage('Smoke Tests') {

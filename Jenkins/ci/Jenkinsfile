@@ -1,5 +1,6 @@
 #!groovy
 
+def ACCOUNT = "garystafford"
 def PROJECT_NAME = "spring-postgresql-demo"
 
 pipeline {
@@ -12,7 +13,7 @@ pipeline {
             steps {
                 git changelog: true, poll: true,
                         branch: 'master',
-                        url: "https://github.com/garystafford/${PROJECT_NAME}"
+                        url: "https://github.com/${ACCOUNT}/${PROJECT_NAME}"
             }
         }
         stage('Build') {
@@ -51,7 +52,7 @@ pipeline {
                         && git add *.jar \
              && git commit -m \"Publish build artifact\" \
                         && git push --force --quiet --progress \
-                \"https://x-access-token:${GIT_TOKEN}@github.com/garystafford/${PROJECT_NAME}.git\" \
+                \"https://x-access-token:${GIT_TOKEN}@github.com/${ACCOUNT}/${PROJECT_NAME}.git\" \
                         master:build-artifacts-gke"
                     }
                 }
@@ -60,10 +61,12 @@ pipeline {
     }
     post {
         success {
-            slackSend(color: '#008000', message: "SUCCESS: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
+            slackSend(color: '#008000',
+                    message: "SUCCESS: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
         }
         failure {
-            slackSend(color: '#FF0000', message: "FAILURE: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
+            slackSend(color: '#FF0000',
+                    message: "FAILURE: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
         }
     }
 }
