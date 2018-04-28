@@ -9,7 +9,7 @@ pipeline {
     stages {
         stage('Checkout SCM') {
             steps {
-                git changelog: true, poll: true,
+                git changelog: true, poll: false,
                         branch: 'master',
                         url: "https://github.com/${ACCOUNT}/${PROJECT_NAME}"
             }
