@@ -2,7 +2,7 @@
 
 def ACCOUNT = "garystafford"
 def PROJECT_NAME = "spring-postgresql-demo"
-def ENVIRONMENT = "dev"
+def ENVIRONMENT = "dev" // assumes 'api.dev.voter-demo.com' reachable
 
 pipeline {
     agent any
@@ -14,7 +14,7 @@ pipeline {
                         url: "https://github.com/${ACCOUNT}/${PROJECT_NAME}"
             }
         }
-        stage('Smoke Tests') {
+        stage('Smoke Test') {
             steps {
                 dir('postman') {
                     nodejs('nodejs') {

@@ -28,7 +28,7 @@ pipeline {
                 }
             }
         }
-        stage('Deploy Postgres to dev') { // doesn't work with istio!
+        stage('Deploy Postgres to dev') { // protocol doesn't work with istio!
             steps {
                 dir('kubernetes') {
                     sh 'sh ./deploy-postgres-gke-dev.sh'
