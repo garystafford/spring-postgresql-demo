@@ -1,3 +1,13 @@
+buildscript {
+    repositories {
+        jcenter()
+        maven { url "https://plugins.gradle.org/m2/" }
+    }
+    dependencies {
+        classpath 'com.netflix.nebula:gradle-ospackage-plugin:4.3.0'
+    }
+}
+
 plugins {
   id 'org.sonarqube' version '2.6.2'
   id 'io.spring.dependency-management' version '1.0.5.RELEASE'
@@ -7,11 +17,25 @@ plugins {
   id 'idea'
 }
 
+apply plugin: 'nebula.ospackage'
+
 def major = '2.1'
 def minor = System.env.TRAVIS_BUILD_NUMBER ?: '0'
 def artifact_version = major + '.' + minor
 
 version = artifact_version
+
+ospackage {
+    packageName = rootProject.name
+    version = artifact_version
+
+    postInstall file('config/scripts/post-install.sh')
+
+    from('build/libs/spring-postgresql-demo-2.1.0.jar') {
+        into '/tmp'
+    }
+}
+
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
