@@ -7,5 +7,5 @@ RUN set -ex \
   && apk upgrade
 RUN mkdir /springdemo
 COPY *.jar /springdemo/
-WORKDIR springdemo
+WORKDIR /springdemo
 CMD [ "java", "-Djava.security.egd=file:/dev/./urandom", "-jar", "spring-postgresql-demo.jar" ]
