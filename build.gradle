@@ -26,15 +26,23 @@ def artifact_version = major + '.' + minor
 version = artifact_version
 
 task packDeb(type: Deb) {
-  packageName = rootProject.name
-  version = artifact_version
-
+    packageName = rootProject.name
+    version = artifact_version
     os = LINUX
+
+    postInstallFile file('scripts/deb/postInstall.sh')
+
     into '/opt/' + rootProject.name
 
     from(jar.outputs.files) {
         into 'lib'
     }
+
+    from('scripts') {
+        into 'bin'
+        fileMode 0550
+    }
+
 }
 
 sourceCompatibility = 1.8
