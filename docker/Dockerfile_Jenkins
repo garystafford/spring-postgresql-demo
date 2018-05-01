@@ -8,4 +8,4 @@ RUN set -ex \
 RUN mkdir /springdemo
 COPY *.jar /springdemo/
 WORKDIR springdemo
-CMD [ "java", "-Djava.security.egd=file:/dev/./urandom", "-jar", "springdemo/spring-postgresql-demo.jar" ]
+CMD [ "java", "-Djava.security.egd=file:/dev/./urandom", "-jar", "spring-postgresql-demo.jar" ]

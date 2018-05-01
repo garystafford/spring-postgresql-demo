@@ -29,7 +29,7 @@ ospackage {
     packageName = rootProject.name
     version = artifact_version
 
-    postInstall file('config/scripts/post-install.sh')
+//    postInstall file('config/scripts/post-install.sh')
 
     from('build/libs/spring-postgresql-demo-2.1.0.jar') {
         into '/tmp'
