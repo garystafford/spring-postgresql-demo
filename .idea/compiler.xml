@@ -2,8 +2,6 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <bytecodeTargetLevel>
-      <module name="pcf-postgresql-demo_main" target="1.8" />
-      <module name="pcf-postgresql-demo_test" target="1.8" />
       <module name="spring-postgresql-demo_main" target="1.8" />
       <module name="spring-postgresql-demo_test" target="1.8" />
     </bytecodeTargetLevel>

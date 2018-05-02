@@ -1,0 +1,151 @@
+{
+  "keepWaitingPipelines": false,
+  "lastModifiedBy": "anonymous",
+  "limitConcurrent": true,
+  "parameterConfig": [],
+  "stages": [
+    {
+      "clusters": [
+        {
+          "account": "local",
+          "application": "spring",
+          "cloudProvider": "kubernetes",
+          "containers": [
+            {
+              "args": [],
+              "command": [],
+              "envVars": [],
+              "imageDescription": {
+                "account": "dockerhub",
+                "fromTrigger": true,
+                "imageId": "index.docker.io/garystafford/spring-postgresql-demo:2.1.0",
+                "registry": "index.docker.io",
+                "repository": "garystafford/spring-postgresql-demo",
+                "tag": "2.1.0"
+              },
+              "imagePullPolicy": "ALWAYS",
+              "limits": {},
+              "name": "garystafford-spring-postgresql-demo",
+              "ports": [
+                {
+                  "containerPort": 8080,
+                  "name": "http",
+                  "protocol": "TCP"
+                }
+              ],
+              "requests": {},
+              "volumeMounts": []
+            }
+          ],
+          "dnsPolicy": "ClusterFirst",
+          "events": [],
+          "initContainers": [],
+          "interestingHealthProviderNames": [
+            "KubernetesContainer",
+            "KubernetesPod"
+          ],
+          "loadBalancers": [
+            "spring-election"
+          ],
+          "namespace": "dev",
+          "nodeSelector": {},
+          "podAnnotations": {},
+          "provider": "kubernetes",
+          "region": "dev",
+          "replicaSetAnnotations": {},
+          "securityGroups": [],
+          "stack": "election",
+          "strategy": "highlander",
+          "targetSize": 1,
+          "terminationGracePeriodSeconds": 30,
+          "volumeSources": []
+        }
+      ],
+      "name": "Deploy-v2-dev",
+      "refId": "1",
+      "requisiteStageRefIds": [],
+      "type": "deploy"
+    },
+    {
+      "clusters": [
+        {
+          "account": "local",
+          "application": "spring",
+          "cloudProvider": "kubernetes",
+          "containers": [
+            {
+              "args": [],
+              "command": [],
+              "envVars": [],
+              "imageDescription": {
+                "account": "dockerhub",
+                "fromTrigger": true,
+                "imageId": "index.docker.io/garystafford/spring-postgresql-demo:2.1.0",
+                "registry": "index.docker.io",
+                "repository": "garystafford/spring-postgresql-demo",
+                "tag": "2.1.0"
+              },
+              "imagePullPolicy": "ALWAYS",
+              "limits": {},
+              "name": "garystafford-spring-postgresql-demo",
+              "ports": [
+                {
+                  "containerPort": 8080,
+                  "name": "http",
+                  "protocol": "TCP"
+                }
+              ],
+              "requests": {},
+              "volumeMounts": []
+            }
+          ],
+          "dnsPolicy": "ClusterFirst",
+          "events": [],
+          "initContainers": [],
+          "interestingHealthProviderNames": [
+            "KubernetesContainer",
+            "KubernetesPod"
+          ],
+          "loadBalancers": [
+            "spring-election"
+          ],
+          "namespace": "test",
+          "nodeSelector": {},
+          "podAnnotations": {},
+          "provider": "kubernetes",
+          "region": "test",
+          "replicaSetAnnotations": {},
+          "scaleDown": true,
+          "securityGroups": [],
+          "stack": "election",
+          "strategy": "redblack",
+          "targetSize": 1,
+          "terminationGracePeriodSeconds": 30,
+          "volumeSources": []
+        }
+      ],
+      "name": "Deploy-v2-test",
+      "refId": "2",
+      "requisiteStageRefIds": [
+        "1"
+      ],
+      "type": "deploy"
+    }
+  ],
+  "triggers": [
+    {
+      "account": "dockerhub",
+      "branch": "master",
+      "enabled": true,
+      "organization": "garystafford",
+      "project": "garystafford",
+      "registry": "index.docker.io",
+      "repository": "garystafford/spring-postgresql-demo",
+      "slug": "spring-postgresql-demo",
+      "source": "github",
+      "tag": "2.1.0",
+      "type": "docker"
+    }
+  ],
+  "updateTs": "1525279041000"
+}

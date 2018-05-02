@@ -27,7 +27,7 @@ then
     --visibility=public \
     --sign=$1 \
     build/distributions/*.deb
-  echo "Upload completed successfully!"
+  echo "Package upload completed successfully!"
 else
-  echo "No GPG key ID provided?\n(example: 'sh ./upload-deb-package.sh ABCD12345')"
+  echo "No GPG key ID provided?\n(usage: 'sh ./upload-deb-package.sh ABCD12345')"
 fi

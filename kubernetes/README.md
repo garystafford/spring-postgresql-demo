@@ -1,6 +1,4 @@
-# Kubernetes Installation Notes
-
-## Amazon RDS
+# Amazon RDS Installation Notes
 
 ```bash
 aws rds describe-db-instances

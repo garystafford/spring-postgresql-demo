@@ -1,0 +1,203 @@
+{
+  "keepWaitingPipelines": false,
+  "lastModifiedBy": "anonymous",
+  "limitConcurrent": true,
+  "parameterConfig": [],
+  "stages": [
+    {
+      "clusters": [
+        {
+          "account": "local",
+          "application": "spring",
+          "cloudProvider": "kubernetes",
+          "containers": [
+            {
+              "args": [],
+              "command": [],
+              "envVars": [],
+              "imageDescription": {
+                "account": "dockerhub",
+                "imageId": "index.docker.io/garystafford/spring-postgresql-demo:1.1.0",
+                "registry": "index.docker.io",
+                "repository": "garystafford/spring-postgresql-demo",
+                "tag": "1.1.0"
+              },
+              "imagePullPolicy": "ALWAYS",
+              "limits": {},
+              "name": "garystafford-spring-postgresql-demo",
+              "ports": [
+                {
+                  "containerPort": 8080,
+                  "name": "http",
+                  "protocol": "TCP"
+                }
+              ],
+              "requests": {},
+              "volumeMounts": []
+            }
+          ],
+          "dnsPolicy": "ClusterFirst",
+          "events": [],
+          "initContainers": [],
+          "interestingHealthProviderNames": [
+            "KubernetesContainer",
+            "KubernetesPod"
+          ],
+          "loadBalancers": [
+            "spring-election"
+          ],
+          "namespace": "dev",
+          "nodeSelector": {},
+          "podAnnotations": {},
+          "provider": "kubernetes",
+          "region": "dev",
+          "replicaSetAnnotations": {},
+          "securityGroups": [],
+          "stack": "election",
+          "strategy": "highlander",
+          "targetSize": 1,
+          "terminationGracePeriodSeconds": 30,
+          "volumeSources": []
+        }
+      ],
+      "name": "Deploy-v1-dev",
+      "refId": "1",
+      "requisiteStageRefIds": [],
+      "type": "deploy"
+    },
+    {
+      "clusters": [
+        {
+          "account": "local",
+          "application": "spring",
+          "cloudProvider": "kubernetes",
+          "containers": [
+            {
+              "args": [],
+              "command": [],
+              "envFrom": [],
+              "envVars": [],
+              "imageDescription": {
+                "imageId": "index.docker.io/garystafford/spring-postgresql-demo:1.1.0",
+                "registry": "index.docker.io",
+                "repository": "garystafford/spring-postgresql-demo",
+                "tag": "1.1.0"
+              },
+              "imagePullPolicy": "ALWAYS",
+              "name": "garystafford-spring-postgresql-demo",
+              "ports": [
+                {
+                  "containerPort": 8080,
+                  "name": "http",
+                  "protocol": "TCP"
+                }
+              ],
+              "volumeMounts": []
+            }
+          ],
+          "dnsPolicy": "ClusterFirst",
+          "events": [],
+          "initContainers": [],
+          "interestingHealthProviderNames": [
+            "KubernetesContainer",
+            "KubernetesPod"
+          ],
+          "loadBalancers": [
+            "spring-election"
+          ],
+          "namespace": "test",
+          "nodeSelector": {},
+          "podAnnotations": {},
+          "provider": "kubernetes",
+          "region": "test",
+          "replicaSetAnnotations": {},
+          "securityGroups": [],
+          "stack": "election",
+          "strategy": "highlander",
+          "targetSize": 1,
+          "terminationGracePeriodSeconds": 30,
+          "volumeSources": []
+        }
+      ],
+      "name": "Deploy-v1-test",
+      "notifications": [
+        {
+          "level": "stage",
+          "when": [
+            "stage.complete"
+          ]
+        }
+      ],
+      "refId": "2",
+      "requisiteStageRefIds": [
+        "1"
+      ],
+      "sendNotifications": true,
+      "type": "deploy"
+    },
+    {
+      "clusters": [
+        {
+          "account": "local",
+          "application": "spring",
+          "cloudProvider": "kubernetes",
+          "containers": [
+            {
+              "args": [],
+              "command": [],
+              "envFrom": [],
+              "envVars": [],
+              "imageDescription": {
+                "imageId": "index.docker.io/garystafford/spring-postgresql-demo:1.1.0",
+                "registry": "index.docker.io",
+                "repository": "garystafford/spring-postgresql-demo",
+                "tag": "1.1.0"
+              },
+              "imagePullPolicy": "ALWAYS",
+              "lifecycle": {},
+              "name": "garystafford-spring-postgresql-demo",
+              "ports": [
+                {
+                  "containerPort": 8080,
+                  "name": "http",
+                  "protocol": "TCP"
+                }
+              ],
+              "volumeMounts": []
+            }
+          ],
+          "dnsPolicy": "ClusterFirst",
+          "events": [],
+          "initContainers": [],
+          "interestingHealthProviderNames": [
+            "KubernetesContainer",
+            "KubernetesPod"
+          ],
+          "loadBalancers": [
+            "spring-election"
+          ],
+          "namespace": "uat",
+          "nodeSelector": {},
+          "podAnnotations": {},
+          "provider": "kubernetes",
+          "region": "uat",
+          "replicaSetAnnotations": {},
+          "securityGroups": [],
+          "stack": "election",
+          "strategy": "highlander",
+          "targetSize": 1,
+          "terminationGracePeriodSeconds": 30,
+          "volumeSources": []
+        }
+      ],
+      "name": "Deploy-v1-uat",
+      "refId": "3",
+      "requisiteStageRefIds": [
+        "2"
+      ],
+      "type": "deploy"
+    }
+  ],
+  "triggers": [],
+  "updateTs": "1525277948000"
+}

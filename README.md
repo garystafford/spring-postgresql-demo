@@ -1,7 +1,8 @@
 # Spring Boot 2.0 PostgreSQL Application Demonstration
 
-Project for the Programmatic Ponderings blog post, [Developing Cloud-Native Data-Centric Spring Boot Applications for Pivotal Cloud Foundry](https://wp.me/p1RD28-5Jh), published March, 2018. Spring Boot 2.0 application, backed by PostgreSQL, and designed for deployment to Pivotal Cloud Foundry (PCF). Database changes are handled by Liquibase.
+Project used for the Programmatic Ponderings blog post, [Developing Cloud-Native Data-Centric Spring Boot Applications for Pivotal Cloud Foundry](https://wp.me/p1RD28-5Jh), published March, 2018. Spring Boot 2.0 application, backed by PostgreSQL, and designed for deployment to Pivotal Cloud Foundry (PCF). Database changes are handled by Liquibase.
 
+Also, project used for the two part Programmatic Ponderings post, [Managing Applications Across Multiple Kubernetes Environments with Istio](https://wp.me/p1RD28-5L7), published April, 2018.
 ## Docker Quick Start
 
 The project now contains `Dockerfile` and `docker-compose.yml` files. If you have Docker and Docker Compose installed locally, you can preview project by creating Docker containers for both the PostgreSQL database and the Spring Boot application. To do so, execute the follow command from the root of the project
