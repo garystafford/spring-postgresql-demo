@@ -1,13 +1,22 @@
 #!/bin/sh
 
+# usage: sh ./upload-deb-package.sh ABCD12345
+
 # build and upload Debian package to s3 bucket
 # https://github.com/krobertson/deb-s3
 # gem install deb-s3
 
-#sh ./upload-deb-package.sh ABCD12345
+# ar -x spring-postgresql-demo_2.1.0_all.deb # inspect .deb on mac
+
+# sudo apt-get update && sudo apt-get install -y spring-postgresql-demo
+# sudo apt-get --force-yes remove spring-postgresql-demo -y
+# service --status-all
+# service election status
 
 if [ -n "$1" ]
 then
+  set -xe
+
   ./gradlew clean build -x test packDeb
 
   deb-s3 upload \

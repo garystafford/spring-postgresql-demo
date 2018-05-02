@@ -1,9 +1,9 @@
 #!/bin/sh
 
+# usage: sh ./commit-build-artifact.sh
+
 # build and deploy new jar artifact to the github repository
 # jar is then pulled by dockerfile during docker build
-
-#sh ./commit-build-artifact.sh
 
 set -xe
 

@@ -4,17 +4,17 @@ buildscript {
         maven { url "https://plugins.gradle.org/m2/" }
     }
     dependencies {
-        classpath 'com.netflix.nebula:gradle-ospackage-plugin:4.3.0'
+        classpath 'com.netflix.nebula:gradle-ospackage-plugin:4.9.0-rc.1'
     }
 }
 
 plugins {
-  id 'org.sonarqube' version '2.6.2'
-  id 'io.spring.dependency-management' version '1.0.5.RELEASE'
-  id 'org.springframework.boot' version '2.0.1.RELEASE'
-  id 'java'
-  id 'eclipse'
-  id 'idea'
+    id 'org.sonarqube' version '2.6.2'
+    id 'io.spring.dependency-management' version '1.0.5.RELEASE'
+    id 'org.springframework.boot' version '2.0.1.RELEASE'
+    id 'java'
+    id 'eclipse'
+    id 'idea'
 }
 
 apply plugin: 'nebula.ospackage'
@@ -22,27 +22,33 @@ apply plugin: 'nebula.ospackage'
 def major = '2.1'
 def minor = System.env.TRAVIS_BUILD_NUMBER ?: '0'
 def artifact_version = major + '.' + minor
+def artifact_name = project.name + '-' + artifact_version
 
 version = artifact_version
 
-task packDeb(type: Deb) {
-    packageName = rootProject.name
-    version = artifact_version
-    os = LINUX
+task packDeb(type: Deb) { // creates .deb package for deployment
+    into '/opt/' + project.name // root directory
 
-    postInstallFile file('scripts/deb/postInstall.sh')
-
-    into '/opt/' + rootProject.name
-
-    from(jar.outputs.files) {
+    from(jar.outputs.files) { // copy .jar
         into 'lib'
+        fileMode 0500
+    }
+    from('build/resources/main/*.conf') { // copy .conf
+        into 'conf'
+        fileMode 0400
     }
 
-    from('scripts') {
-        into 'bin'
-        fileMode 0550
-    }
+    // symlinks jar to init.d, init.d to rc2.d, conf to jar location
+    link('/etc/init.d/election',
+            '/opt/' + rootProject.name + '/lib/' + artifact_name + '.jar')
+    link('/opt/' + rootProject.name + '/lib/' + artifact_name + '.conf',
+            '/opt/' + rootProject.name + '/conf/' + artifact_name + '.conf')
+    link('/etc/rc2.d/S02election',
+            '/etc/init.d/election')
+}
 
+bootJar { // creates fully executable archives
+    launchScript()
 }
 
 sourceCompatibility = 1.8
