@@ -33,3 +33,4 @@ kubectl -n kube-system describe secret kubernetes-dashboard-token
 
 # delete gke cluster
 # gcloud deployment-manager deployments delete springdemo-istio-demo-deployment -q
+# gcloud container clusters resize $GKE_CLUSTER --size=0 --zone=$GCP_ZONE
