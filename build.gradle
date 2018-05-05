@@ -16,6 +16,7 @@ plugins {
     id 'java'
     id 'eclipse'
     id 'idea'
+    id 'com.github.ben-manes.versions' version '0.17.0'
 }
 
 apply plugin: 'nebula.ospackage'
@@ -62,9 +63,9 @@ ext {
 dependencies {
     compileOnly('org.projectlombok:lombok:1.16.20')
     compile('com.h2database:h2:1.4.197')
-    compile("io.springfox:springfox-swagger-ui:2.8.0")
-    compile("io.springfox:springfox-swagger2:2.8.0")
-    compile("org.liquibase:liquibase-core:3.5.5")
+    compile("io.springfox:springfox-swagger-ui:2.9.0")
+    compile("io.springfox:springfox-swagger2:2.9.0")
+    compile("org.liquibase:liquibase-core:3.6.1")
     compile("org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:2.6.2")
     compile("org.springframework.boot:spring-boot-starter-actuator:${springBootVersion}")
     compile("org.springframework.boot:spring-boot-starter-data-jpa:${springBootVersion}")
