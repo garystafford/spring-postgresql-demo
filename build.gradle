@@ -12,6 +12,7 @@ plugins {
     id 'org.sonarqube' version '2.6.2'
     id 'io.spring.dependency-management' version '1.0.5.RELEASE'
     id 'org.springframework.boot' version '2.0.1.RELEASE'
+    // id 'org.liquibase.gradle' version '1.2.4'
     id 'java'
     id 'eclipse'
     id 'idea'
@@ -20,7 +21,7 @@ plugins {
 apply plugin: 'nebula.ospackage'
 apply plugin: 'nebula.release'
 
-def artifact_name = project.name + '-' + version
+def artifact_name = project.name + '-' + project.version
 
 task packDeb(type: Deb) { // creates .deb package for deployment
     into '/opt/' + project.name // root directory

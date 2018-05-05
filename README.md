@@ -2,9 +2,10 @@
 
 # Spring Boot 2.0 PostgreSQL Application Demonstration
 
-Project used for the Programmatic Ponderings blog post, [Developing Cloud-Native Data-Centric Spring Boot Applications for Pivotal Cloud Foundry](https://wp.me/p1RD28-5Jh), published March, 2018. Spring Boot 2.0 application, backed by PostgreSQL, and designed for deployment to Pivotal Cloud Foundry (PCF). Database changes are handled by Liquibase.
+This project was originally used for the Programmatic Ponderings blog post, [Developing Cloud-Native Data-Centric Spring Boot Applications for Pivotal Cloud Foundry](https://wp.me/p1RD28-5Jh), published March, 2018. Spring Boot 2.0 application, backed by PostgreSQL, and designed for deployment to Pivotal Cloud Foundry (PCF). Database changes are handled by Liquibase.
 
-Also, project used for the two part Programmatic Ponderings post, [Managing Applications Across Multiple Kubernetes Environments with Istio](https://wp.me/p1RD28-5L7), published April, 2018.
+Also, this project was used for the two-part Programmatic Ponderings post, [Managing Applications Across Multiple Kubernetes Environments with Istio](https://wp.me/p1RD28-5L7), published April, 2018.
+
 ## Docker Quick Start
 
 The project now contains `Dockerfile` and `docker-compose.yml` files. If you have Docker and Docker Compose installed locally, you can preview project by creating Docker containers for both the PostgreSQL database and the Spring Boot application. To do so, execute the follow command from the root of the project
@@ -45,6 +46,23 @@ docker logs postgres  --follow
 
 Local database connection details are set in the `src\main\resources\application.yml` file.
 
+The `default` Spring Profile, uses an [h2](http://www.h2database.com/) instance:
+
+```yaml
+datasource:
+  url: jdbc:h2:mem:elections
+  username: sa
+  password:
+  driver-class-name: org.h2.Driver
+  jpa:
+    show-sql: true
+h2:
+  console:
+    enabled: true
+```
+
+The `dev` Spring Profile, uses localhost PostgreSQL instance:
+
 ```yaml
 datasource:
   url: jdbc:postgresql://localhost:5432/elections
@@ -55,19 +73,20 @@ jpa:
   show-sql: true
 ```
 
-Optionally, you can override any of the setting in the `src\main\resources\application.yml` files, `default` Spring Profile by setting local environment variables, such as:
+Optionally, you can override any of the setting in the `src\main\resources\application.yml` files, by setting local environment variables, such as:
 
 ```bash
-# 'export' on linux and mac
-set SPRING_DATASOURCE_URL=some_other_url
-set SPRING_DATASOURCE_USERNAME=some_other_username
-set SPRING_DATASOURCE_PASSWORD=some_other_password
+# use 'set' on Windows
+export SPRING_PROFILES_ACTIVE=<profile>
+export SPRING_DATASOURCE_URL=<some_other_url>
+export SPRING_DATASOURCE_USERNAME=<some_other_username>
+export SPRING_DATASOURCE_PASSWORD=<some_other_password>
 ```
 
 Next, build and run service locally, using Gradle, against the local Docker PostgreSQL database instance. This command will also execute the Liquibase change sets on the Docker PostgreSQL `elections` database.
 
 ```bash
-gradle bootRun
+SPRING_PROFILES_ACTIVE=dev ./gradlew clean bootRun
 ```
 
 To view Liquibase database changelog:
@@ -116,6 +135,10 @@ cf app pcf-postgresql-demo
 ## Available Resources
 
 Below is a partial list of the application's exposed resources. To see all resources, use the `/actuator/mappings` resource.
+
+-   h2 (`default` Spring Profile only)
+
+    -   `/h2-console`
 
 -   Actuator
 
