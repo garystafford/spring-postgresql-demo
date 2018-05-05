@@ -20,6 +20,8 @@ plugins {
 apply plugin: 'nebula.ospackage'
 apply plugin: 'nebula.release'
 
+def artifact_name = project.name + '-' + version
+
 task packDeb(type: Deb) { // creates .deb package for deployment
     into '/opt/' + project.name // root directory
 
