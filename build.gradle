@@ -20,12 +20,12 @@ plugins {
 apply plugin: 'nebula.ospackage'
 apply plugin: 'nebula.release'
 
-def major = '2.1'
-def minor = System.env.TRAVIS_BUILD_NUMBER ?: '0'
-def artifact_version = major + '.' + minor
-def artifact_name = project.name + '-' + artifact_version
-
-version = artifact_version
+//def major = '2.1'
+//def minor = System.env.TRAVIS_BUILD_NUMBER ?: '0'
+//def artifact_version = major + '.' + minor
+//def artifact_name = project.name + '-' + artifact_version
+//
+//version = artifact_version
 
 task packDeb(type: Deb) { // creates .deb package for deployment
     into '/opt/' + project.name // root directory
