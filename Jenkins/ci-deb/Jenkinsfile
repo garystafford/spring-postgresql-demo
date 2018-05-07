@@ -55,22 +55,6 @@ pipeline {
                 archiveArtifacts 'build/libs/*.jar'
             }
         }
-        stage('Publish Artifact') { // option 2 to build Dockerfile in next pipeline
-            steps {
-                withCredentials([string(credentialsId: 'GIT_TOKEN', variable: 'GIT_TOKEN')]) {
-                    dir('build/libs/') {
-                        sh "git init \
-                        && git config user.name \"jenkins-ci\" \
-                        && git config user.email \"jenkins-ci@jenkins-ci.com\" \
-                        && git add *.jar \
-             && git commit -m \"Publish build artifact\" \
-                        && git push --force --quiet --progress \
-                \"https://x-access-token:${GIT_TOKEN}@github.com/${ACCOUNT}/${PROJECT_NAME}.git\" \
-                        master:build-artifacts-gke"
-                    }
-                }
-            }
-        }
     }
     post {
         success {
