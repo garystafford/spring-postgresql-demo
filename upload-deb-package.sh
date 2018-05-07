@@ -17,7 +17,7 @@ if [ -n "$1" ]
 then
   set -xe
 
-  ./gradlew clean build -x test packDeb
+  # ./gradlew clean devSnapshot -x test packDeb --info
 
   deb-s3 upload \
     --bucket garystafford-spinnaker-repo \

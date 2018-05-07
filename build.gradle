@@ -3,46 +3,82 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.netflix.nebula:gradle-ospackage-plugin:4.9.0-rc.1'
-        classpath 'com.netflix.nebula:nebula-release-plugin:6.3.3'
+        classpath 'com.netflix.nebula:gradle-contacts-plugin:3.+'
+        classpath 'com.netflix.nebula:gradle-info-plugin:3.+'
+        classpath 'com.netflix.nebula:gradle-ospackage-plugin:4.+'
+        classpath 'com.netflix.nebula:nebula-release-plugin:6.+'
     }
 }
 
 plugins {
-    id 'org.sonarqube' version '2.6.2'
-    id 'io.spring.dependency-management' version '1.0.5.RELEASE'
-    id 'org.springframework.boot' version '2.0.1.RELEASE'
     // id 'org.liquibase.gradle' version '1.2.4'
-    id 'java'
+    id 'com.github.ben-manes.versions' version '0.17.0'
+    id 'io.spring.dependency-management' version '1.0.5.RELEASE'
+    id 'org.sonarqube' version '2.6.2'
+    id 'org.springframework.boot' version '2.0.1.RELEASE'
     id 'eclipse'
     id 'idea'
-    id 'com.github.ben-manes.versions' version '0.17.0'
+    id 'java'
 }
 
+apply plugin: 'nebula.contacts'
+apply plugin: 'nebula.info'
 apply plugin: 'nebula.ospackage'
 apply plugin: 'nebula.release'
 
-def artifact_name = project.name + '-' + project.version
+contacts {
+    'garystafford@rochester.rr.com' {
+        moniker 'Gary A. Stafford'
+        github 'garystafford'
+        twitter 'garystafford'
+        role 'owner'
+    }
+}
 
-task packDeb(type: Deb) { // creates .deb package for deployment
+task printJarProperties {
+    description 'Prints all jar properties.'
+
+    doLast {
+        jar.properties.each { prop, val ->
+            print prop + ': ' + val + '\n'
+        }
+    }
+}
+
+task printProjectProperties {
+    description 'Prints all project properties.'
+
+    doLast {
+        project.properties.each { prop, val ->
+            print prop + ': ' + val + '\n'
+        }
+    }
+}
+
+task packDeb(type: Deb) {
+    description 'Creates .deb package.'
+
     into '/opt/' + project.name // root directory
 
-    from(jar.outputs.files) { // copy .jar
+    from(jar.outputs.files) { // copy *.jar
         into 'lib'
         fileMode 0500
     }
-    from('build/resources/main/*.conf') { // copy .conf
+    from('build/resources/main/*.conf') { // copy *.conf
         into 'conf'
         fileMode 0400
     }
 
-    // symlinks jar to init.d, init.d to rc2.d, conf to jar location
+    // symlinks jar to init.d
     link('/etc/init.d/election',
-            '/opt/' + rootProject.name + '/lib/' + artifact_name + '.jar')
-    link('/opt/' + rootProject.name + '/lib/' + artifact_name + '.conf',
-            '/opt/' + rootProject.name + '/conf/' + artifact_name + '.conf')
-    link('/etc/rc2.d/S02election',
-            '/etc/init.d/election')
+            '/opt/' + project.name + '/lib/' + jar.archiveName)
+
+    // link init.d to rc2.d
+    link('/opt/' + project.name + '/lib/' + project.name + '-' + project.version + '.conf',
+            '/opt/' + project.name + '/conf/' + project.name + '.conf')
+
+    // link conf to jar location
+    link('/etc/rc2.d/S02election', '/etc/init.d/election')
 }
 
 bootJar { // creates fully executable archives
@@ -61,7 +97,6 @@ ext {
 }
 
 dependencies {
-    compileOnly('org.projectlombok:lombok:1.16.20')
     compile('com.h2database:h2:1.4.197')
     compile("io.springfox:springfox-swagger-ui:2.9.0")
     compile("io.springfox:springfox-swagger2:2.9.0")
@@ -72,6 +107,7 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-data-rest:${springBootVersion}")
     compile("org.springframework.boot:spring-boot-starter-hateoas:${springBootVersion}")
     compile("org.springframework.boot:spring-boot-starter-web:${springBootVersion}")
+    compileOnly('org.projectlombok:lombok:1.16.20')
     runtime("org.postgresql:postgresql:42.2.2")
     testCompile("org.springframework.boot:spring-boot-starter-test:${springBootVersion}")
 }
