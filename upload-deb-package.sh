@@ -13,7 +13,7 @@
 # service --status-all
 # service election status
 
-if [ -n "$1" ]
+if [ -n "$GPG_KEY_ID" ]
 then
   set -xe
 
@@ -21,11 +21,13 @@ then
 
   deb-s3 upload \
     --bucket garystafford-spinnaker-repo \
+    --access-key-id=$AWS_ACCESS_KEY_ID \
+    --secret-access-key=$AWS_SECRET_ACCESS_KEY \
     --arch=amd64 \
     --codename=trusty \
     --component=main \
     --visibility=public \
-    --sign=$1 \
+    --sign=$GPG_KEY_ID \
     build/distributions/*.deb
   echo "Package upload completed successfully!"
 else
