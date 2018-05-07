@@ -45,7 +45,6 @@ pipeline {
         stage('Upload Debian Package') {
             steps {
                 withCredentials([string(credentialsId: 'GPG_SECRET_ID', variable: 'GPG_SECRET_ID')]) {
-                    sh "ruby --version; gem install deb-s3"
                     sh "sh ./upload-deb-package.sh ${GPG_SECRET_ID}"
                 }
             }
