@@ -45,7 +45,7 @@ pipeline {
         stage('Upload Debian Package') {
             steps {
                 withCredentials([
-                        string(credentialsId: 'GPG_SECRET_ID', variable: 'GPG_SECRET_ID'),
+                        string(credentialsId: 'GPG_KEY_ID', variable: 'GPG_KEY_ID'),
                         string(credentialsId: 'AWS_ACCESS_KEY_ID', variable: 'AWS_ACCESS_KEY_ID'),
                         string(credentialsId: 'AWS_SECRET_ACCESS_KEY', variable: 'AWS_SECRET_ACCESS_KEY')]) {
                     sh "sh ./upload-deb-package.sh ${GPG_SECRET_ID}"
