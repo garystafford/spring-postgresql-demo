@@ -17,8 +17,6 @@ if [ -n "$GPG_KEY_ID" ]
 then
   set -xe
 
-  # ./gradlew clean candidate -x test packDeb --info
-
   deb-s3 upload \
     --bucket garystafford-spinnaker-repo \
     --access-key-id=$AWS_ACCESS_KEY_ID \

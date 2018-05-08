@@ -57,7 +57,7 @@ task printProjectProperties {
 
 // Override nebula.release opinions on building/tagging for now
 def major = '4'
-def minor = '4'
+def minor = '5'
 def patch = System.env.BUILD_NUMBER ?: '0'
 def artifact_version = major + '.' + minor + '.' + patch
 version = artifact_version
