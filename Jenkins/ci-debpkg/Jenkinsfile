@@ -11,21 +11,24 @@ pipeline {
     stages {
         stage('Checkout GitHub') {
             steps {
-                git changelog: true, poll: true,
-                        branch: 'master',
-                        url: "https://github.com/${ACCOUNT}/${PROJECT_NAME}"
+                withCredentials([
+                        string(credentialsId: 'GIT_TOKEN', variable: 'GIT_TOKEN')]) {
+                    git changelog: true, poll: true,
+                            branch: 'master',
+                            url: "https://${GIT_TOKEN}@github.com/${ACCOUNT}/${PROJECT_NAME}"
+                }
             }
         }
         stage('Build') {
             steps {
                 sh 'gradle wrapper'
-                sh './gradlew clean snapshot -x test'
+                sh 'LOGGING_LEVEL_ROOT=INFO ./gradlew clean build -x test --info'
             }
         }
         stage('Unit Test') { // unit test against h2
             steps {
                 withEnv(['SPRING_DATASOURCE_URL=jdbc:h2:mem:elections']) {
-                    sh './gradlew cleanTest test'
+                    sh 'LOGGING_LEVEL_ROOT=INFO ./gradlew cleanTest test --info'
                 }
                 junit '**/build/test-results/test/*.xml'
             }
@@ -33,13 +36,13 @@ pipeline {
         stage('SonarQube Analysis') {
             steps {
                 withSonarQubeEnv('sonarqube') {
-                    sh "./gradlew sonarqube -Dsonar.projectName=${PROJECT_NAME}"
+                    sh "LOGGING_LEVEL_ROOT=INFO ./gradlew sonarqube -Dsonar.projectName=${PROJECT_NAME}  --info"
                 }
             }
         }
         stage('Build Debian Package') {
             steps {
-                sh "./gradlew packDeb --info"
+                sh "LOGGING_LEVEL_ROOT=INFO ./gradlew packDeb --info"
             }
         }
         stage('Upload Debian Package') {
@@ -52,15 +55,10 @@ pipeline {
                 }
             }
         }
-        stage('Archive Artifact') { // option 1 to build Dockerfile in next pipeline
-            steps {
-                archiveArtifacts 'build/libs/*.jar'
-            }
-        }
     }
     post {
         success {
-            slackSend(color: '#008000',
+            slackSend(color: '#00FF00',
                     message: "SUCCESS: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
         }
         failure {

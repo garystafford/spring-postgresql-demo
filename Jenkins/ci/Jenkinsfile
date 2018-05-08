@@ -11,21 +11,24 @@ pipeline {
     stages {
         stage('Checkout GitHub') {
             steps {
-                git changelog: true, poll: true,
-                        branch: 'master',
-                        url: "https://github.com/${ACCOUNT}/${PROJECT_NAME}"
+                withCredentials([
+                        string(credentialsId: 'GIT_TOKEN', variable: 'GIT_TOKEN')]) {
+                    git changelog: true, poll: true,
+                            branch: 'master',
+                            url: "https://${GIT_TOKEN}@github.com/${ACCOUNT}/${PROJECT_NAME}"
+                }
             }
         }
         stage('Build') {
             steps {
                 sh 'gradle wrapper'
-                sh './gradlew clean build -x test'
+                sh 'LOGGING_LEVEL_ROOT=INFO ./gradlew clean build -x test --info'
             }
         }
         stage('Unit Test') { // unit test against h2
             steps {
                 withEnv(['SPRING_DATASOURCE_URL=jdbc:h2:mem:elections']) {
-                    sh './gradlew cleanTest test'
+                    sh 'LOGGING_LEVEL_ROOT=INFO ./gradlew cleanTest test --info'
                 }
                 junit '**/build/test-results/test/*.xml'
             }
@@ -33,20 +36,7 @@ pipeline {
         stage('SonarQube Analysis') {
             steps {
                 withSonarQubeEnv('sonarqube') {
-                    sh "./gradlew sonarqube -Dsonar.projectName=${PROJECT_NAME}"
-                }
-            }
-        }
-        stage('Build Debian Package') {
-            steps {
-                sh "./gradlew packDeb --info"
-            }
-        }
-        stage('Upload Debian Package') {
-            steps {
-                withCredentials([string(credentialsId: 'GPG_SECRET_ID', variable: 'GPG_SECRET_ID')]) {
-                    sh "ruby --version; gem install deb-s3"
-                    sh "sh ./upload-deb-package.sh ${GPG_SECRET_ID}"
+                    sh "LOGGING_LEVEL_ROOT=INFO ./gradlew sonarqube -Dsonar.projectName=${PROJECT_NAME} --info"
                 }
             }
         }
@@ -55,31 +45,30 @@ pipeline {
                 archiveArtifacts 'build/libs/*.jar'
             }
         }
-        stage('Publish Artifact') { // option 2 to build Dockerfile in next pipeline
-            steps {
-                withCredentials([string(credentialsId: 'GIT_TOKEN', variable: 'GIT_TOKEN')]) {
-                    dir('build/libs/') {
-                        sh "git init \
-                        && git config user.name \"jenkins-ci\" \
-                        && git config user.email \"jenkins-ci@jenkins-ci.com\" \
-                        && git add *.jar \
-             && git commit -m \"Publish build artifact\" \
-                        && git push --force --quiet --progress \
-                \"https://x-access-token:${GIT_TOKEN}@github.com/${ACCOUNT}/${PROJECT_NAME}.git\" \
-                        master:build-artifacts-gke"
-                    }
-                }
-            }
-        }
+        // stage('Publish Artifact') { // option 2 to build Dockerfile in next pipeline
+        //     steps {
+        //         withCredentials([string(credentialsId: 'GIT_TOKEN', variable: 'GIT_TOKEN')]) {
+        //             dir('build/libs/') {
+        //                 sh "git init \
+        //                 && git config user.name \"jenkins-ci\" \
+        //                 && git config user.email \"jenkins-ci@jenkins-ci.com\" \
+        //                 && git add *.jar \
+        //      && git commit -m \"Publish build artifact\" \
+        //                 && git push --force --quiet --progress \
+        //         \"https://x-access-token:${GIT_TOKEN}@github.com/${ACCOUNT}/${PROJECT_NAME}.git\" \
+        //                 master:build-artifacts-gke"
+        //             }
+        //         }
+        //     }
     }
-    post {
-        success {
-            slackSend(color: '#008000',
-                    message: "SUCCESS: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
-        }
-        failure {
-            slackSend(color: '#FF0000',
-                    message: "FAILURE: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
-        }
+}
+post {
+    success {
+        slackSend(color: '#00FF00',
+                message: "SUCCESS: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
+    }
+    failure {
+        slackSend(color: '#FF0000',
+                message: "FAILURE: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
     }
 }
