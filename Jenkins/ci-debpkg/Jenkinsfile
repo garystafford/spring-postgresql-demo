@@ -45,7 +45,7 @@ pipeline {
                 sh "LOGGING_LEVEL_ROOT=INFO ./gradlew packDeb --info"
             }
         }
-        stage('Upload Debian Package') {
+        stage('Upload Debian Package') { //optional upload - spinnaker uses jenkins archive
             steps {
                 withCredentials([
                         string(credentialsId: 'GPG_KEY_ID', variable: 'GPG_KEY_ID'),
@@ -55,9 +55,9 @@ pipeline {
                 }
             }
         }
-        stage('Archive Build Artifact') { // option 1 to build Dockerfile in next pipeline
+        stage('Archive Debian Package') {
             steps {
-                archiveArtifacts 'build/libs/*.jar'
+                archiveArtifacts 'build/distributions/*.deb'
             }
         }
     }
