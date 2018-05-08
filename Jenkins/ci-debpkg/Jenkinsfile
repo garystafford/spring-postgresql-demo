@@ -55,6 +55,11 @@ pipeline {
                 }
             }
         }
+        stage('Archive Build Artifact') { // option 1 to build Dockerfile in next pipeline
+            steps {
+                archiveArtifacts 'build/libs/*.jar'
+            }
+        }
     }
     post {
         success {

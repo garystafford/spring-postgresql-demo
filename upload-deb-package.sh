@@ -13,6 +13,11 @@
 # service --status-all
 # service election status
 
+# deb-s3 delete spring-postgresql-demo \
+#   --arch all \
+#   --bucket garystafford-spinnaker-repo \
+#   --versions "4.5.0"
+
 if [ -n "$GPG_KEY_ID" ]
 then
   set -xe
