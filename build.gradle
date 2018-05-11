@@ -62,6 +62,10 @@ def patch = System.env.BUILD_NUMBER ?: '0'
 def artifact_version = major + '.' + minor + '.' + patch
 version = artifact_version
 
+bootJar { // creates fully executable archives
+    launchScript()
+}
+
 task packDeb(type: Deb) {
     description 'Creates .deb package.'
 
@@ -71,7 +75,8 @@ task packDeb(type: Deb) {
         into 'lib'
         fileMode 0500
     }
-    from('build/resources/main/*.conf') { // copy *.conf
+
+    from('build/resources/main/' + project.name + '.conf') { // copy .conf
         into 'conf'
         fileMode 0400
     }
@@ -86,10 +91,6 @@ task packDeb(type: Deb) {
 
     // link conf to jar location
     link('/etc/rc2.d/S02election', '/etc/init.d/election')
-}
-
-bootJar { // creates fully executable archives
-    launchScript()
 }
 
 sourceCompatibility = 1.8
