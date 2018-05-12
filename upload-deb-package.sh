@@ -10,7 +10,6 @@
 
 # sudo apt-get update && sudo apt-get install -y spring-postgresql-demo
 # sudo apt-get --force-yes remove spring-postgresql-demo -y
-# service --status-all
 # service election status
 
 # deb-s3 delete spring-postgresql-demo \
