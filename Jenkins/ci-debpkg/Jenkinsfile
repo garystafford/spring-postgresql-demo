@@ -1,4 +1,4 @@
-#!groovy
+#!/usr/bin/env groovy
 
 def ACCOUNT = "garystafford"
 def PROJECT_NAME = "spring-postgresql-demo"
@@ -11,12 +11,9 @@ pipeline {
     stages {
         stage('Checkout GitHub') {
             steps {
-                withCredentials([
-                        string(credentialsId: 'GIT_TOKEN', variable: 'GIT_TOKEN')]) {
-                    git changelog: true, poll: true,
-                            branch: 'master',
-                            url: "https://${GIT_TOKEN}@github.com/${ACCOUNT}/${PROJECT_NAME}"
-                }
+                git changelog: true, poll: false,
+                        branch: 'master',
+                        url: "https://github.com/${ACCOUNT}/${PROJECT_NAME}"
             }
         }
         stage('Build') {
@@ -25,7 +22,7 @@ pipeline {
                 sh 'LOGGING_LEVEL_ROOT=INFO ./gradlew clean build -x test --info'
             }
         }
-        stage('Unit Test') { // unit test against h2
+        stage('Unit Test') { // unit test against in-memory h2
             steps {
                 withEnv(['SPRING_DATASOURCE_URL=jdbc:h2:mem:elections']) {
                     sh 'LOGGING_LEVEL_ROOT=INFO ./gradlew cleanTest test --info'
@@ -45,7 +42,7 @@ pipeline {
                 sh "LOGGING_LEVEL_ROOT=INFO ./gradlew packDeb --info"
             }
         }
-        stage('Upload Debian Package') { //optional upload - spinnaker uses jenkins archive
+        stage('Upload Debian Package') {
             steps {
                 withCredentials([
                         string(credentialsId: 'GPG_KEY_ID', variable: 'GPG_KEY_ID'),

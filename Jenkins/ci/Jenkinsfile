@@ -1,4 +1,4 @@
-#!groovy
+#!/usr/bin/env groovy
 
 def ACCOUNT = "garystafford"
 def PROJECT_NAME = "spring-postgresql-demo"

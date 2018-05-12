@@ -74,11 +74,15 @@ task packDeb(type: Deb) {
     from(jar.outputs.files) { // copy *.jar
         into 'lib'
         fileMode 0500
+        user 'springapp'
+        permissionGroup 'springapp'
     }
 
     from('build/resources/main/' + project.name + '.conf') { // copy .conf
         into 'conf'
         fileMode 0400
+        user 'root'
+        permissionGroup 'root'
     }
 
     // symlinks jar to init.d
@@ -91,6 +95,8 @@ task packDeb(type: Deb) {
 
     // link conf to jar location
     link('/etc/rc2.d/S02election', '/etc/init.d/election')
+
+    postInstall 'chattr +i ' + '/opt/' + project.name + '/lib/' + jar.archiveName
 }
 
 sourceCompatibility = 1.8
