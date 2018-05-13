@@ -27,12 +27,15 @@ public class SwaggerConfig {
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
                 .title("Election API")
-                .description("Spring Boot 2.0 demo application, backed by PostgreSQL.")
+                .description("Spring Boot 4.5 demo application, backed by PostgreSQL.")
                 .termsOfServiceUrl("https://programmaticponderings.com")
-                .contact(new Contact("Gary A. Stafford", "https://programmaticponderings.com/about", ""))
+                .contact(new Contact(
+                        "Gary A. Stafford",
+                        "https://programmaticponderings.com/about",
+                        "garystafford@rochester.rr.com"))
                 .license("Apache License Version 2.0")
                 .licenseUrl("https://github.com/garystafford/spring-postgresql-demo/blob/master/LICENSE")
-                .version("2.0")
+                .version("4.5")
                 .build();
     }
 }

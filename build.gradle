@@ -6,16 +6,16 @@ buildscript {
         classpath 'com.netflix.nebula:gradle-contacts-plugin:3.+'
         classpath 'com.netflix.nebula:gradle-info-plugin:3.+'
         classpath 'com.netflix.nebula:gradle-ospackage-plugin:4.+'
-        classpath 'com.netflix.nebula:nebula-release-plugin:6.+'
+//        classpath 'com.netflix.nebula:nebula-release-plugin:6.+'
     }
 }
 
 plugins {
-    // id 'org.liquibase.gradle' version '1.2.4'
+    id 'org.liquibase.gradle' version '1.2.4'
     id 'com.github.ben-manes.versions' version '0.17.0'
     id 'io.spring.dependency-management' version '1.0.5.RELEASE'
     id 'org.sonarqube' version '2.6.2'
-    id 'org.springframework.boot' version '2.0.1.RELEASE'
+    id 'org.springframework.boot' version '2.0.2.RELEASE'
     id 'eclipse'
     id 'idea'
     id 'java'
@@ -24,7 +24,7 @@ plugins {
 apply plugin: 'nebula.contacts'
 apply plugin: 'nebula.info'
 apply plugin: 'nebula.ospackage'
-apply plugin: 'nebula.release'
+//apply plugin: 'nebula.release'
 
 contacts {
     'garystafford@rochester.rr.com' {
@@ -107,7 +107,7 @@ repositories {
 }
 
 ext {
-    springBootVersion = '2.0.1.RELEASE'
+    springBootVersion = '2.0.2.RELEASE'
 }
 
 dependencies {
@@ -119,7 +119,7 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-actuator:${springBootVersion}")
     compile("org.springframework.boot:spring-boot-starter-data-jpa:${springBootVersion}")
     compile("org.springframework.boot:spring-boot-starter-data-rest:${springBootVersion}")
-    compile("org.springframework.boot:spring-boot-starter-hateoas:${springBootVersion}")
+    compile("org.springframework.boot:spring-boot-starter-hateoas:2.0.1.RELEASE")
     compile("org.springframework.boot:spring-boot-starter-web:${springBootVersion}")
     compileOnly('org.projectlombok:lombok:1.16.20')
     runtime("org.postgresql:postgresql:42.2.2")
