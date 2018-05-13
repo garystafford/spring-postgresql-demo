@@ -5,6 +5,7 @@ import lombok.AccessLevel;
 import lombok.Data;
 import lombok.Setter;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -27,9 +28,11 @@ public class VotesElectionsView implements Serializable {
 
     @NotNull
     @Setter(AccessLevel.NONE)
-    private String first_name;
+    @Column(name = "first_name")
+    private String firstName;
 
     @NotNull
     @Setter(AccessLevel.NONE)
-    private String last_name;
+    @Column(name = "last_name")
+    private String lastName;
 }

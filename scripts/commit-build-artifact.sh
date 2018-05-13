@@ -7,7 +7,9 @@
 
 set -xe
 
-./gradlew clean build
+cd ../
+
+gradlew clean build
 
 cd build/libs
 

@@ -1,6 +1,5 @@
 package pcfdemo;
 
-import liquibase.Liquibase;
 import liquibase.integration.spring.SpringLiquibase;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -9,8 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import springfox.documentation.spring.web.plugins.Docket;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest

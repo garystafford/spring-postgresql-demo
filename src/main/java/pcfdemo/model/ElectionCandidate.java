@@ -2,10 +2,7 @@ package pcfdemo.model;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
@@ -18,8 +15,10 @@ public class ElectionCandidate implements Serializable {
     private long id;
 
     @NotNull
-    private long election_id;
+    @Column(name = "election_id")
+    private long electionId;
 
     @NotNull
-    private long candidate_id;
+    @Column(name = "candidate_id")
+    private long candidateId;
 }

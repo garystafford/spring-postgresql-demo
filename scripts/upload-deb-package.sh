@@ -30,7 +30,7 @@ then
     --component=main \
     --visibility=public \
     --sign=$GPG_KEY_ID \
-    build/distributions/*.deb
+    ../build/distributions/*.deb
   echo "Package upload completed successfully!"
 else
   echo "No GPG key ID provided?\n(usage: 'sh ./upload-deb-package.sh ABCD12345')"
