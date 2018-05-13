@@ -1,5 +1,6 @@
 package com.voter_demo.controller;
 
+import com.voter_demo.controller.CandidateController;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
