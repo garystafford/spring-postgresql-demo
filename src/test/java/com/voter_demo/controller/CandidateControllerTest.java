@@ -16,7 +16,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class git CandidateControllerTest {
+public class CandidateControllerTest {
 
     @Autowired
     private CandidateController candidateController;
