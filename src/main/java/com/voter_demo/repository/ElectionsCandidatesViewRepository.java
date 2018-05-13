@@ -1,8 +1,8 @@
-package pcfdemo.repository;
+package com.voter_demo.repository;
 
+import com.voter_demo.model.ElectionsCandidatesView;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
-import pcfdemo.model.ElectionsCandidatesView;
 
 import java.util.List;
 

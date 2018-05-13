@@ -1,4 +1,4 @@
-package pcfdemo;
+package com.voter_demo;
 
 import org.junit.Ignore;
 import org.junit.Test;

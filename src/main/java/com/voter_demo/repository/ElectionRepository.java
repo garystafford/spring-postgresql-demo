@@ -1,7 +1,7 @@
-package pcfdemo.repository;
+package com.voter_demo.repository;
 
+import com.voter_demo.model.Election;
 import org.springframework.data.repository.CrudRepository;
-import pcfdemo.model.Election;
 
 import java.util.List;
 

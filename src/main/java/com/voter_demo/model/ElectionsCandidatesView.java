@@ -1,4 +1,4 @@
-package pcfdemo.model;
+package com.voter_demo.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AccessLevel;

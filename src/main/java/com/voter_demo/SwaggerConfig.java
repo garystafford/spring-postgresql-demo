@@ -1,4 +1,4 @@
-package pcfdemo;
+package com.voter_demo;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -27,7 +27,7 @@ public class SwaggerConfig {
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
                 .title("Election API")
-                .description("Spring Boot 4.5 demo application, backed by PostgreSQL.")
+                .description("Spring Boot demo application, backed by PostgreSQL.")
                 .termsOfServiceUrl("https://programmaticponderings.com")
                 .contact(new Contact(
                         "Gary A. Stafford",

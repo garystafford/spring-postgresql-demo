@@ -1,4 +1,4 @@
-package pcfdemo.model;
+package com.voter_demo.model;
 
 import lombok.Data;
 

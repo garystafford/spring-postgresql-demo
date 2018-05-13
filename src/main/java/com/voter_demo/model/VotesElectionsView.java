@@ -1,10 +1,11 @@
-package pcfdemo.model;
+package com.voter_demo.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.Setter;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -13,8 +14,8 @@ import java.io.Serializable;
 
 @Data
 @Entity
-@Table(name = "vote_totals")
-public class VoteTotalsView implements Serializable {
+@Table(name = "votes_by_elections")
+public class VotesElectionsView implements Serializable {
 
     @Id
     @Setter(AccessLevel.NONE)
@@ -27,9 +28,11 @@ public class VoteTotalsView implements Serializable {
 
     @NotNull
     @Setter(AccessLevel.NONE)
-    private String candidate;
+    @Column(name = "first_name")
+    private String firstName;
 
     @NotNull
     @Setter(AccessLevel.NONE)
-    private Integer votes;
+    @Column(name = "last_name")
+    private String lastName;
 }

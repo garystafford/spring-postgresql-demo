@@ -9,6 +9,8 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/spring-postgresql-demo.iml" filepath="$PROJECT_DIR$/.idea/modules/spring-postgresql-demo.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/spring-postgresql-demo.spring-postgresql-demo_main.iml" filepath="$PROJECT_DIR$/.idea/modules/spring-postgresql-demo.spring-postgresql-demo_main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/spring-postgresql-demo.spring-postgresql-demo_test.iml" filepath="$PROJECT_DIR$/.idea/modules/spring-postgresql-demo.spring-postgresql-demo_test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/spring-postgresql-demo_main.iml" filepath="$PROJECT_DIR$/.idea/modules/spring-postgresql-demo_main.iml" group="spring-postgresql-demo" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/spring-postgresql-demo_test.iml" filepath="$PROJECT_DIR$/.idea/modules/spring-postgresql-demo_test.iml" group="spring-postgresql-demo" />
     </modules>
   </component>
 </project>

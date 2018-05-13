@@ -1,7 +1,7 @@
-package pcfdemo.repository;
+package com.voter_demo.repository;
 
+import com.voter_demo.model.ElectionCandidate;
 import org.springframework.data.repository.CrudRepository;
-import pcfdemo.model.ElectionCandidate;
 
 public interface ElectionCandidateRepository extends CrudRepository<ElectionCandidate, Long> {
 }
