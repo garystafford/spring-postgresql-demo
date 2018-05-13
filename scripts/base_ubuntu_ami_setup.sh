@@ -14,8 +14,7 @@ set +x
 sudo apt-get update -y \
   && sudo apt-get upgrade -y \
   && sudo apt-get install \
-    openjdk-8-jre-headless \
-    tree htop glances -y
+    openjdk-8-jre-headless -y
 
 # a few optional ops tools
 sudo apt-get install \
