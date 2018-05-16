@@ -14,22 +14,19 @@ import java.io.Serializable;
 @Data
 @Entity
 @Table(name = "vote_totals")
+@Setter(AccessLevel.NONE)
 public class VoteTotalsView implements Serializable {
 
     @Id
-    @Setter(AccessLevel.NONE)
     @JsonIgnore
     private long id;
 
     @NotNull
-    @Setter(AccessLevel.NONE)
     private String election;
 
     @NotNull
-    @Setter(AccessLevel.NONE)
     private String candidate;
 
     @NotNull
-    @Setter(AccessLevel.NONE)
     private Integer votes;
 }

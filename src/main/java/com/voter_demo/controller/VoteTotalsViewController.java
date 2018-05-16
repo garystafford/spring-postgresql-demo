@@ -2,6 +2,7 @@ package com.voter_demo.controller;
 
 import com.voter_demo.model.VoteTotalsView;
 import com.voter_demo.repository.VoteTotalsViewRepository;
+import com.voter_demo.service.VoteTotalsViewService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,24 +19,24 @@ import java.util.Map;
 @RequestMapping("/vote-totals")
 public class VoteTotalsViewController {
 
-    private final VoteTotalsViewRepository voteTotalsViewRepository;
+    private final VoteTotalsViewService voteTotalsViewService;
 
     @Autowired
-    public VoteTotalsViewController(VoteTotalsViewRepository voteTotalsViewRepository) {
-        this.voteTotalsViewRepository = voteTotalsViewRepository;
+    public VoteTotalsViewController(VoteTotalsViewService voteTotalsViewService) {
+        this.voteTotalsViewService = voteTotalsViewService;
     }
 
     @RequestMapping(path = "/summary", method = RequestMethod.GET)
     public ResponseEntity<Map<String, List<VoteTotalsView>>> voteTotalsSummary() {
         List<VoteTotalsView> electionsCandidatesViewList =
-                (List<VoteTotalsView>) voteTotalsViewRepository.findAll();
+                (List<VoteTotalsView>) voteTotalsViewService.findAll();
         return new ResponseEntity<>(Collections.singletonMap("voteTotals", electionsCandidatesViewList), HttpStatus.OK);
     }
 
     @RequestMapping(path = "/summary/{election}", method = RequestMethod.GET)
     public ResponseEntity<Map<String, List<VoteTotalsView>>> voteTotalsSummaryByElection(@PathVariable("election") String election) {
         List<VoteTotalsView> electionsCandidatesViewList =
-                voteTotalsViewRepository.findByElection(election);
+                voteTotalsViewService.findByElection(election);
         return new ResponseEntity<>(Collections.singletonMap("voteTotals", electionsCandidatesViewList), HttpStatus.OK);
     }
 }

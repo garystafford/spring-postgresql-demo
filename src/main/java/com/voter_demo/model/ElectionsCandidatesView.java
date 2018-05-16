@@ -15,24 +15,21 @@ import java.io.Serializable;
 @Data
 @Entity
 @Table(name = "candidates_by_elections")
+@Setter(AccessLevel.NONE)
 public class ElectionsCandidatesView implements Serializable {
 
     @Id
-    @Setter(AccessLevel.NONE)
     @JsonIgnore
     private long id;
 
     @NotNull
-    @Setter(AccessLevel.NONE)
     private String election;
 
     @NotNull
-    @Setter(AccessLevel.NONE)
     @Column(name = "first_name")
     private String firstName;
 
     @NotNull
-    @Setter(AccessLevel.NONE)
     @Column(name = "last_name")
     private String lastName;
 }
