@@ -18,8 +18,7 @@ import java.util.Map;
 @RequestMapping("/vote-totals")
 public class VoteTotalsViewController {
 
-    @Autowired
-    private VoteTotalsViewRepository voteTotalsViewRepository;
+    private final VoteTotalsViewRepository voteTotalsViewRepository;
 
     @Autowired
     public VoteTotalsViewController(VoteTotalsViewRepository voteTotalsViewRepository) {

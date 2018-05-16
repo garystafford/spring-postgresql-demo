@@ -2,6 +2,7 @@ package com.voter_demo.controller;
 
 import com.voter_demo.model.Candidate;
 import com.voter_demo.repository.CandidateRepository;
+import com.voter_demo.service.CandidateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,23 +19,22 @@ import java.util.Map;
 @RequestMapping("/candidates")
 public class CandidateController {
 
-    @Autowired
-    private CandidateRepository candidateRepository;
+    private final CandidateService candidateService;
 
     @Autowired
-    public CandidateController(CandidateRepository candidateRepository) {
-        this.candidateRepository = candidateRepository;
+    public CandidateController(CandidateService candidateService) {
+        this.candidateService = candidateService;
     }
 
     @RequestMapping(path = "/summary", method = RequestMethod.GET)
     public ResponseEntity<Map<String, List<Candidate>>> candidatesSummary() {
-        List<Candidate> candidateList = (List<Candidate>) candidateRepository.findAll();
+        List<Candidate> candidateList = candidateService.findAll();
         return new ResponseEntity<>(Collections.singletonMap("candidates", candidateList), HttpStatus.OK);
     }
 
     @RequestMapping(path = "/summary/{politicalParty}", method = RequestMethod.GET)
     public ResponseEntity<Map<String, List<Candidate>>> candidatesSummary(@PathVariable String politicalParty) {
-        List<Candidate> candidateList = candidateRepository.findByPoliticalParty(politicalParty);
+        List<Candidate> candidateList = candidateService.findByPoliticalParty(politicalParty);
         return new ResponseEntity<>(Collections.singletonMap("candidates", candidateList), HttpStatus.OK);
     }
 }

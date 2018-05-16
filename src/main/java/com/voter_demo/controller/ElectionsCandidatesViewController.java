@@ -18,8 +18,7 @@ import java.util.Map;
 @RequestMapping("/election-candidates")
 public class ElectionsCandidatesViewController {
 
-    @Autowired
-    private ElectionsCandidatesViewRepository electionsCandidatesViewRepository;
+    private final ElectionsCandidatesViewRepository electionsCandidatesViewRepository;
 
     @Autowired
     public ElectionsCandidatesViewController(ElectionsCandidatesViewRepository electionsCandidatesViewRepository) {

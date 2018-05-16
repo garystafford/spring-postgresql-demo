@@ -17,8 +17,7 @@ import java.util.Map;
 @RequestMapping("/elections")
 public class ElectionController {
 
-    @Autowired
-    private ElectionRepository electionRepository;
+    private final ElectionRepository electionRepository;
 
     @Autowired
     public ElectionController(ElectionRepository electionRepository) {
@@ -27,7 +26,7 @@ public class ElectionController {
 
     @RequestMapping(path = "/summary", method = RequestMethod.GET)
     public ResponseEntity<Map<String, List<Election>>> electionsSummary() {
-        List<Election> electionList = (List<Election>) electionRepository.findAll();
+        List<Election> electionList = electionRepository.findAll();
         return new ResponseEntity<>(Collections.singletonMap("elections", electionList), HttpStatus.OK);
     }
 }
