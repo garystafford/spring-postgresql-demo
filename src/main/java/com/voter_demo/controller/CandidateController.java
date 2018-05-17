@@ -6,10 +6,7 @@ import com.voter_demo.service.CandidateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
 import java.util.List;
@@ -25,6 +22,19 @@ public class CandidateController {
     public CandidateController(CandidateService candidateService) {
         this.candidateService = candidateService;
     }
+
+    @RequestMapping(method = RequestMethod.GET)
+    @ResponseBody
+    public List<Candidate> getCandidates() {
+        return candidateService.findAll();
+    }
+
+    @RequestMapping(path = "/{id}", method = RequestMethod.PUT)
+    @ResponseBody
+    public void updateCandidate(@PathVariable Long id, @RequestBody Candidate candidate) {
+        candidateService.updateCandidate(id, candidate);
+    }
+
 
     @RequestMapping(path = "/summary", method = RequestMethod.GET)
     public ResponseEntity<Map<String, List<Candidate>>> candidatesSummary() {
