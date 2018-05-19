@@ -5,11 +5,20 @@ import com.voter_demo.model.Candidate;
 import java.util.List;
 
 public interface CandidateService {
-    void updateCandidate(Long id, Candidate candidate);
 
-    List<Candidate> findAll();
+    Candidate getCandidate(Long id);
 
-    List<Candidate> findByPoliticalParty(String politicalParty);
+    List<Candidate> getCandidates();
+
+//    List<Candidate> getCandidateByPoliticalParty(String politicalParty);
 
     void createCandidate(Candidate candidate);
+
+    void updateCandidate(Long id, Candidate candidate);
+
+    void deleteCandidateById(Long id);
+
+    void deleteCandidate(Candidate candidate);
+
+
 }

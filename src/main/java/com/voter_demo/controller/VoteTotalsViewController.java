@@ -1,7 +1,6 @@
 package com.voter_demo.controller;
 
 import com.voter_demo.model.VoteTotalsView;
-import com.voter_demo.repository.VoteTotalsViewRepository;
 import com.voter_demo.service.VoteTotalsViewService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

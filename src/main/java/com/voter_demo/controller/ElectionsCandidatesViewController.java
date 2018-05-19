@@ -1,9 +1,7 @@
 package com.voter_demo.controller;
 
 import com.voter_demo.model.ElectionsCandidatesView;
-import com.voter_demo.repository.ElectionsCandidatesViewRepository;
 import com.voter_demo.service.ElectionsCandidatesViewService;
-import com.voter_demo.service.ElectionsCandidatesViewServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

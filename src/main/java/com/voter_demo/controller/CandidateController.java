@@ -1,7 +1,6 @@
 package com.voter_demo.controller;
 
 import com.voter_demo.model.Candidate;
-import com.voter_demo.repository.CandidateRepository;
 import com.voter_demo.service.CandidateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,28 +22,31 @@ public class CandidateController {
         this.candidateService = candidateService;
     }
 
+    @RequestMapping(path = "/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<Candidate> getCandidate(@PathVariable Long id) {
+        Candidate candidate = candidateService.getCandidate(id);
+        return new ResponseEntity(candidate, HttpStatus.OK);
+    }
+
     @RequestMapping(method = RequestMethod.GET)
     @ResponseBody
-    public List<Candidate> getCandidates() {
-        return candidateService.findAll();
+    public ResponseEntity<Map<String, List<Candidate>>> getCandidates() {
+
+        List<Candidate> candidateList = candidateService.getCandidates();
+        return new ResponseEntity<>(Collections.singletonMap("candidates", candidateList), HttpStatus.OK);
     }
+
+//    @RequestMapping(method = RequestMethod.GET)
+//    @ResponseBody
+//    public List<Candidate> getCandidateByPoliticalParty(
+//            @RequestParam(name = "politicalParty", required = false) String politicalParty) {
+//        return candidateService.getCandidateByPoliticalParty(politicalParty);
+//    }
 
     @RequestMapping(path = "/{id}", method = RequestMethod.PUT)
     @ResponseBody
     public void updateCandidate(@PathVariable Long id, @RequestBody Candidate candidate) {
         candidateService.updateCandidate(id, candidate);
-    }
-
-
-    @RequestMapping(path = "/summary", method = RequestMethod.GET)
-    public ResponseEntity<Map<String, List<Candidate>>> candidatesSummary() {
-        List<Candidate> candidateList = candidateService.findAll();
-        return new ResponseEntity<>(Collections.singletonMap("candidates", candidateList), HttpStatus.OK);
-    }
-
-    @RequestMapping(path = "/summary/{politicalParty}", method = RequestMethod.GET)
-    public ResponseEntity<Map<String, List<Candidate>>> candidatesSummary(@PathVariable String politicalParty) {
-        List<Candidate> candidateList = candidateService.findByPoliticalParty(politicalParty);
-        return new ResponseEntity<>(Collections.singletonMap("candidates", candidateList), HttpStatus.OK);
     }
 }

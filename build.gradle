@@ -127,6 +127,7 @@ dependencies {
     compileOnly("org.projectlombok:lombok:1.16.20")
     runtime("org.postgresql:postgresql:42.2.2")
     testCompile("org.springframework.boot:spring-boot-starter-test:${springBootVersion}")
+    testCompile("org.assertj:assertj-core:3.10.0")
 }
 
 test {

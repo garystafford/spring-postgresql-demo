@@ -2,7 +2,6 @@ package com.voter_demo.repository;
 
 import com.voter_demo.model.Election;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
 

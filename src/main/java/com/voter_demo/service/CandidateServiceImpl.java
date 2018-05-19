@@ -1,15 +1,11 @@
 package com.voter_demo.service;
 
 import com.voter_demo.model.Candidate;
-import com.voter_demo.model.dto.CandidateDTO;
 import com.voter_demo.repository.CandidateRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Example;
-import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class CandidateServiceImpl implements CandidateService {
@@ -20,6 +16,21 @@ public class CandidateServiceImpl implements CandidateService {
     public CandidateServiceImpl(CandidateRepository candidateRepository) {
         this.candidateRepository = candidateRepository;
     }
+
+    @Override
+    public Candidate getCandidate(Long id) {
+        return candidateRepository.findById(id).get();
+    }
+
+    @Override
+    public List<Candidate> getCandidates() {
+        return candidateRepository.findAll();
+    }
+
+//    @Override
+//    public List<Candidate> getCandidateByPoliticalParty(String politicalParty) {
+//        return candidateRepository.findByPoliticalParty(politicalParty);
+//    }
 
     @Override
     public void createCandidate(Candidate candidate) {
@@ -38,12 +49,12 @@ public class CandidateServiceImpl implements CandidateService {
     }
 
     @Override
-    public List<Candidate> findAll() {
-        return candidateRepository.findAll();
+    public void deleteCandidateById(Long id) {
+        candidateRepository.deleteById(id);
     }
 
     @Override
-    public List<Candidate> findByPoliticalParty (String politicalParty) {
-        return candidateRepository.findByPoliticalParty(politicalParty);
+    public void deleteCandidate(Candidate candidate) {
+        candidateRepository.delete(candidate);
     }
 }

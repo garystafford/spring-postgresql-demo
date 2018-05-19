@@ -1,12 +1,12 @@
 package com.voter_demo.model;
 
 import lombok.Data;
+import lombok.NonNull;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @Data
@@ -17,20 +17,18 @@ public class Candidate implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @NotNull
+    @NonNull
     private String firstName;
 
-    @NotNull
+    @NonNull
     private String lastName;
 
-    @NotNull
+    @NonNull
     private String politicalParty;
 
+    @NonNull
     private String homeState;
 
+    @NonNull
     private String experience;
-
-    protected Candidate() {
-    }
-
 }
