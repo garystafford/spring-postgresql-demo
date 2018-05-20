@@ -46,7 +46,7 @@ INSERT INTO election (date, type, title, term, description)
 VALUES ('2016-11-08', 'Federal', '2016 Presidential Election', 4, '58th quadrennial American presidential election');
 
 INSERT INTO election (date, type, title, term, description)
-VALUES ('2024-11-06', 'State', '2018 New York Gubernatorial Election', 4, 'Elect the Governor of New York');
+VALUES ('2018-11-06', 'State', '2018 New York Gubernatorial Election', 4, 'Elect the Governor of New York');
 
 INSERT INTO election (date, type, title, term, description)
 VALUES ('2017-11-07', 'Local', '2017 New York City Mayoral Election', 4, 'Elect the Mayor of the City of New York');

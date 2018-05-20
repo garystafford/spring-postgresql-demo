@@ -1,15 +1,19 @@
 package com.voter_demo.model;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @Data
+@NoArgsConstructor
+@RequiredArgsConstructor
 @Entity
 public class Election implements Serializable {
 
@@ -17,17 +21,18 @@ public class Election implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @NotNull
+    @NonNull
     private java.sql.Date date;
 
-    @NotNull
+    @NonNull
     private String type;
 
-    @NotNull
+    @NonNull
     private String title;
 
-    @NotNull
+    @NonNull
     private long term;
 
+    @NonNull
     private String description;
 }

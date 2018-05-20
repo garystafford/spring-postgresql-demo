@@ -1,7 +1,7 @@
 package com.voter_demo.model;
 
-import lombok.Data;
-import lombok.NonNull;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.*;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import java.io.Serializable;
 
 @Data
+@NoArgsConstructor
+@RequiredArgsConstructor
 @Entity
 public class Candidate implements Serializable {
 
