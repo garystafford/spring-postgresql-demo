@@ -30,6 +30,19 @@ public class VoteRepositoryTest {
     }
 
     @Test
+    public void shouldReturnVoteWithCorrectId() {
+
+        // given
+        Vote vote = setupData();
+
+        // when
+        Optional<Vote> found = voteRepository.findById(vote.getId());
+
+        // then
+        assertThat(found.get().getId()).isEqualTo(vote.getId());
+    }
+
+    @Test
     public void shouldReturnVoteWithCorrectElectionCandidateId() {
 
         // given
@@ -44,7 +57,7 @@ public class VoteRepositoryTest {
 
     private Vote setupData() {
         Election election = new Election(
-                new Date(1541480400),
+                new Date(1541480400000L),
                 "Test",
                 "2018 Test Election",
                 4,

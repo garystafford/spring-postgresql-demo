@@ -10,6 +10,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.sql.Date;
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
@@ -27,7 +28,46 @@ public class ElectionRepositoryTest {
     }
 
     @Test
-    public void shouldReturnCandidateWithCorrectLastName() {
+    public void shouldReturnCandidateWithCorrectId() {
+
+        // given
+        Election election = setupData();
+
+        // when
+        Optional<Election> found = electionRepository.findById(election.getId());
+
+        // then
+        assertThat(found.get().getId()).isEqualTo(election.getId());
+    }
+
+    @Test
+    public void shouldReturnCandidateWithCorrectDate() {
+
+        // given
+        Election election = setupData();
+
+        // when
+        List<Election> found = electionRepository.findByDate(election.getDate());
+
+        // then
+        assertThat(found.get(0).getDate()).isEqualTo(election.getDate());
+    }
+
+    @Test
+    public void shouldReturnCandidateWithCorrectType() {
+
+        // given
+        Election election = setupData();
+
+        // when
+        List<Election> found = electionRepository.findByType(election.getType());
+
+        // then
+        assertThat(found.get(0).getType()).isEqualTo(election.getType());
+    }
+
+    @Test
+    public void shouldReturnCandidateWithCorrectTitle() {
 
         // given
         Election election = setupData();
@@ -39,9 +79,35 @@ public class ElectionRepositoryTest {
         assertThat(found.get(0).getTitle()).isEqualTo(election.getTitle());
     }
 
+    @Test
+    public void shouldReturnCandidateWithCorrectTerm() {
+
+        // given
+        Election election = setupData();
+
+        // when
+        List<Election> found = electionRepository.findByTerm(election.getTerm());
+
+        // then
+        assertThat(found.get(0).getTerm()).isEqualTo(election.getTerm());
+    }
+
+    @Test
+    public void shouldReturnCandidateWithCorrectDescription() {
+
+        // given
+        Election election = setupData();
+
+        // when
+        List<Election> found = electionRepository.findByDescriptionContains(election.getDescription());
+
+        // then
+        assertThat(found.get(0).getDescription()).isEqualTo(election.getDescription());
+    }
+
     private Election setupData() {
         Election election = new Election(
-                new Date(1541480400),
+                new Date(1541480400000L),
                 "Test",
                 "2018 Test Election",
                 4,

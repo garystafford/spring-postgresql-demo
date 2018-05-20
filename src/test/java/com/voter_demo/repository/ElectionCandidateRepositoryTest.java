@@ -29,6 +29,19 @@ public class ElectionCandidateRepositoryTest {
     }
 
     @Test
+    public void shouldReturnElectionCandidateWithCorrectId() {
+
+        // given
+        ElectionCandidate electionCandidate = setupData();
+
+        // when
+        Optional<ElectionCandidate> found = electionCandidateRepository.findById(electionCandidate.getId());
+
+        // then
+        assertThat(found.get().getId()).isEqualTo(electionCandidate.getId());
+    }
+
+    @Test
     public void shouldReturnElectionCandidateWithCorrectElectionId() {
 
         // given
@@ -56,7 +69,7 @@ public class ElectionCandidateRepositoryTest {
 
     private ElectionCandidate setupData() {
         Election election = new Election(
-                new Date(1541480400),
+                new Date(1541480400000L),
                 "Test",
                 "2018 Test Election",
                 4,

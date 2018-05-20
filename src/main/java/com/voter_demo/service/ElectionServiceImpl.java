@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class ElectionServiceImpl implements ElectionService  {
+public class ElectionServiceImpl implements ElectionService {
 
     private final ElectionRepository electionRepository;
 
