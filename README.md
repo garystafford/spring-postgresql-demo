@@ -136,10 +136,6 @@ cf app pcf-postgresql-demo
 
 Below is a partial list of the application's exposed resources. To see all resources, use the `/actuator/mappings` resource.
 
--   h2 (`default` Spring Profile only)
-
-    -   `/h2-console`
-
 -   Actuator
 
     -   `/`
@@ -158,6 +154,10 @@ Below is a partial list of the application's exposed resources. To see all resou
     -   `/swagger-ui.html`
     -   `/v2/api-docs`
 
+-   h2 (`default` Spring Profile only)
+
+    -   `/h2-console`
+
 -   Candidates (DB Table)
 
     -   `/candidates`
@@ -166,8 +166,8 @@ Below is a partial list of the application's exposed resources. To see all resou
     -   `/candidates/search`
     -   `/candidates/search/findByLastName?lastName=Obama`
     -   `/candidates/search/findByPoliticalParty?politicalParty=Democratic%20Party`
-    -   `/candidates/summary` (GET - via `CandidateController`)
-    -   `/candidates/summary/{politicalParty}` (GET - via `CandidateController`)
+    -   `/candidates/summary`
+    -   `/candidates/summary/{politicalParty}`
 
 -   Elections (DB Table)
 
@@ -177,7 +177,7 @@ Below is a partial list of the application's exposed resources. To see all resou
     -   `/elections/search`
     -   `/elections/search/findByTitle?title=2012%20Presidential%20Election`
     -   `/elections/search/findByDescriptionContains?description=American`
-    -   `/elections/summary` (GET - via `ElectionController`)
+    -   `/elections/summary`
 
 
 -   Votes (DB Table)
@@ -204,15 +204,15 @@ Below is a partial list of the application's exposed resources. To see all resou
     -   `/election-votes?page={page}}&size={size}` (GET only)
     -   `/profile/election-votes`
     -   `/election-votes/search/findByElection?election=2012%20Presidential%20Election`
-    -   `/election-votes/summary` (GET - via `ElectionsCandidatesViewController`)
-    -   `/election-votes/summary/{election}` (GET - via `ElectionsCandidatesViewController`)
+    -   `/election-votes/summary`
+    -   `/election-votes/summary/{election}`
 
 -   Total Votes by Election and by Candidate (DB View)
 
     -   `/vote-totals` (GET only)
     -   `/profile/vote-totals`
     -   `/vote-totals/search/findByElection?election=2012%20Presidential%20Election`
-    -   `/election-votes/summary` (GET - via `VoteTotalsViewController`)
+    -   `/election-votes/summary`
 
 ## References
 
