@@ -25,4 +25,9 @@ public class VoteTotalsViewServiceImpl implements VoteTotalsViewService {
         return voteTotalsViewRepository.findByElectionContains(election);
     }
 
+    @Override
+    public List<VoteTotalsView> findByCandidate(String candidate) {
+        return voteTotalsViewRepository.findByCandidateContains(candidate);
+    }
+
 }

@@ -9,4 +9,6 @@ public interface VoteTotalsViewService {
     Iterable<VoteTotalsView> findAll();
 
     List<VoteTotalsView> findByElection(String election);
+
+    List<VoteTotalsView> findByCandidate(String candidate);
 }

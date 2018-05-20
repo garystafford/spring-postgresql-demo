@@ -23,6 +23,16 @@ public class ElectionsCandidatesViewServiceImpl implements ElectionsCandidatesVi
     }
 
     @Override
+    public List<ElectionsCandidatesView> findByFirstName(String firstName) {
+        return electionsCandidatesViewRepository.findByFirstName(firstName);
+    }
+
+    @Override
+    public List<ElectionsCandidatesView> findByLastName(String lastName) {
+        return electionsCandidatesViewRepository.findByLastName(lastName);
+    }
+
+    @Override
     public List<ElectionsCandidatesView> findByElection(String election) {
         return electionsCandidatesViewRepository.findByElectionContains(election);
     }
