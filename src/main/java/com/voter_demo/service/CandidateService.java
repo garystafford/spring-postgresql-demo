@@ -6,17 +6,18 @@ import java.util.List;
 
 public interface CandidateService {
 
-    Candidate getCandidate(Long id);
+    List<Candidate> findAll();
 
-    List<Candidate> getCandidates();
-
-    void createCandidate(Candidate candidate);
-
-    void updateCandidate(Long id, Candidate candidate);
-
-    void deleteCandidateById(Long id);
-
-    void deleteCandidate(Candidate candidate);
-
+//    Candidate getCandidate(Long id);
+//
+//    List<Candidate> getCandidates();
+//
+//    void createCandidate(Candidate candidate);
+//
+//    void updateCandidate(Long id, Candidate candidate);
+//
+//    void deleteCandidateById(Long id);
+//
+//    void deleteCandidate(Candidate candidate);
 
 }

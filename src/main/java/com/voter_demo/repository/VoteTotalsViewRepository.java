@@ -11,5 +11,4 @@ public interface VoteTotalsViewRepository extends CrudRepository<VoteTotalsView,
 
     List<VoteTotalsView> findByElectionContains(String election);
 
-    List<VoteTotalsView> findByCandidateContains(String election);
 }

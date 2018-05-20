@@ -25,17 +25,18 @@ public class ElectionsCandidatesViewController {
         this.electionsCandidatesViewService = electionsCandidatesViewService;
     }
 
-//    @RequestMapping(path = "/summary", method = RequestMethod.GET)
-//    public ResponseEntity<Map<String, List<ElectionsCandidatesView>>> electionCandidateSummary() {
-//        List<ElectionsCandidatesView> electionsCandidatesViewList =
-//                (List<ElectionsCandidatesView>) electionsCandidatesViewService.findAll();
-//        return new ResponseEntity<>(Collections.singletonMap("electionCandidates", electionsCandidatesViewList), HttpStatus.OK);
-//    }
-//
-//    @RequestMapping(path = "/summary/{election}", method = RequestMethod.GET)
-//    public ResponseEntity<Map<String, List<ElectionsCandidatesView>>> electionCandidateSummaryByElection(@PathVariable("election") String election) {
-//        List<ElectionsCandidatesView> electionsCandidatesViewList =
-//                electionsCandidatesViewService.findByElection(election);
-//        return new ResponseEntity<>(Collections.singletonMap("electionCandidates", electionsCandidatesViewList), HttpStatus.OK);
-//    }
+    @RequestMapping(path = "/summary", method = RequestMethod.GET)
+    public ResponseEntity<Map<String, List<ElectionsCandidatesView>>> electionCandidateSummary() {
+        List<ElectionsCandidatesView> electionsCandidatesViewList =
+                (List<ElectionsCandidatesView>) electionsCandidatesViewService.findAll();
+        return new ResponseEntity<>(Collections.singletonMap("electionCandidates", electionsCandidatesViewList), HttpStatus.OK);
+    }
+
+    @RequestMapping(path = "/summary/{election}", method = RequestMethod.GET)
+    public ResponseEntity<Map<String, List<ElectionsCandidatesView>>> electionCandidateSummaryByElection(@PathVariable("election") String election) {
+        List<ElectionsCandidatesView> electionsCandidatesViewList =
+                electionsCandidatesViewService.findByElection(election);
+        return new ResponseEntity<>(Collections.singletonMap("electionCandidates", electionsCandidatesViewList), HttpStatus.OK);
+    }
+
 }

@@ -24,7 +24,7 @@ public class ElectionsCandidatesViewServiceImpl implements ElectionsCandidatesVi
 
     @Override
     public List<ElectionsCandidatesView> findByElection(String election) {
-        return electionsCandidatesViewRepository.findByElection(election);
+        return electionsCandidatesViewRepository.findByElectionContains(election);
     }
 
 }

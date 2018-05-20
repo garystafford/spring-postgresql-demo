@@ -21,7 +21,8 @@ public class VoteTotalsViewServiceImpl implements VoteTotalsViewService {
     }
 
     @Override
-    public List<VoteTotalsView> findByElectionContains(String election) {
+    public List<VoteTotalsView> findByElection(String election) {
         return voteTotalsViewRepository.findByElectionContains(election);
     }
+
 }

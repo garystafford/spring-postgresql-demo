@@ -16,4 +16,5 @@ public interface CandidateRepository extends JpaRepository<Candidate, Long> {
     List<Candidate> findByHomeState(String homeState);
 
     List<Candidate> findByExperienceContains(String experience);
+
 }

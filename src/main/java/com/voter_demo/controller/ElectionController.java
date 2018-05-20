@@ -24,9 +24,10 @@ public class ElectionController {
         this.electionService = electionService;
     }
 
-//    @RequestMapping(path = "/summary", method = RequestMethod.GET)
-//    public ResponseEntity<Map<String, List<Election>>> electionsSummary() {
-//        List<Election> electionList = electionService.findAll();
-//        return new ResponseEntity<>(Collections.singletonMap("elections", electionList), HttpStatus.OK);
-//    }
+    @RequestMapping(path = "/summary", method = RequestMethod.GET)
+    public ResponseEntity<Map<String, List<Election>>> electionsSummary() {
+        List<Election> electionList = electionService.findAll();
+        return new ResponseEntity<>(Collections.singletonMap("elections", electionList), HttpStatus.OK);
+    }
+
 }
