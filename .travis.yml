@@ -4,6 +4,7 @@ jdk: oraclejdk8
 before_install:
 - chmod +x gradlew
 script:
+- "gradle wrapper"
 - "./gradlew clean cleanTest build --warn -x test"
 env:
   global:
