@@ -22,40 +22,4 @@ public class CandidateServiceImpl implements CandidateService {
         return candidateRepository.findAll();
     }
 
-//    @Override
-//    public Candidate getCandidate(Long id) {
-//        return candidateRepository.findById(id).get();
-//    }
-//
-//    @Override
-//    public List<Candidate> getCandidates() {
-//        return candidateRepository.findAll();
-//    }
-//
-//    @Override
-//    public void createCandidate(Candidate candidate) {
-//        candidateRepository.save(candidate);
-//    }
-//
-//    @Override
-//    public void updateCandidate(Long id, Candidate candidateNew) {
-//        Candidate candidateOld = candidateRepository.findById(id).get();
-//        candidateOld.setFirstName(candidateNew.getFirstName());
-//        candidateOld.setLastName(candidateNew.getLastName());
-//        candidateOld.setPoliticalParty(candidateNew.getPoliticalParty());
-//        candidateOld.setHomeState(candidateNew.getHomeState());
-//        candidateOld.setExperience(candidateNew.getExperience());
-//        candidateRepository.save(candidateOld);
-//    }
-//
-//    @Override
-//    public void deleteCandidateById(Long id) {
-//        candidateRepository.deleteById(id);
-//    }
-//
-//    @Override
-//    public void deleteCandidate(Candidate candidate) {
-//        candidateRepository.delete(candidate);
-//    }
-
 }

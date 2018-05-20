@@ -32,25 +32,4 @@ public class CandidateController {
         return new ResponseEntity<>(Collections.singletonMap("candidates", candidateList), HttpStatus.OK);
     }
 
-//    @RequestMapping(method = RequestMethod.GET)
-//    @ResponseBody
-//    public ResponseEntity<Map<String, List<Candidate>>> getCandidates() {
-//
-//        List<Candidate> candidateList = candidateService.getCandidates();
-//        return new ResponseEntity<>(Collections.singletonMap("candidates", candidateList), HttpStatus.OK);
-//    }
-//
-//    @RequestMapping(path = "/{id}", method = RequestMethod.GET)
-//    @ResponseBody
-//    public ResponseEntity<Candidate> getCandidate(@PathVariable Long id) {
-//        Candidate candidate = candidateService.getCandidate(id);
-//        return new ResponseEntity(candidate, HttpStatus.OK);
-//    }
-//
-//    @RequestMapping(path = "/{id}", method = RequestMethod.PUT)
-//    @ResponseBody
-//    public void updateCandidate(@PathVariable Long id, @RequestBody Candidate candidate) {
-//        candidateService.updateCandidate(id, candidate);
-//    }
-
 }
