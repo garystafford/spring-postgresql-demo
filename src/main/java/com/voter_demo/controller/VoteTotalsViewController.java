@@ -25,17 +25,17 @@ public class VoteTotalsViewController {
         this.voteTotalsViewService = voteTotalsViewService;
     }
 
-    @RequestMapping(path = "/summary", method = RequestMethod.GET)
-    public ResponseEntity<Map<String, List<VoteTotalsView>>> voteTotalsSummary() {
-        List<VoteTotalsView> electionsCandidatesViewList =
-                (List<VoteTotalsView>) voteTotalsViewService.findAll();
-        return new ResponseEntity<>(Collections.singletonMap("voteTotals", electionsCandidatesViewList), HttpStatus.OK);
-    }
-
-    @RequestMapping(path = "/summary/{election}", method = RequestMethod.GET)
-    public ResponseEntity<Map<String, List<VoteTotalsView>>> voteTotalsSummaryByElection(@PathVariable("election") String election) {
-        List<VoteTotalsView> electionsCandidatesViewList =
-                voteTotalsViewService.findByElection(election);
-        return new ResponseEntity<>(Collections.singletonMap("voteTotals", electionsCandidatesViewList), HttpStatus.OK);
-    }
+//    @RequestMapping(path = "/summary", method = RequestMethod.GET)
+//    public ResponseEntity<Map<String, List<VoteTotalsView>>> voteTotalsSummary() {
+//        List<VoteTotalsView> electionsCandidatesViewList =
+//                (List<VoteTotalsView>) voteTotalsViewService.findAll();
+//        return new ResponseEntity<>(Collections.singletonMap("voteTotals", electionsCandidatesViewList), HttpStatus.OK);
+//    }
+//
+//    @RequestMapping(path = "/summary/{election}", method = RequestMethod.GET)
+//    public ResponseEntity<Map<String, List<VoteTotalsView>>> voteTotalsSummaryByElection(@PathVariable("election") String election) {
+//        List<VoteTotalsView> electionsCandidatesViewList =
+//                voteTotalsViewService.findByElection(election);
+//        return new ResponseEntity<>(Collections.singletonMap("voteTotals", electionsCandidatesViewList), HttpStatus.OK);
+//    }
 }

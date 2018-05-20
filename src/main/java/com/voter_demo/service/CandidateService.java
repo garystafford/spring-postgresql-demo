@@ -10,8 +10,6 @@ public interface CandidateService {
 
     List<Candidate> getCandidates();
 
-//    List<Candidate> getCandidateByPoliticalParty(String politicalParty);
-
     void createCandidate(Candidate candidate);
 
     void updateCandidate(Long id, Candidate candidate);

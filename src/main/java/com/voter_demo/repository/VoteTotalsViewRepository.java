@@ -9,5 +9,7 @@ import java.util.List;
 @RepositoryRestResource(path = "vote-totals")
 public interface VoteTotalsViewRepository extends CrudRepository<VoteTotalsView, Long> {
 
-    List<VoteTotalsView> findByElection(String election);
+    List<VoteTotalsView> findByElectionContains(String election);
+
+    List<VoteTotalsView> findByCandidateContains(String election);
 }

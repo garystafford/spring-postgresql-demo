@@ -26,12 +26,7 @@ public class CandidateServiceImpl implements CandidateService {
     public List<Candidate> getCandidates() {
         return candidateRepository.findAll();
     }
-
-//    @Override
-//    public List<Candidate> getCandidateByPoliticalParty(String politicalParty) {
-//        return candidateRepository.findByPoliticalParty(politicalParty);
-//    }
-
+    
     @Override
     public void createCandidate(Candidate candidate) {
         candidateRepository.save(candidate);

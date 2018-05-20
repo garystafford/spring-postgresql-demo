@@ -7,5 +7,5 @@ import java.util.List;
 public interface VoteTotalsViewService {
     Iterable<VoteTotalsView> findAll();
 
-    List<VoteTotalsView> findByElection(String election);
+    List<VoteTotalsView> findByElectionContains(String election);
 }

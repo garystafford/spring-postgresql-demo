@@ -37,13 +37,6 @@ public class CandidateController {
         return new ResponseEntity<>(Collections.singletonMap("candidates", candidateList), HttpStatus.OK);
     }
 
-//    @RequestMapping(method = RequestMethod.GET)
-//    @ResponseBody
-//    public List<Candidate> getCandidateByPoliticalParty(
-//            @RequestParam(name = "politicalParty", required = false) String politicalParty) {
-//        return candidateService.getCandidateByPoliticalParty(politicalParty);
-//    }
-
     @RequestMapping(path = "/{id}", method = RequestMethod.PUT)
     @ResponseBody
     public void updateCandidate(@PathVariable Long id, @RequestBody Candidate candidate) {
