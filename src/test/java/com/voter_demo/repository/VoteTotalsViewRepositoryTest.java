@@ -1,7 +1,6 @@
 package com.voter_demo.repository;
 
 import com.voter_demo.model.*;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +15,6 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
-@Ignore
 public class VoteTotalsViewRepositoryTest {
 
     @Autowired
@@ -25,20 +23,11 @@ public class VoteTotalsViewRepositoryTest {
     @Autowired
     private VoteTotalsViewRepository voteTotalsViewRepository;
 
-    @Test
-    public void findByElectionShouldReturnCorrectVotes() {
-        // given
-        Election election = setupData();
+    private Election election;
 
-        // when
-        List<VoteTotalsView> found = voteTotalsViewRepository.findByElectionContains(election.getTitle());
+    private Candidate candidate;
 
-        // then
-        assertThat(found.get(0)).isEqualTo(election.getTitle());
-
-    }
-
-    private Election setupData() {
+    private void setupData() {
         Election election = new Election(
                 new Date(1541480400000L),
                 "Test",
@@ -50,6 +39,8 @@ public class VoteTotalsViewRepositoryTest {
         entityManager.persist(election);
         entityManager.flush();
 
+        this.election = election;
+
         Candidate candidate = new Candidate(
                 "Test",
                 "Candidate",
@@ -60,6 +51,8 @@ public class VoteTotalsViewRepositoryTest {
 
         entityManager.persist(candidate);
         entityManager.flush();
+
+        this.candidate = candidate;
 
         ElectionCandidate electionCandidate = new ElectionCandidate(
                 election.getId(),
@@ -76,6 +69,33 @@ public class VoteTotalsViewRepositoryTest {
         entityManager.persist(vote);
         entityManager.flush();
 
-        return election;
     }
+
+    @Test
+    public void findByElectionShouldReturnCorrectVotes() {
+        // given
+        setupData();
+
+        // when
+        List<VoteTotalsView> found = voteTotalsViewRepository.findByElectionContains(this.election.getTitle());
+
+        // then
+        assertThat(found.get(0)).isEqualTo(this.election.getTitle());
+
+    }
+
+    @Test
+    public void findByCandidateShouldReturnCorrectVotes() {
+        // given
+        setupData();
+
+        // when
+        List<VoteTotalsView> found = voteTotalsViewRepository.findByCandidateContains(
+                String.format("%s, %s", this.candidate.getLastName(), this.candidate.getFirstName()));
+
+        // then
+        assertThat(found.get(0)).isEqualTo(this.election.getTitle());
+
+    }
+
 }
