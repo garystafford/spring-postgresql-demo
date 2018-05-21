@@ -9,5 +9,9 @@ import java.util.List;
 @RepositoryRestResource(path = "election-votes")
 public interface VotesElectionsViewRepository extends PagingAndSortingRepository<VotesElectionsView, Long> {
 
-    List<VotesElectionsView> findByElection(String election);
+    List<VotesElectionsView> findByFirstName(String firstName);
+
+    List<VotesElectionsView> findByLastName(String lastName);
+
+    List<VotesElectionsView> findByElectionContains(String election);
 }

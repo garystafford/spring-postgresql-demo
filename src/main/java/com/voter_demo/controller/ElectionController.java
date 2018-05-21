@@ -1,7 +1,7 @@
 package com.voter_demo.controller;
 
 import com.voter_demo.model.Election;
-import com.voter_demo.repository.ElectionRepository;
+import com.voter_demo.service.ElectionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,17 +17,17 @@ import java.util.Map;
 @RequestMapping("/elections")
 public class ElectionController {
 
-    @Autowired
-    private ElectionRepository electionRepository;
+    private final ElectionService electionService;
 
     @Autowired
-    public ElectionController(ElectionRepository electionRepository) {
-        this.electionRepository = electionRepository;
+    public ElectionController(ElectionService electionService) {
+        this.electionService = electionService;
     }
 
     @RequestMapping(path = "/summary", method = RequestMethod.GET)
     public ResponseEntity<Map<String, List<Election>>> electionsSummary() {
-        List<Election> electionList = (List<Election>) electionRepository.findAll();
+        List<Election> electionList = electionService.findAll();
         return new ResponseEntity<>(Collections.singletonMap("elections", electionList), HttpStatus.OK);
     }
+
 }

@@ -9,6 +9,10 @@ import java.util.List;
 @RepositoryRestResource(path = "election-candidates")
 public interface ElectionsCandidatesViewRepository extends CrudRepository<ElectionsCandidatesView, Long> {
 
-    List<ElectionsCandidatesView> findByElection(String election);
+    List<ElectionsCandidatesView> findByFirstName(String firstName);
+
+    List<ElectionsCandidatesView> findByLastName(String lastName);
+
+    List<ElectionsCandidatesView> findByElectionContains(String election);
 
 }
