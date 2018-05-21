@@ -1,8 +1,11 @@
 sudo: required
+install: gradle wrapper
 language: java
 jdk: oraclejdk8
-script:
-- "gradle clean cleanTest build --warn -x test"
+before_install:
+ - chmod +x gradlew
+ script:
+- "./gradlew clean cleanTest build --warn -x test"
 env:
   global:
   - secure: YAS0UYar9yDunHyVIPGOy24vyusTay0u2KqNWmuW6E5Uj+zpwjvzpTsjj0y8wokUkN2kQI7EaLIl3yfOac6CfM3gCpr1WsRBcKk5+dXgHOMu+5ZjlPDe8Q0DCyIheQ0fdz+LtnSzOIRAnKMr+gz9eflEcRnw13PKVq+tAKwLLU1nzsNtWuQDJeT2Os8eY0MFK22CNLmYij5XkGSVNPXgN0Vs99iAoIvisnIFZUOuP0QumY4daqx7h96SLConJq/mH3208Q7lkglJAnY8LR+ne0pIlBvbeyub8X4QKql1PZQZP+RSYw7VJtdSEt/ZchqBbFqYWITyqqWN8wjTXyv3RPWKo5/6okTRZY1rtU+1+E2L2xE5+3pTqoSCYtpcI4Sv7ANNzwnHqbkP0OXWFwanqvdgs7pI98w/PW9go2uafsKWaGjXG4GdSAtzU95LRy/DCB+TlRmF6K15Vp+umCbuCIPZr0nuH5UpsWTV+aBUTGknDhObizIWqnx2Ar94hzFaB92Ym8rTh5J/qyyi13ERvl/koTiLo+e+BRL6+tlJex+DBO9ps7sIexAXx7n9sI+qInaPt61dGG6SSJ+aQeC90s9tc4GzTDHeZYKNZw0tWOb6M1mX313CnJvPQcCunvSTLbZGibbcfd+WPyhSgPltc5HTke7ficCO7Y5uMVfiyb0=
